@@ -1,0 +1,361 @@
+﻿@using System;
+@using Helium24.Definitions;
+
+@{
+    Layout = "Layouts/SubpageLayout.cshtml";
+
+    bool isAuthenticated = false;
+    bool isFeatureEnabled = false;
+    bool isAdmin = false;
+    if (this.Context.CurrentUser != null && this.Context.CurrentUser is User)
+    {
+        User user = (User)this.Context.CurrentUser;
+        isAdmin = user.IsAdmin;
+        isFeatureEnabled = user.EnabledFeatures.Contains("Stocks");
+        isAuthenticated = true;
+    }
+
+    // Stock
+    string currentDate = "currentDate";
+
+    // Stock -- Status
+    string generalOperationalError = "generalOperationalError";
+
+    // Stock -- Active Stocks
+    string activeStocksTable = "activeStocksTable";
+    string activeStocksTableUpdateButton = "activeStocksTableUpdateButton";
+
+    string sellStockComboBox = "sellStockComboBox";
+    string sellAmount = "sellAmount";
+    string sellButton = "sellButton";
+    string undoButton = "undoButton";
+
+    string buyTicker = "buyTicker";
+    string buyName = "buyName";
+    string buyAmount = "buyAmount";
+    string buyPurchasePrice = "buyPurchasePrice";
+    string buyButton = "buyButton";
+    
+    // Stocks -- Settings
+    string settingsOperationsError = "settingsOperationsError";
+    string sellStockFee = "sellStockFee";
+    string tradeCommission = "tradeCommission";
+    string saveSettingsButton = "saveSettingsButton";
+
+    string stockChangeToggle = "stockChangeToggle";
+    string stockChangeCheckedString = "";
+    string stockChangeBlock = "stockChangeBlock";
+
+    // URLs
+    string urlActiveStocks = "/Stock/ActivePositions";
+    string urlStockPurchase = "/Stock/Purchase";
+    string urlStockSale = "/Stock/Sale";
+    string urlStockSettings = "/Stock/Settings";
+
+    string urlQuotesGroup = "/Quotes/Group";
+}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/Content/StockStyles.css">
+}
+
+@section Content{
+    <div id="stocksSection">
+    @if (isAuthenticated && isFeatureEnabled)
+    {
+        <h2>Stocks</h2>
+        
+            <h3>Active</h3>
+            <div style="max-width: 100%; overflow: auto;">
+                <button id="@activeStocksTableUpdateButton" type="button" style="float:left;">Refresh</button>
+                <br />
+                <br />
+                <table id="@activeStocksTable" style="border: 1px solid; background: #f9ffc2; min-width: 600px;">
+                    <tr>
+                        <th>Ticker</th>
+                        <th>Name</th>
+                        <th>Date AQ</th>
+                        <th>Purchase Amount</th>
+                        <th>Purchase $</th>
+                        <th>Current $</th>
+                        <th>Gain (%)</th>
+                        <th>Gain ($)</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div style="display:normal; padding: 2px;">
+                <h3>Modify Stocks or Settings</h3>
+                <div class="toggleSwitch">
+                    <input id="@stockChangeToggle" class="toggle toggle-flat" type="checkbox" @stockChangeCheckedString />
+                    <label for="@stockChangeToggle"></label>
+                </div>
+            </div>
+            <div id="@stockChangeBlock" style="display:none;">
+                <div class="subbox" style="text-align:left;">
+                    <i>Current Operational Date: <input id="@currentDate" type="date" /></i>
+                    <br />
+                    <b>Sell</b>
+                    <select id="@sellStockComboBox"></select>
+                    <span style="white-space:nowrap;"><span>Amount: </span><input id="@sellAmount" type="number" value="0.00" /></span>
+                    <button id="@sellButton" type="button">Sell</button>
+                </div>
+
+                <br />
+                <div class="subbox" style="text-align:left;">
+                    <b>Buy</b>
+                    <br />
+                    <table style="width: 100%">
+                        <tr>
+                            <th>Ticker</th>
+                            <th>Name</th>
+                            <th>Amount</th>
+                            <th>Purchase $</th>
+                        </tr>
+                        <tr>
+                            <td width="*"><input style="width: 90%" id="@buyTicker" type="text" /></td>
+                            <td width="*"><input style="width: 90%" id="@buyName" type="text" /></td>
+                            <td width="*"><input style="width: 90%" id="@buyAmount" type="number" value="0" /></td>
+                            <td width="*"><input style="width: 90%" id="@buyPurchasePrice" type="number" value="0.00" /></td>
+                        </tr>
+                    </table>
+                    <button id="@buyButton" type="button">Buy</button>
+                </div>
+
+                <div class="subbox" style="text-align:left;">
+                    <b>Selling fee (¢/$1000): </b> <input id="@sellStockFee" type="number" />
+                    <b>Commission ($/trade): </b> <input id="@tradeCommission" type="number" />
+                    <button id="@saveSettingsButton" type="button">Save</button><span class="errorSubbox" id="@settingsOperationsError"></span>
+                </div>
+            </div>
+    }
+    </div>
+}
+
+@section Scripts{
+    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
+    
+    @if (isAuthenticated && isFeatureEnabled)
+    {
+        <script type="text/javascript">
+
+        // ---- Toggle display of stock sections to avoid page overload.
+
+        $("#@stockChangeToggle").click(function () {
+            if ($("#@stockChangeToggle")[0].checked) {
+                $("#@stockChangeBlock").show('fast');
+            }
+            else {
+                $("#@stockChangeBlock").hide('fast');
+            }
+        });
+
+        // ---- Handle stock manipulations
+        var sellStockFee = 1;
+        var sellStockCommission = 0.01;
+
+        // Saves stock purchases
+        $("#@buyButton").click(function () {
+            var transactionData =
+            {
+                Ticker: $("#@buyTicker").val(),
+                Name: $("#@buyName").val(),
+                DateAcquired: $("#@currentDate").val(),
+                PurchaseAmount: $("#@buyAmount").val(),
+                PurchasePrice: $("#@buyPurchasePrice").val()
+            };
+
+            $.ajax({
+                url: '@urlStockPurchase',
+                type: 'POST',
+                data: transactionData,
+                dataType: 'text',
+                success: function (data) {
+                    loadActivePositions();
+                    loadStockStatus();
+                    loadStockAnalysis();
+                },
+                error: function (data) {
+                    $("#@generalOperationalError").text(data.responseText);
+                }
+            });
+        });
+
+        // Sells stock purchases
+        $("#@sellButton").click(function () {
+            var sellData =
+            {
+                SelectedIndex: $("#@sellStockComboBox")[0].selectedIndex,
+                Date: $("#@currentDate").val(),
+                Amount: $("#@sellAmount").val()
+            };
+
+            $.ajax({
+                url: '@urlStockSale',
+                type: 'POST',
+                data: sellData,
+                dataType: 'text',
+                success: function (data) {
+                    loadActivePositions();
+                    loadStockStatus();
+                },
+                error: function (data) {
+                    $("#@generalOperationalError").text(data.responseText);
+                }
+            });
+        });
+
+        $("#@activeStocksTableUpdateButton").click(function () {
+            loadActivePositions();
+        });
+
+        // Loads active stock purchases
+        function loadActivePositions() {
+            $.ajax({
+                url: '@urlActiveStocks',
+                type: 'GET',
+                cache: false,
+                success: function (data) {
+
+                    // Just perform the removal steps and exist if we have no data.
+                    if (data.length == 0) {
+                        // Remove all table rows greater than index 0 (leaving the header row)
+                        $("#@activeStocksTable").find("tr:gt(0)").remove();
+
+                        // Remove all the combo box options
+                        $("#@sellStockComboBox").find("option").remove();
+
+                        return;
+                    }
+
+                    // Perform another AJAX query to get the current quotes for all the tickers.
+                    var tickerString = "?";
+                    for (var i = 0; i < data.length; i++) {
+                        tickerString += data[i].ticker;
+                        if (i != data.length - 1) {
+                            tickerString += "&";
+                        }
+                    }
+
+                    $.ajax({
+                        url: '@urlQuotesGroup' + tickerString,
+                        type: 'GET',
+                        cache: false,
+                        success: function (tickerData) {
+                            // Remove all table rows greater than index 0 (leaving the header row)
+                            $("#@activeStocksTable").find("tr:gt(0)").remove();
+
+                            // Remove all the combo box options
+                            $("#@sellStockComboBox").find("option").remove();
+
+                            var prefix = "<td style=\"border-left: 1px dashed; border-top: 1px dashed;\">";
+                            var postfix = "</td>";
+                            var totalPurchaseCash = 0;
+                            var totalGain = 0;
+
+                            // Add all the rows retrieved from the data after the last header (tr) row.
+                            for (var i = 0; i < data.length; i++) {
+                                var shortDate = data[i].dateAcquired.toString().substring(0, 10);
+
+                                var ticker = prefix + data[i].ticker + postfix;
+                                var name = prefix + data[i].name + postfix;
+                                var date = prefix + shortDate + postfix;
+                                var purchaseAmount = prefix + data[i].purchaseAmount + " ($" + data[i].purchasePrice.toFixed(2) + ")" + postfix;
+
+                                // Ensure our digits are fixed-precision, but also have commas in the appropriate positioning.
+                                totalPurchaseCash += data[i].purchaseAmount * data[i].purchasePrice;
+                                var purchaseCash = prefix + (data[i].purchaseAmount * data[i].purchasePrice).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + postfix;
+                                
+                                // Current stock ticker price.
+                                var cashValue = tickerData.tickerValues[data[i].ticker.toLowerCase()];
+                                var currentCash = prefix + cashValue + postfix;
+
+                                var rawCashGain = (cashValue - data[i].purchasePrice) * data[i].purchaseAmount;
+                                var adjustedCashGain = rawCashGain - ((cashValue * data[i].purchaseAmount * sellStockFee) / 1000.0 + 2 * sellStockCommission);
+                                totalGain += adjustedCashGain;
+
+                                var adjustedCashGainString = prefix + adjustedCashGain.toFixed(2) + postfix;
+                                var percentGain = 100 * (adjustedCashGain / (data[i].purchaseAmount * data[i].purchasePrice));
+
+                                var percentGainString = prefix + percentGain.toFixed(2) + postfix;
+
+                                $("#@activeStocksTable tr:last").after("<tr>" +
+                                    ticker + name + date + purchaseAmount + purchaseCash + currentCash + percentGainString + adjustedCashGainString + "</tr>");
+
+                                $("#@sellStockComboBox").append("<option value=\"" + i + "\">" + data[i].ticker + " (" + data[i].purchaseAmount + " @@ " + shortDate + ")" + "</option>");
+                            }
+
+                            $("#@activeStocksTable tr:last").after("<tr>" +
+                                    prefix + "<b>Total</b>" + postfix +
+                                    prefix + "---------" + postfix +
+                                    prefix + "------" + postfix +
+                                    prefix + "----" + postfix +
+                                    prefix + "<b>" + totalPurchaseCash.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</b>" + postfix +
+                                    prefix + "----" + postfix +
+                                    prefix + "----" + postfix +
+                                    prefix + "<b>" + totalGain.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</b>" + postfix + "</tr>");
+                        },
+                        error: function (data) {
+                            $("#@generalOperationalError").text(data.responseText);
+                        }
+                    });
+                },
+                error: function (data) {
+                    $("#@generalOperationalError").text(data.responseText);
+                }
+            });
+        }
+
+        // Saves and loads stock settings.
+        $("#@saveSettingsButton").click(function () {
+            var settingsData =
+            {
+                SellStockFee: $("#@sellStockFee").val(),
+                TradeCommission: $("#@tradeCommission").val()
+            };
+
+            $.ajax({
+                url: '@urlStockSettings',
+                type: 'POST',
+                data: settingsData,
+                dataType: 'text',
+                success: function (data) {
+                },
+                error: function (data) {
+                    $("#@settingsOperationsError").text(data);
+                }
+            });
+        });
+
+        function loadStockSettings() {
+            $.ajax({
+                url: '@urlStockSettings',
+                type: 'GET',
+                cache: false,
+                success: function (data) {
+                    sellStockFee = data.sellStockFee;
+                    sellStockCommission = data.tradeCommission;
+                    $("#@sellStockFee").val(sellStockFee);
+                    $("#@tradeCommission").val(sellStockCommission);
+                },
+                error: function (data) {
+                    $("#@settingsOperationsError").text(data);
+                }
+            });
+        }
+
+        // Setup global stock information.
+        $(document).ready(function () {
+            var jsDate = new Date();
+            var month = jsDate.getMonth() + 1;
+            var day = jsDate.getDate();
+
+            var currentDay = jsDate.getFullYear() + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
+            $("#@currentDate").val(currentDay);
+
+            loadStockSettings();
+            loadActivePositions();
+        });
+    </script>
+    }
+}

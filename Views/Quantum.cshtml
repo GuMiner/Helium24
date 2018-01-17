@@ -1,0 +1,57 @@
+﻿@{
+    Layout = "Layouts/RootLayout.cshtml";
+    string pageName = "Quantum Computing";
+}
+
+@section Title {@pageName}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/Content/ProjectStyles.css">
+}
+
+<!-- We need to load the MathJax CDN before we try to display any latex -->
+<script type="text/javascript"
+        src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<div id="body">
+    <h3>@pageName</h3>
+    <p>
+        At any one point in time, I usually have a few software and hardware projects in-progress.
+        The links above include a sampling of my mostly-completed projects.
+        <br />
+        Each project is usually an experiment in one way or another, and not necessarily designed to translate into a useful / monetizable product.
+    </p>
+
+    <h3>Featured @pageName</h3>
+    <div class="content-wrapper">
+        <article>
+            <img class="imgScaler" src="~/Content/Projects/agow.png" width="700"/>
+        </article>
+        <minimalAside>
+            <h4><a href="https://github.com/GuMiner/agow">AGOW (December 2016)</a></h4>
+            This was an attempt at an open-world physics simulation-based game, with a world the size of King County, Washington.
+            <br />
+            <br />
+            Unfortunately the story didn't pan out, physics stopped responding reliably over 10k items, and the overarching design was lacking.
+            <br />
+            <br />
+            On the other hand, I now have a complete heightmap of King County I've used for some 3D printing projects and a much deeper knowledge of graphics and game design.
+            <br />
+            <br />
+        </minimalAside>
+    </div>
+    <br />
+    <div class="content-wrapper">
+        <article>
+            <img class="imgScaler" src="~/Content/Projects/FinalBoard.png" width="700"/>
+        </article>
+        <minimalAside>
+            <h4><a href="/Projects/ElectronicsAndPcb">Mill Board (February 2015)</a></h4>
+            This screenshot displays my PCB design for a six-motor CNC mill, with pads for a 128x64 LCD display, 12-button keypad, and ATMega 328P-PU controller.
+            <br />
+            <br />
+            This was the first PCB I had prototyped, which despite some minor design errors, has worked excellently for its intended purpose.
+        </minimalAside>
+    </div>
+</div>

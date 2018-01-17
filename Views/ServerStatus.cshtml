@@ -1,0 +1,193 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Helium24.Models.ServerStatusModel>
+@model Helium24.Models.ServerStatusModel
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+    string pageName = "Status";
+}
+
+@section Title {@pageName}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/Content/Scripts/chartist.css">
+    <link rel="stylesheet" href="~/Content/Scripts/chartist.legend.css">
+}
+
+<div id="body">
+    <h1>@pageName</h1>
+    <h2>VM Status</h2>
+    <p>
+        <div class="ct-chart ct-octave"></div>
+        <br />
+        Chart will auto-update in <span id="autoUpdateLabel">00:00</span>. <span id="lastUpdateStatusLabel"></span>
+    </p>
+    <h2>Site Statistics</h2>
+    <div class="content-wrapper">
+        <article>
+            <b>Helium24</b> runs on a <a href="https://www.digitalocean.com/">Digital Ocean</a> VM in a US datacenter,
+            <br />
+            &nbsp;&nbsp;as an ASP.NET Razor (C# /ASP.NET / <a href="http://nancyfx.org/">Nancy</a>) application.
+            <br />
+            This site previously lived as a MVC-style site on a <a href="http://azure.microsoft.com/en-us/services/app-service/web/">Microsoft Azure Web App</a>,
+            <br />
+            &nbsp;&nbsp;has lived as an <a href="https://www.openshift.com/">OpenShift</a>-hosted <a href="http://nodejs.org/">Node.JS</a> server,
+            <br />
+            &nbsp;&nbsp;and was birthed as a collection of HTML, CSS, and Java applet files on a network share.
+        </article>
+        <aside class="asideServerStatus">
+            Page Loaded: @(DateTime.Now) <br />
+            Client Address: @Model.ClientAddress <br />
+            Server Address: @Model.ServerAddress <br />
+            DB Status: <span id="serverStatus">Checking...</span> <br />
+        </aside>
+    </div>
+    <h2>History</h2>
+    <div class="content-wrapper">
+        <ul class="float-left">
+            <li> July 2017: Improved secure status page and swapped back to SQL as ES is too heavy for the backing PI.</li>
+            <li> April 2016: Secure notes / stock functionality. Lots of CSS cleanup. Added (finally) the 3D printing experiments page.</li>
+            <li> March 2016: Added ElasticSearch functionality, server status page; general organization.</li>
+            <li> November 2015: Finalized switch from an Azure Web App to a Digital Ocean VM, using NancyFx instead of MVC.
+            <li> September 2015: Transitioned backend database, web application cleanup. </li>
+            <li> August 2015: Transitioned domain registrars, removed unused portions. Finalized switch from Node.JS to an ASP.NET MVC applitaiton. </li>
+            <li> April 2015: Cleaned up CSS and home page; created new logo.</li>
+            <li> March 2015: Cleaned up documents and integrated with <a href="https://datatables.net/">DataTables</a>.</li>
+            <li> February 2015: Setup website to experiment with Web API.</li>
+        </ul>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/chartist.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/chartist-plugin-axistitle.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/chartist-plugin-legend.js"></script>
+    
+    <!-- Availability scripts-->
+    <script type="text/javascript">
+        // Update the status of the SQL server
+        $.ajax({
+            url: '/Status/PostgreSQL',
+            type: 'GET',
+            success: function (data) {
+                $("#serverStatus").text(data);
+            },
+            error: function (data) {
+                $("#serverStatus").text(data);
+            }
+        });
+    </script>
+
+    <!-- Server status script-->
+    <script type="text/javascript">
+
+        // CONSTANTS
+        var REFRESH_TIME_SECONDS = 60 * 10;
+        
+        // Chart for display.
+        var serverUsageChart = null;
+
+        // Runs a live countdown the next time the graph will automatically update.
+        var autoUpdateTime = 0;
+        function countdownAutoUpdate() {
+            --autoUpdateTime;
+            if (autoUpdateTime <= 0)
+            {
+                autoUpdateTime = REFRESH_TIME_SECONDS;
+            }
+
+            var minutes = parseInt(autoUpdateTime / 60);
+            var seconds = parseInt(autoUpdateTime - minutes * 60);
+
+            $("#autoUpdateLabel").text((minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
+        }
+
+        // Updates the server usage chart periodically.
+        function updateServerUsageChart() {
+            // Update the chart
+            $.getJSON("../Status/Server", function (result) {
+                serverUsageChart.update(result);
+
+                // Update the chart update information.
+                $.getJSON("../Status/Server/Validity", function (result) {
+                    $("#lastUpdateStatusLabel").text("Last update had " + result.validElements + " valid status elements and " + result.invalidElements + " simulated elements.");
+                }).done(function () {
+                    console.log("Validity update done.");
+                }).fail(function () {
+                    console.log("Validity update failure!");
+                }).always(function () {
+                    console.log("UValidity call complete.");
+                });
+            }).done(function () {
+              console.log("Usage chart update done.");
+            }).fail(function () {
+              console.log("Usage chart update failure!");
+            }).always(function () {
+              console.log("Usage chart call complete.");
+            });
+        }
+
+        // Load up the server usage chart and starts the periodic updates.
+        function loadServerUsageChart() {
+            // Create a new line chart pointing to the .ct-chart
+            serverUsageChart = new Chartist.Line('.ct-chart', {
+                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                series: [{
+                    name: 'CPU Utilization',
+                    data: [9, 8, 7, 6, 5, 4, 3, 2, 1]
+                }, {
+                    name: 'Disk Usage %',
+                    data: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+                }]
+            },{
+                showArea: true,
+                showLine: true,
+                showPoint: false,
+                chartPadding: {
+                    top: 50,
+                    right: 0,
+                    bottom: 25,
+                    left: 20
+                },
+                axisX: {
+                    showLabel: false,
+                    showGrid: false
+                },
+                plugins: [
+                  Chartist.plugins.legend(),
+                  Chartist.plugins.ctAxisTitle({
+                      axisX: {
+                          axisTitle: 'Time',
+                          axisClass: 'ct-axis-title',
+                          offset: {
+                              x: 0,
+                              y: 50
+                          },
+                          textAnchor: 'middle'
+                      },
+                      axisY: {
+                          axisTitle: 'Percent',
+                          axisClass: 'ct-axis-title',
+                          offset: {
+                              x: 0,
+                              y: 0
+                          },
+                          textAnchor: 'middle',
+                          flipTitle: false
+                      }
+                  })
+                ]
+            });
+
+            // Update every 10 minutes the server usage chart, and every second the countdown.
+            updateServerUsageChart();
+            setInterval("updateServerUsageChart()", 1000 * REFRESH_TIME_SECONDS);
+            setInterval("countdownAutoUpdate()", 1000);
+        }
+
+        // Run the scripts.
+        $(document).ready(function () {
+            loadServerUsageChart();
+        });
+    </script>
+}

@@ -1,0 +1,218 @@
+﻿@using System;
+@using Helium24.Definitions;
+
+@{
+    Layout = "Layouts/SubpageLayout.cshtml";
+
+    bool isAuthenticated = false;
+    bool isFeatureEnabled = false;
+    bool isAdmin = false;
+    if (this.Context.CurrentUser != null && this.Context.CurrentUser is User)
+    {
+        User user = (User)this.Context.CurrentUser;
+        isAdmin = user.IsAdmin;
+        isFeatureEnabled = user.EnabledFeatures.Contains("Cameras");
+        isAuthenticated = true;
+    }
+
+    // View items and the URLs
+    string minDate = "minDate";
+    string maxDate = "maxDate";
+    string minDateValue = (DateTime.UtcNow - TimeSpan.FromDays(1)).ToString("yyyy-MM-dd hh:mm:ss");
+    string maxDateValue = DateTime.UtcNow.ToString("yyyy-MM-dd hh:mm:ss");
+    string getHistoricalImages = "getHistoricalImages";
+    string deleteButton = "deleteImage";
+    string historicalImagesTable = "historicalImages";
+
+    string cameraUpdateRateInSeconds = "cameraUpdateRateInSeconds";
+    string cameraRateUpdateButton = "cameraRateUpdateButton";
+    string cameraOneImage = "cameraOneImage";
+    string cameraThreeImage = "cameraThreeImage";
+
+    string cameraOneTemp = "cameraOneTemp";
+    string cameraOnePower = "cameraOnePower";
+    string cameraOneVoltage = "cameraOneVoltage";
+
+    string cameraThreeTemp = "cameraThreeTemp";
+    string cameraThreePower = "cameraThreePower";
+    string cameraThreeVoltage = "cameraThreeVoltage";
+
+    string urlCameraOne = "/Cameras/One";
+    string urlCameraOneSensors = "/Cameras/OneSensors";
+    string urlCameraThree = "/Cameras/Three";
+    string urlCameraThreeSensors = "/Cameras/ThreeSensors";
+    string urlQuery = "/Cameras/Query";
+    string urlDelete = "/Cameras/Query/Image";
+}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/Content/CameraStyles.css">
+}
+
+@section Content{
+    <div id="cameraSection">
+    @if (isAuthenticated && isAdmin && isFeatureEnabled)
+    {
+        <h2>Camera One (Left) and Three (Right)</h2>
+        <div class="blockDisplay">
+            <img class="imgScalerLeft" id="@cameraOneImage" />
+            <img class="imgScalerRight" id="@cameraThreeImage" />
+        </div>
+        <div class="content-wrapper">
+            <h3>Settings</h3>
+            <article class="subbox" style="padding:5px;">
+                <span>Update every </span><input id="@cameraUpdateRateInSeconds" type="number" value="600" /> <span>seconds.</span>
+                <br /><button id="@cameraRateUpdateButton" type="button">Update Refresh Interval</button>
+                <br /><i>Min Date<input id="@minDate" type="text" value="@minDateValue" /></i>
+                <br /><i>Max Date<input id="@maxDate" type="text" value="@maxDateValue" /></i>
+                <br /><button id="@getHistoricalImages" type="button">Run Query</button>
+            </article>
+            <aside>
+                <div class="blockDisplay">
+                    <div class="float-left" style="padding: 0px 5px 0px 5px;">
+                        <i>Camera One Stats:</i>
+                        <br />
+                        <span id="@cameraOneTemp"></span> °C/°F <br />
+                        <span id="@cameraOnePower"></span> % <br />
+                        <span id="@cameraOneVoltage"></span> V <br />
+                    </div>
+                    <div class="float-right" style="padding: 0px 5px 0px 5px;">
+                        <i>Camera Three Stats:</i>
+                        <br />
+                        <span id="@cameraThreeTemp"></span> °C/°F <br />
+                        <span id="@cameraThreePower"></span> % <br />
+                        <span id="@cameraThreeVoltage"></span> V <br />
+                    </div>
+                </div>
+            </aside>
+        </div>
+        <table id="@historicalImagesTable" style="border: 1px solid; background: #f9ffc2; min-width: 600px;">
+            <tr>
+                <th>Date</th>
+                <th>Camera ID</th>
+                <th>Image</th>
+                <th>Delete?</th>
+            </tr>
+        </table>
+    }
+    </div>
+}
+
+@section Scripts{
+    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
+
+    @if (isAuthenticated && isAdmin && isFeatureEnabled)
+    {
+        <!-- Show camera-->
+        <script type="text/javascript">
+            var cameraUpdateTimerId = 0;
+
+            function loadCameraImage(url, imageId) {
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    cache: false,
+                    processData: false,
+                }).always(function (b64data) {
+                    $("#" + imageId).attr("src", "data:image/jpeg;base64," + b64data);
+                });
+            }
+
+            function loadCameraStats(url, temp, power, voltage) {
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    cache: false,
+                    success: function (data) {
+                        data = JSON.parse(data);
+
+                        var batteryTempC = data.battery_temp.data[0][1][0];
+                        var batteryTempF = batteryTempC * (9.0 / 5.0) + 32;
+
+                        // Loads the camera status for temp, power, and voltage.
+                        $("#" + temp).text(batteryTempC.toFixed(2) + " / " + batteryTempF.toFixed(2));
+                        $("#" + power).text(data.battery_level.data[0][1]);
+                        $("#" + voltage).text(data.battery_voltage.data[0][1]);
+                    },
+                    error: function (data) {
+                        $("#" + temp).text(data.responseText);
+                    }
+                });
+            }
+
+            function loadCameraImagesAndStats() {
+                loadCameraImage("@urlCameraOne", "@cameraOneImage");
+                loadCameraImage("@urlCameraThree", "@cameraThreeImage");
+
+                loadCameraStats("@urlCameraOneSensors", "@cameraOneTemp", "@cameraOnePower", "@cameraOneVoltage");
+                loadCameraStats("@urlCameraThreeSensors", "@cameraThreeTemp", "@cameraThreePower", "@cameraThreeVoltage");
+            }
+
+            function startCameraSequence() {
+                loadCameraImagesAndStats();
+                cameraUpdateTimerId = setInterval("loadCameraImagesAndStats()", 1000 * $("#@cameraUpdateRateInSeconds").val());
+            }
+
+            $("#@cameraRateUpdateButton").click(function () {
+                clearInterval(cameraUpdateTimerId);
+                startCameraSequence();
+            });
+
+            $("body").on('click', '.@deleteButton', function () {
+                var rowId = $(this).attr('data-rowid');
+                var encapsulatedDate =
+                {
+                    CaptureTime: $(this).attr('data-imageid')
+                };
+
+                $.ajax({
+                    url: '@urlDelete',
+                    type: 'DELETE',
+                    data: encapsulatedDate,
+                    success: function (data) {
+                        // Remove the image that we deleted
+                        $("#" + rowId).remove();
+                    },
+                    error: function (data) {
+                        // TODO don't leave us hanging...
+                    }
+                });
+            });
+
+            $("#@getHistoricalImages").click(function () {
+                var dateRange =
+                {
+                    MinDateTime: $("#@minDate").val(),
+                    MaxDateTime: $("#@maxDate").val()
+                };
+
+                $.ajax({
+                    url: '@urlQuery',
+                    type: 'POST',
+                    data: dateRange,
+                    success: function (data) {
+                        // Clear our existing results
+                        $("#@historicalImagesTable").find("tr:gt(0)").remove();
+                        var prefix = "<td style=\"border-left: 1px dashed; border-top: 1px dashed;\">";
+                        var postfix = "</td>";
+                        for (var i = 0; i < data.length; i++) {
+                            var date = prefix + data[i].date + postfix;
+                            var cameraId = prefix + data[i].cameraId + postfix;
+                            var image = prefix + "<img src=\"data:image/jpeg;base64," + data[i].image + "\" />" + postfix;
+                            var deleteButton = prefix + "<button class=\"@deleteButton\" type=\"button\" data-imageid=\"" + data[i].date + "\" data-rowid=\"histTableRow" + (i + 1) + "\">Delete</button>" + postfix;
+                            $("#@historicalImagesTable tr:last").after("<tr id=\"histTableRow" + (i + 1) + "\">" +
+                                date + cameraId + image + deleteButton + "</tr>");
+                        }
+                    },
+                    error: function (data) {
+                        // TODO don't leave us hanging...
+                    }
+                });
+            });
+
+            $(document).ready(function () {
+                startCameraSequence();
+            });
+            </script>
+    }
+}

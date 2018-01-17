@@ -1,0 +1,156 @@
+﻿@using Helium24.Definitions;
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+    string pageName = "Secure";
+
+    bool isAdmin = false;
+    bool isAuthenticated = false;
+
+    // Used to have the widget toggles start in the correct state.
+    string notesCheckedString = "";
+    string stocksCheckedString = "";
+    string camerasCheckedString = "";
+    if (this.Context.CurrentUser != null && this.Context.CurrentUser is User)
+    {
+        User user = (User)this.Context.CurrentUser;
+        isAdmin = user.IsAdmin;
+        notesCheckedString = user.EnabledFeatures.Contains("Notes") ? "checked" : "";
+        stocksCheckedString = user.EnabledFeatures.Contains("Stocks") ? "checked" : "";
+        camerasCheckedString = user.EnabledFeatures.Contains("Cameras") ? "checked" : "";
+
+        isAuthenticated = true;
+    }
+
+    string generalError = "generalError";
+
+    string notesToggle = "notesToggle";
+    string stocksToggle = "stocksToggle";
+    string camerasToggle = "camerasToggle";
+
+    string urlFeatureToggle = "/Features/";
+    string notesSuffix = "Notes";
+    string stocksSuffix = "Stocks";
+    string camerasSuffix = "Cameras";
+}
+
+@section Title {@pageName}
+
+<div id="body">
+    <h1>@pageName</h1>
+    <!-- Show the toggles for all the features -->
+    @if (isAuthenticated)
+    {
+        <h3>Available Widgets <span class="errorSubbox" id="@generalError"></span></h3>
+        <h4><i>Enabling / Disabling Widgets will cause the page to reload.</i></h4>
+
+        <div class="float-left" style="padding: 4px;">
+            <span>Notes Widget</span>
+            <br />
+            <div class="toggleSwitch">
+                <input id="@notesToggle" class="toggle toggle-flat" type="checkbox" @notesCheckedString />
+                <label for="@notesToggle"></label>
+            </div>
+        </div>
+
+        <div class="float-left" style="padding: 4px;">
+            <span>Stocks Widget</span>
+            <br />
+            <div class="toggleSwitch">
+                <input id="@stocksToggle" class="toggle toggle-flat" type="checkbox" @stocksCheckedString />
+                <label for="@stocksToggle"></label>
+            </div>
+        </div>
+
+        @if (isAdmin)
+        {
+            <div class="float-left" style="padding: 4px;">
+                <span>Cameras Widget</span>
+                <br />
+                <div class="toggleSwitch">
+                    <input id="@camerasToggle" class="toggle toggle-flat" type="checkbox" @camerasCheckedString />
+                    <label for="@camerasToggle"></label>
+                </div>
+            </div>
+        }
+
+        <br />
+        <br />
+        <br />
+    }
+
+    <!-- Show all the subpages (as enabled) -->
+    @Html.Partial("Subpages/_NotesSubpage.cshtml")
+    @Html.Partial("Subpages/_StocksSubpage.cshtml")
+    @Html.Partial("Subpages/_CameraSubpage.cshtml")
+    
+    <!-- Show an unauthorized area if you are unauthorized. -->
+    @if (!isAuthenticated)
+    {
+        <h2>Unauthorized</h2>
+        <p>
+            <a href="/Secure/Login">Login</a>
+            <a href="/Secure/Register">Register</a>
+        </p>
+    }
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
+
+    <!-- Handles the enabling and disabling of sections. -->
+    @if (isAuthenticated)
+    {
+        <script type="text/javascript">
+            function toggle(operation, suffix) {
+                $.ajax({
+                    url: '@urlFeatureToggle' + suffix,
+                    type: operation,
+                    data: '',
+                    dataType: 'text',
+                    success: function (data) {
+                        location.reload(true);
+                    },
+                    error: function (data) {
+                        $("#@generalError").text(data.responseText);
+                    }
+                });
+            }
+
+            $("#@notesToggle").click(function () {
+                var operation = $("#@notesToggle")[0].checked ? 'POST' : 'DELETE';
+                toggle(operation, '@notesSuffix');
+            });
+
+            $("#@stocksToggle").click(function () {
+                var operation = $("#@stocksToggle")[0].checked ? 'POST' : 'DELETE';
+                toggle(operation, '@stocksSuffix');
+            });
+        </script>
+
+        @if (isAdmin)
+        {
+            <script type="text/javascript">
+                function toggle(operation, suffix) {
+                    $.ajax({
+                        url: '@urlFeatureToggle' + suffix,
+                        type: operation,
+                        data: '',
+                        dataType: 'text',
+                        success: function (data) {
+                            location.reload(true);
+                        },
+                        error: function (data) {
+                            $("#@generalError").text(data.responseText);
+                        }
+                    });
+                }
+
+                $("#@camerasToggle").click(function () {
+                    var operation = $("#@camerasToggle")[0].checked ? 'POST' : 'DELETE';
+                    toggle(operation, '@camerasSuffix');
+                });
+            </script>
+        }
+    }
+}

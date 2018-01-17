@@ -1,0 +1,158 @@
+﻿@{
+    String appName = "Simulator";
+    Layout = "Layouts/RootLayout.cshtml";
+}
+
+@section Title {@appName}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/Content/ProjectStyles.css">
+}
+
+<!-- We need to load the MathJax CDN before we try to display any latex -->
+<script type="text/javascript"
+  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<!-- TODO: Make all the styles more muted, add hover-over for links -->
+<div id="body">
+    
+    <h2>@appName</h2>
+    <h3>Synopsis (or) Why more Quantum Computing Documentation</h3>
+    <p>
+        Quantum computing is a well-hyped technology
+        It is easier to understand than it is presented as, but less useful than it sounds.
+        This document goes over quantum computing from the software engineer's perspective.
+        There is quite a lot of existing documentation about quantum computing in the world already.
+        The problem with existing documentation targetted towards the general scientific community is it:
+        <ul>
+            <li>Skips key fundamental <a href="https://en.wikipedia.org/wiki/Quantum_computing">details</a></li>
+            <li>Only provides a <a href="www.explainthatstuff.com/quantum-computing.html"> high level view</a> or <a href="http://michaelnielsen.org/blog/quantum-computing-for-everyone/">avoids the question</a></li>
+            <li>Doesn't actually <a href="https://www.ibm.com/developerworks/library/l-quant/index.html">underlying mathematics</a></li>
+            <li>Goes overboard with the <a href="https://docs.microsoft.com/en-us/quantum/quantum-concepts-2-vectorsmatrices?view=qsharp-preview">underlying mathematics</a></li>
+            <li>Too much <a href="https://arxiv.org/pdf/quant-ph/9809016.pdf">unnecessary detail</a>,  <a href="https://benjamingood.files.wordpress.com/2010/01/quantum_computing.pdf">terminology or physics</a></li>
+        </ul>
+    </p>
+    <h3>
+        Executive Summary (or) What can Quantum Computer Do
+    </h3>
+    <p>
+        It has been said that qc can "cure cancer and address global warming""
+        Quantum computers drastically speed up certain computations. We can break these into two categories:
+        <ol>
+            <li>Simulating Quantum Processes</li>
+            <li>Speeding up Classical Computations</li>
+        </ol>
+        #1 is arguably where the most benefit of quantum computing will be seen.
+        However, implemeting these processes is highly domain-specific and will require a scale that we won't have in the near term.
+        The ordinary software engineer will be exposed to these processes as new or improved APIs.
+        See <a href="https://docs.microsoft.com/en-us/azure/#pivot=products&panel=cognitive">Azure Cognitive Services</a> for API examples
+        In the very long term, qnautm computers <i>may</i> be the equivalent of an on-board FPGA or daughter board (such as a GPU) to augment existing CPUs.
+
+        #2 is where we will get some short-term benefit of quantum computing, although it requires a scale we don't currently have. 
+        Effectively, using quantum computing is the equivalent to writing in assembly to perform a specific optimized speed up.
+        Quantum computing is not a solve-everything technology (no P=NP or other absurd conclusions), but it does speed up certain situations.
+        These will probably also be exposed as APIs, both to run well-known algorithms and to write small custom ones for situation-specific scenarios.
+
+        This document focuses on #2.
+    </p>
+    <h3>Mathematics</h3>
+    <p>
+        The mathematics for <b>@appName</b> were driven from the design requirements that I would not be simulating quantum mechanical effects, and that I'd only
+        be dealing with point particles. With my previous simulator, I'd used <i>Lorentz's Force Law</i>, in combination with <i>Newton's Second Law</i> for 
+        particle motion, and (approximations) of the electric and magnetic fields based upon the particle positions and velocities.
+    </p>
+    <div class="content-wrapper">
+        <article class="equationSubBox">
+            $$\vec{F}=q(\vec{E} + \vec{v}\times\vec{B})$$
+        </article>
+        <aside class="subbox">
+            <b>Lorentz's Force Law</b>, for a point charge in an electric and magnetic field.
+        </aside>
+    </div>
+    <br />
+    <div class="content-wrapper">
+        <article class="equationSubBox">
+            $$\vec{F}=m\vec{a}$$
+        </article>
+        <aside class="subbox">
+            <b>Newton's Second Law</b>. The law is <i>simple</i>, but you have to be careful to use a reasonably-accurate integration method (or tiny timesteps).
+        </aside>
+    </div>
+    <div class="content-wrapper">
+        <article class="equationSubBox">
+            $$\vec{E(r)}=\frac{1}{4\pi\epsilon_0}\sum\limits_{i}\frac{q_i}{R^2}\hat{R}$$
+        </article>
+        <aside class="subbox">
+            <b>Electric Field</b> at a point \(r\) given \(\vec{R}\) the vector from the point charge to your point \(r\), summed over all particles.
+        </aside>
+    </div>
+    <div class="content-wrapper">
+        <article class="equationSubBox">
+            $$\vec{B(r)}=\frac{\mu_0}{4\pi}\sum\limits_{i}\frac{q_i\vec{v_i}\times\hat{R_i}}{R_i^2}$$
+        </article>
+        <aside class="subbox">
+            <b>Magnetic Field</b> at a point \(r\) given \(\vec{R_i}\) the vector from the point charges to your point \(r\), summed over all particles.
+        </aside>
+    </div>
+    <p>
+        However, the electric and magnetic field approximations above don't take into account the time for a perturbation (such as particle motion) to be visible to
+        other particles, given the speed of light and the travel time for the electromagnetic wave. These equations are only correct for non-relativistic particles -- or 
+        when we're not interested in realtivistic effects (such as radio waves).
+    </p>
+    <p>
+        For this simulation, I used the moving point charge fields calculation from my E&M course, and stored the history of each particle's motion so that time effects could be properly considered.
+    </p>
+    <div class="content-wrapper">
+        <article class="equationSubBox">
+            $$\vec{E(r,t)}=\frac{1}{4\pi\epsilon_0}\sum\limits_{i}\frac{q_iR_i}{(\vec{R_i}\cdot\vec{u_i})^3}((c^2-v_i^2)\vec{u_i}+\vec{R_i}\times(\vec{u_i}\times\vec{a_i}))$$
+        </article>
+        <aside class="subbox">
+            <b>Electric Field</b> at a point \(r\) given \(\vec{R_i}\) the vector from the point charges to your point \(r\) <i>accounting for when the particle was given the light delay</i>, summed over all particles.
+        </aside>
+    </div>
+    <div class="content-wrapper">
+        <article class="equationSubBox">
+            $$\vec{B(r,t)}=\frac{1}{c}\hat{R}\times\vec{E(r,t)})$$
+        </article>
+        <aside class="subbox">
+            <b>Magnetic Field</b> at a point \(r\) given \(\vec{R_i}\) the vector from the point charges to your point \(r\), summed over all particles. Note that in both cases, \(\vec{u}=c\hat{R}-\vec{v}\)
+        </aside>
+    </div>
+    <p>
+        Also, for the physicists out there I didn't add the <i>Abraham-Lorentz</i> force to each particle, because -- as expected -- the particle spontaneously accelerates when done so.
+    </p>
+    <h3>Software</h3>
+    <p>
+
+    </p>
+    <br />
+    <div class="content-wrapper">
+        <article>
+            <img class="imgScaler" src="~/Content/Projects/Simulator.png" width="650" />
+        </article>
+        <minimalProjectAside>
+            <b>@appName</b>: This screenshot shows several technical aspects of the 
+            simulation: 
+            <ul>
+                <li>Geometry-shader generated arrows</li>
+                <li>Combining Direct2D and Direct3D to draw info text.</li>
+                <li>Interactivity (keyboard, not shown)</li>
+                <li>Fullscreen Windows Modern Apps</li>
+            </ul>
+        </minimalProjectAside>
+    </div>
+    <p>
+        This screenshot also shows the electromagnetic waves from two counter-rotating charged particles. Note that this
+        does <i>not</i> show subatomic particles counter-rotating -- such as an electron and a positron<a href="http://en.wikipedia.org/wiki/Electron%E2%80%93positron_annihilation"><sup>+</sup></a> -- because at that
+        scale, quantum mechanical effects appear.
+    </p>
+    <p>
+        Surprisingly, I found programming in modern DirectX to be extreemely similar to programming in modern OpenGL. In both cases, you load up the shaders, setup the data format for the shaders, 
+        load the vertex buffer with the triangles, and render the result in batch. Even the shading languages (HLSL/GLSL) are very much C-like, with minor differences. Overall, I believe that if you
+        know how to do vertex-array-based OpenGL or DirectX programming, you'll be able to transition into using the other language very, very quickly.
+    </p>
+</div>
+
+@section Scripts{
+}

@@ -1,0 +1,78 @@
+﻿@{
+    String projectName = "Pro CNC 3020 Software";
+    String electronicsAndPcbLink = "<a href=\"/Projects/ElectronicsAndPcb\">Electronics / PCB </a>";
+    Layout = "Layouts/RootLayout.cshtml";
+}
+
+@section Title {@projectName}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/Content/ImageStyles.css">
+}
+
+<div id="body">
+
+    <h2>@projectName</h2>
+    <p>
+        While my @Html.Raw(@electronicsAndPcbLink) project completed succesfully, my hardware design
+        ended up bending excessively, even with supports. After determining laser-cut steel was outside of my budget, welding was impractical in an apartment,
+        and some more research, I instead bought a 3020-based CNC <i>engraver.</i> These Chinese devices, albeight cheap (~$600), were sturdy and 
+        small enough for my potential <i>milling</i> using cases.
+    </p>
+    <p>
+    <img class="img600px" src="~/Content/Projects/CncMillSoftware/Mill.jpg" width="500" />
+    <br />
+    <b>Pro CNC 3020 4-axis mill. </b>There's also a live-center for the fourth-axis, not shown.
+    </p>
+    <h4>Hardware</h4>
+    <p>
+        I found the hardware overall to be fairly sturdy, with rather beefy stepper motors driving lead screws to move the x, y, and z axis.
+        Each stepper motor micro-step moves each axis 0.00254 mm (2.54 µm) -- which probably means this device was designed around Imperial standards,
+        because that nicely translates to 0.1 mils (1000 mils = 1 inch) per micro-step. By default, each stepper motor runs at 16x micro stepping,
+        with 1600 steps per axis revolution.
+    </p>
+    <h4>Electronics</h4>
+    <p>
+        I was rather uncertain about the electronics, given the obvious misspelling on the electronics case, and cheap-looking box:
+        <br />
+        <img class="img600px" src="~/Content/Projects/CncMillSoftware/MillMisspelling.jpg" width="500"/>
+        <br />
+        However, after pulling apart the case, the electronics internally are just wired-together standardized modules, which looked like
+        more powerful version of the stepper motor drivers I used in my @Html.Raw(@electronicsAndPcbLink) project.
+    </p>
+    <h4>Software</h4>
+    <p>
+        In brief, there wasn't any provided software that would work with a non-Windows XP machine.
+        <br />
+        However, given that the interface for this mill is Parallel-port based, I decided to write my own software to communicate with the mill.
+    </p>
+    <h3>Software Variants</h3>
+    <p>
+        <ul class="subbox">
+            <li><b>V1: </b> Netduino wired up to the control pins. <br /> Verified that I could drive the mill, at a pitifully slow speed. </li>
+            <li><b>V2: </b> Raspberry PI wired up to the control pins. <br /> Worked, but stuttered due to software interrupts. </li>
+            <li><b>V3: </b> Parallax Propeller driving the control pins, interfaced via serial to C#. <Br />Worked -- but I cannot send commands fast enough through the serial line.</li>
+            <li><b>V4 [existing software]: </b> Switched to using an <a href="https://www.arduino.cc/en/Main/ArduinoBoardNano">Arduino Nano</a> with <a href="https://github.com/grbl/grbl/wiki">GBRL</a></li>
+        </ul>
+        I decided to switch to V4 after realizing that I would need to buy a new microcontroller <i>anyways</i> to run the mill, so I bought a microcontroller that I could run existing software on.
+        My decision was also after I had spent enough time on this project and judged that there was no real benefit to writing my own software if I had equipment that could run existing mill control software.
+    </p>
+    <h3>Results</h3>
+    <p>
+        From variant 1: <br /><img class="img1400px" src="~/Content/Projects/CncMillSoftware/V1Results.jpg" />
+        <br />
+        From variant 2: <br /><img class="img1400px" src="~/Content/Projects/CncMillSoftware/V2Results.jpg" />
+        <br />
+        From variant 3: <i>Nothing interesting from V3</i>
+        <br />
+        From variant 4: <br /><img class="img980px" src="~/Content/Projects/CncMillSoftware/V4Results.jpg" />
+    </p>
+    <p>
+        Unfortunately, the Arduino Nano was significantly more sensitive to voltage transients when running the 
+        mill spindle. To accomodate for this, I added a grounding wire to the only-insulated (!) high-voltage lines
+        that led to the spindle.
+    </p>
+    <p>
+        Without electrical tape, this modification makes my mill look rather unusual: <img class="img820px" src="~/Content/Projects/CncMillSoftware/ModdedMill.jpg" />
+    </p>
+</div>

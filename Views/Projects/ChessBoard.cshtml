@@ -1,0 +1,40 @@
+﻿@{
+    String appName = "Chess Board";
+    Layout = "Layouts/RootLayout.cshtml";
+}
+
+@section Title {@appName}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/Content/ImageStyles.css">
+}
+
+<div id="body">
+    
+    <h2>@appName</h2>
+
+    <p>
+        I realized I left my chess board back with my parents, so the <b>@appName</b> project was started to replace that, and to test engraving on the 
+        Microsoft Garage <a href="http://www.ulsinc.com/products/">Universal</a> laser.
+        <br />
+        This was also my first non-group project using that laser, in comparison to the <a href="https://www.epiloglaser.com/products/legend-laser-series.htm">Epilog Helix</a>
+        laser there that I have used several times.
+    </p>
+    <h3>Design & Execution</h3>
+    <p>
+        It's a 12" by 12" chess board with a little margin and my name engraved on it -- created within 10 minutes using <a href="http://en.wikipedia.org/wiki/Microsoft_Visio">Visio</a>.
+        <br />
+        This was a trivial project -- it just took 30 minutes to engrave at the speed I had set.
+    </p>
+    <h3>Results</h3>
+    <p>
+        I didn't set the laser power high enough, so instead of clear squares, I ended up with marbled squares -- an awesome improvement!
+        <br />
+        Also, with the 3"-scale chess pieces from <a href="http://www.unclesgames.com/">Uncle's Games</a>, the chess set looks nice and is completely usable.
+    </p>
+    <img class="img1400px" src="~/Content/Projects/ChessBoard/DSC00839.jpg" />
+    <img class="img1400px" src="~/Content/Projects/ChessBoard/DSC00841.jpg" />
+</div>
+
+@section Scripts{
+}

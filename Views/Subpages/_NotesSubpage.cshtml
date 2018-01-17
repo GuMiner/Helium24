@@ -1,0 +1,124 @@
+﻿@using System;
+@using Helium24.Definitions;
+
+@{
+    Layout = "Layouts/SubpageLayout.cshtml";
+
+    bool isAuthenticated = false;
+    bool isFeatureEnabled = false;
+    bool isAdmin = false;
+    if (this.Context.CurrentUser != null && this.Context.CurrentUser is User)
+    {
+        User user = (User)this.Context.CurrentUser;
+        isAdmin = user.IsAdmin;
+        isFeatureEnabled = user.EnabledFeatures.Contains("Notes");
+        isAuthenticated = true;
+    }
+
+    // View items and the URLs
+    string notepadLoadingStatus = "notepadLoadingStatus";
+    string notepadLastEditDate = "notepadLastEditDate";
+    string notepadLoadLastIteration = "notepadLoadLastIteration";
+    string notepadEditSaveButton = "notepadEditSaveButton";
+    string notepadEditSaveStatus = "notepadEditSaveStatus";
+
+    string urlNotes = "/Notes/CurrentNotes";
+    string urlLastNotes = "/Notes/LastNotes";
+}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/Content/NotesStyles.css">
+}
+
+@section Content{
+    <div id="notesSection">
+        @if (isAuthenticated && isFeatureEnabled)
+        {
+            <h2>Notes</h2>
+                <span class="generalStatusBox" id="@notepadLoadingStatus">Loading notes...</span>
+                <span class="smallStatusBox" id="@notepadLastEditDate"></span>
+                <button id="@notepadLoadLastIteration">Load Last Iteration</button>
+                <br />
+                <div class="editorSettings" id="editor">// Enter notes here</div>
+                <br />
+                <button id="@notepadEditSaveButton" type="button">Save Changes</button>
+                <span class="generalStatusBox" id="@notepadEditSaveStatus"></span>
+                <br />
+        }
+    </div>
+}
+
+@section Scripts{
+    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
+
+    @if (isAuthenticated && isFeatureEnabled)
+    {
+        <!-- Enable the nice, fancy editor. -->
+        <script type="text/javascript">
+
+        var editor = ace.edit("editor");
+        editor.getSession().setMode("ace/mode/javascript");
+        editor.getSession().setUseWorker(false);
+
+        // Save the edits when requested
+        $("#@notepadEditSaveButton").click(function () {
+            $("#@notepadEditSaveStatus").text("Saving...");
+
+            $.ajax({
+                url: '@urlNotes',
+                type: 'POST',
+                data: editor.getValue(),
+                dataType: 'text',
+                success: function (data) {
+                    $("#@notepadEditSaveStatus").text(data);
+                },
+                error: function (data) {
+                    $("#@notepadEditSaveStatus").text(data.responseText);
+                }
+            });
+        });
+
+        // Load with the last iteration when requested
+        $("#@notepadLoadLastIteration").click(function () {
+            $("#@notepadLoadingStatus").text("Loading last iteration...");
+
+            $.ajax({
+                url: '@urlLastNotes',
+                type: 'GET',
+                data: editor.getValue(),
+                dataType: 'text',
+                success: function (data) {
+                    editor.setValue(data);
+                    $("#@notepadLoadingStatus").text("Last iteration loaded successfully!");
+                },
+                error: function (data) {
+                    $("#@notepadLoadingStatus").text(data.responseText);
+                }
+            });
+        });
+
+        // Runs at startup to load the user's notes.
+        function loadUserNotes () {
+            $.ajax({
+                url: '@urlNotes',
+                type: 'GET',
+                cache: false,
+                success: function (data) {
+
+                    editor.setValue(data.notes);
+                    $("#@notepadLastEditDate").text("Last edit date: " + data.lastEditDate);
+                    $("#@notepadLoadingStatus").text("Successful notepad loading!");
+                },
+                error: function (data) {
+                    $("#@notepadLoadingStatus").text(data);
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            loadUserNotes();
+        });
+    </script>
+    }
+}

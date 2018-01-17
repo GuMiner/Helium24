@@ -1,3 +1,9 @@
+# Ignore folders and files that may have sensitive data for now
+App.config
+Content/
+Deployment/
+LogoFiles/
+
 # Ignore the folder we use for creating drops to send to Helium24.net
 drop/
 

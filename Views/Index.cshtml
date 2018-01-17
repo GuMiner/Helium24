@@ -1,0 +1,38 @@
+﻿@{
+    Layout = "Layouts/RootLayout.cshtml";
+    string pageName = "Helium24";
+}
+
+@section Title {@pageName}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/Content/IndexStyles.css">
+}
+
+<div id="body">
+    <h2> About </h2>
+    <div class="content-wrapper">
+        <article>
+            This website contains documentation of projects I've performed and technical experiments conducted.
+            <br />
+            <br />
+            This page was brought to you by ASP.NET Razor syntax on top of a C# OWIN site running on
+            Mono,
+            <br /> hosted on a Debian VM on Digital Ocean's cloud computing platform. Certain aspects of this site
+            access
+            <br /> PostgreSQL DB and an ElasticSearch instance hosted on a Raspberry PI I use as an offsite backup.
+        </article>
+        <aside class="aside960px">
+            Work and Employment Information: <a href="https://www.linkedin.com/pub/gustave-granroth/28/4a2/941">LinkedIn</a>
+            <br />
+            University Senior Design Project: <a href="~/Content/SingleSpacedVersion.pdf">Download</a>
+            <br />
+            Flickr: <a href="https://www.flickr.com/photos/96321741@N08/">Photostream</a>
+            <br />
+            Contact: <a href="mailto:gus.gran@gmail.com">gus.gran@gmail.com</a>
+        </aside>
+    </div>
+    <div>
+        <img class="logoImage" src="~/Content/LogoCard.png" />
+    </div>
+</div>

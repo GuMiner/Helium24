@@ -1,0 +1,60 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Helium24.Models.LoginModel>
+@model Helium24.Models.LoginModel
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+    string pageName = "Login";
+
+    string passwordHashField = "passwordHashField";
+}
+
+@section Title {@pageName}
+
+<div id="body">
+    <h1>@pageName</h1>
+    @if (Model.MissingUser)
+    {
+        <p class="errorSubbox">
+            The specified user does not exist. Please see the <a href="/Secure/Register">Registration</a> page to create a new account.
+        </p>
+    }
+    else if (Model.BadPassword)
+    {
+        <p class="errorSubbox">
+            Invalid password specified. Please try again.
+        </p>
+    }
+    else if (Model.BadEmail)
+    {
+        <p class="errorSubbox">
+            Your email was not recognized as a valid email.
+        </p>
+    }
+    else if (Model.MissingField)
+    {
+        <p class="errorSubbox">
+            Login requires all fields to be filled in before continuing.
+        </p>
+    }
+    <form method="POST" name="loginForm">
+        Email <input  name="userName" type="text" />
+        <br />
+        Password <input id="@passwordHashField" name="passwordHash" type="password" />
+        <br />
+        <input type="submit" value="Login" />
+    </form>
+</div>
+
+@section Scripts{
+    <script type="text/javascript" src="~/Content/Scripts/sha256.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
+    
+    <script>
+        $(document).ready(function (event) {
+            $("form[name=loginForm]").submit(function (e) {
+                // Hash the password so we aren't sending raw passwords over the network, secure or otherwise.
+                $('#@passwordHashField').val(Sha256.hash($("#@passwordHashField").val()));
+            });
+        });
+    </script>
+}

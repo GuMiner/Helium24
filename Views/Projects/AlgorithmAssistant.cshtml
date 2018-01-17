@@ -1,0 +1,55 @@
+﻿@{
+    String appName = "Algorithm Assistant";
+    Layout = "Layouts/RootLayout.cshtml";
+}
+
+@section Title {@appName}
+
+@section StyleSheets {
+    <link rel="stylesheet" href="~/Content/ProjectStyles.css">
+}
+
+<div id="body">
+    
+    <h3>@appName</h3>
+    <div class="content-wrapper">
+        <article>
+            <img class="imgScaler" src="~/Content/Projects/AlgorithmAssistant/aa1.png" />
+        </article>
+        <aside>
+            Information page for Gnome sort, an inefficient O(n<sup>2</sup>) sorting algorithm, <br />with a portion of the C# code snippet shown.
+        </aside>
+    </div>
+
+    <p>
+        <b>@appName</b> is an algorithm demonstration program, which provides a brief background on various algorithms, C# sample code, and visualizations.
+        This application is available as a free download from the 
+        <a href="http://www.windowsphone.com/en-us/store/app/algorithm-assistant/67ae99ed-c534-4a48-b3ec-6c274b40db9a">Windows Phone store</a> online.
+    </p>
+    <p>
+        The main focus of the demo program was on searching and sorting algorithms, with a few miscellaneous physics and mathematical algorithms added
+        for additional visualization.
+    </p>
+    <br />
+    <div class="content-wrapper">
+        <article>
+            <img class="imgScaler" src="~/Content/Projects/AlgorithmAssistant/aa2.png" />
+        </article>
+        <aside>
+            Julia Set fractal interactive visualization. 
+        </aside>
+    </div>
+
+    <h4>Unique Aspects</h4>
+    <p>
+        This phone application is structured so that once a visualization type is defined, it's very easy to create new algorithms that use the visualization
+        type. For example, most of the <b>Sorting</b> visualizations feature a bar-graph sort view. I also tried to polish this more than my previous applications,
+        so this application includes support for landscape orientation, rotation transitions, and is pseudo-localized<sup>+</sup> in more languages.
+    </p>
+    <p>
+        <sup>+</sup>: Machine-translated localization.
+    </p>
+</div>
+
+@section Scripts{
+}

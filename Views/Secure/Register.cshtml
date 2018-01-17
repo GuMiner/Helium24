@@ -1,0 +1,80 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Helium24.Models.RegisterModel>
+@model Helium24.Models.RegisterModel
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+    string pageName = "Register";
+
+    string userNameField = "userName";
+    string passwordField = "password";
+    string passwordConfirmationField = "passwordConfirmation";
+    string nameField = "name";
+    
+    string registerButton = "registerButton";
+
+    string generalError = "generalError";
+    string startupErrorText = "";
+
+    @if (Model.ExistingUser)
+    {
+        startupErrorText = "The specified user already exists: Please remember your password or use a different email address.";
+    }
+    else if (Model.BadName)
+    {
+        startupErrorText = "Each portion of your real name must be longer than one character." +
+"If parts of your real name are equal to one character, insert the '.' after each single-character character.";
+    }
+    else if (Model.BadEmail)
+    {
+        startupErrorText = "Your email was not recognized as a valid email.";
+    }
+    else if (Model.MissingField)
+    {
+        startupErrorText = "Registration requires all fields to be filled in before continuing.";
+    }
+}
+
+@section Title {@pageName}
+
+<div id="body">
+    <h1>@pageName</h1>
+    <span class="errorSubbox" id="@generalError">@startupErrorText</span>
+    <form method="POST" name="registerForm">
+        Email <input id="@userNameField" name="UserName" type="text" />
+        <br />
+        Password <input id="@passwordField" name="PasswordHash" type="password" />
+        <br />
+        Retype Password <input id="@passwordConfirmationField" name="PasswordConfirmation" type="password" />
+        <br />
+        Real Name <input id="@nameField" name="Name" type="text" />
+        <br />
+        <input id="@registerButton" type="submit" value="Register" />
+    </form>
+    <p>
+        <i>Usage and Privacy Policy:</i>
+        <br />
+        Your data will never be sold or otherwise provided to a third party.
+        <br/>
+        Your email will be used to confirm and inform you about your account at <b>Helium24.Net</b>.
+    </p>
+</div>
+
+@section Scripts{
+    <script type="text/javascript" src="~/Content/Scripts/sha256.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
+    
+    <script>
+        $(document).ready(function (event) {
+            $("form[name=registerForm]").submit(function (e) {
+                if (!($("#@passwordField").val() === $("#@passwordConfirmationField").val())) {
+                    e.preventDefault();
+                    $("#@generalError").text("The provided passwords do not match!");
+                }
+
+                // Hash the passwords so we aren't sending raw passwords over the network, secure or otherwise.
+                $('#@passwordField').val(Sha256.hash($("#@passwordField").val()));
+                $('#@passwordConfirmationField').val(Sha256.hash($("#@passwordField").val()));
+            });
+        });
+    </script>
+}

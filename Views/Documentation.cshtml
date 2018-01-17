@@ -1,0 +1,119 @@
+﻿@{
+    Layout = "Layouts/RootLayout.cshtml";
+    string pageName = "Documentation";
+    bool canDownloadFiles = false;
+}
+
+@section Title {@pageName}
+
+<link rel="stylesheet" type="text/css" href="~/Content/DataTables/css/jquery.dataTables.css" />
+
+<div id="body">
+    <h1>@pageName Library</h1>
+    <p>
+        This 
+    </p>
+    <h2>Available Documents</h2>
+
+    <section>
+        <table style="width:100%" class="display" id="documentation">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Source</th>
+                    <th>Format</th>
+                    <th>Category</th>
+                    <th>Association</th>
+                    <th>License</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Titles Go Here</td>
+                    <td>System Architect</td>
+                    <td>TXT</td>
+                    <td>None</td>
+                    <td>None</td>
+                    <td>Public Domain</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    @if (canDownloadFiles)
+    {
+        <input type="button" id="download" value="Download File" />
+    }
+    
+    <br />
+    <h3>Category Summaries</h3>
+    <table style="width:80%" class="display" id="categories" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Total Documents</th>
+                <th>Format #1</th>
+                <th>Format #2</th>
+                <th>License #1</th>
+                <th>License #2</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section Scripts{
+    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/DataTables/jquery.dataTables.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Update the main documentation table.
+            var documentationTable = $('#documentation').DataTable(
+            {
+                "processing": true,
+                "serverSide": false,
+                "ajax": "/Database/DocumentationTable"
+            });
+
+            // Update the category summaries table.
+            $('#categories').DataTable(
+            {
+                "processing": true,
+                "serverSide": false,
+                "ajax": "/Database/DocumentationTable/CategorySummaries"
+            });
+
+            // Selection handling
+            $('#documentation tbody').on( 'click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    documentationTable.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            });
+
+            // NOTE: This doesn't work at all atm -- download files from the database. TODO this should (somehow) be in an if block.
+            $('#download').click(function () {
+                // Determine the ID of the document that we want
+                var documentIndex = documentationTable.$('tr.selected')[0].cells[0].textContent;
+
+                var urlPortions = window.location.href.split("/");
+
+                // Get the API call to call, perform an AJAX call to get the file download link
+                var apiCallLink = urlPortions[0] + "//" + urlPortions[2] + "/api/documentation/GetDocument/" + documentIndex;
+
+                $.ajax({
+                    type: "GET",
+                    url: apiCallLink,
+                    success: function (downloadLink)
+                {
+                    // Navigate to the download link to download the file.
+                    window.location = downloadLink;
+                }});
+            });
+        });
+    </script>
+}
