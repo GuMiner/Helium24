@@ -1,0 +1,8 @@
+Helium24.net Privacy Policy
+--------------------------------------
+
+The Helium24.net Server collects data that you directly provide in demos and indirectly provide by visiting the Napack Framework Server.
+
+You can choose to provide whatever data you directly provide by not providing that data.
+
+The data collected is anonymized and only used to further enhance and improve the functionality of Helium24.net.

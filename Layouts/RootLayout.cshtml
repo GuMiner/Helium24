@@ -17,56 +17,75 @@
 }
 
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="google-site-verification" content="cScukpQX-5ha2CjIpVu6s6-AJACov7BwotGqxVDyjLE" />
-    <meta name="msvalidate.01" content="54833F3A9AB9EF94EABEF305F306DFED" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@RenderSection("Title")</title>
-    <link rel="stylesheet" href="~/Content/Site.css">
-    <link rel="stylesheet" href="~/Content/HeaderStyles.css">
-    @RenderSection("StyleSheets", false)
-</head>
-<body>
-    <!--Header and main links. Sub-links are added by each child page.-->
-    <header>
-        <div class="content-wrapper">
-            <div class="logoMain">
-                <p class="site-title">
-                    <a href="/">&nbsp;&nbsp;Helium24.Net&nbsp;&nbsp;</a>
-                </p>
-            </div>
-            <div class="menuMain">
-                <ul id="menu">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/Maps">Maps</a></li>
-                    <li><a href="/Quantum">Quantum</a></li>
-                    <li><a href="/ServerStatus">Status</a></li>
-                    <li><a href="/Documentation">Table</a></li>
-                    <li><a href="/Projects">Projects</a></li>
-                    <li><a href="/Secure">Secure</a></li>
-                </ul>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+    
+        <!-- Included in our pages so Bing / Google search know we are verified sites. -->
+        <meta name="google-site-verification" content="cScukpQX-5ha2CjIpVu6s6-AJACov7BwotGqxVDyjLE" />
+        <meta name="msvalidate.01" content="54833F3A9AB9EF94EABEF305F306DFED" />
+        
+        <!-- Bootstrap init -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+        <link href="~/Content/bootstrap-4.0/css/bootstrap.min.css" rel="stylesheet">
+    
+        <title>@RenderSection("Title")</title>
+        @RenderSection("StyleSheets", false)
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="site-title">
+                        <a href="/">&nbsp;&nbsp;Helium24.Net&nbsp;&nbsp;</a>
+                    </p>
+                </div>
+                <div class="col"><a href="/">Home</a></div>
+                <div class="col"><a href="/Maps">Maps</a></div>
+                <div class="col"><a href="/Quantum">Quantum</a></div>
+                <div class="col"><a href="/ServerStatus">Status</a></div>
+                <div class="col"><a href="/Documentation">Table</a></div>
+                <div class="col"><a href="/Projects">Projects</a></div>
+                <div class="col"><a href="/Secure">Secure</a></div>
             </div>
         </div>
-    </header>
+    
+        <!--Main Page-->
+        @RenderBody()
+        <div class="container">
+            <div class="row">
+                @if (isAuthenticated)
+                {
+                    <div class="col">
+                        Welcome @userName (visit #@visitCount)
+                        <form id="logout" method="post" action="/Secure/Logout">
+                            <input type=submit value="Logout all sessions" />
+                        </form>
+                    </div>
 
-    <!--Main Page-->
-    @RenderBody()
-    <footer> 
-        @if (isAuthenticated)
-        {
-            <div>Welcome @userName (visit #@visitCount)</div>
-            <br/>
-            <form id="logout" method="post" action="/Secure/Logout">
-                <input type=submit value="Logout all sessions" />
-            </form>
-            <br />
-        }
-        Site Copyright © Gustave Granroth, @(DateTime.UtcNow.Year). gus.gran@gmail.com
-    </footer>
-
-    <!--Scripts!-->
-    @RenderSection("Scripts", false)
-</body>
+                }
+                else
+                {
+                }
+                <div class="col-auto text-center">
+                    <small>Site Copyright © Gustave Granroth, @(DateTime.UtcNow.Year).</small>
+                </div>
+                <div class="col text-center">
+                    <small><a href="mailto:gus.gran@gmail.com">Webmaster</a></small>
+                </div>
+                <div class="col text-center">
+                    <small><a href="~/Content/TermsOfUse.txt">Terms of Use</a></small>
+                </div>
+                <div class="col text-center">
+                    <small><a href="~/Content/PrivacyPolicy.txt">Privacy Policy</a></small>
+                </div>
+            </div>
+        </div>
+    
+        <!--Bootstrap (slim jQuery, popper, and bootstrap itself)-->
+        <script src="~/Content/jquery-3.0/jquery-3.0.0.slim.min.js"></script>
+        <script src="~/Content/popper-1.12/popper.min.js"></script>
+        <script src="~/Content/boostrap-4.0/js/bootstrap.min.js"></script>
+        @RenderSection("Scripts", false)
+    </body>
 </html>
