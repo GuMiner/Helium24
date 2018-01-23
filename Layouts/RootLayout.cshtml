@@ -46,6 +46,11 @@
     </div>
 
     <!--Main Page-->
+    <!--Bootstrap (slim jQuery, popper, and bootstrap itself)-->
+    <script src="~/Content/jquery-3.0/jquery-3.0.0.slim.min.js"></script>
+    <script src="~/Content/popper-1.12/popper.min.js"></script>
+    <script src="~/Content/bootstrap-4.0/js/bootstrap.min.js"></script>
+
     @RenderBody()
     <div class="container">
         <div class="row justify-content-md-center">
@@ -82,10 +87,6 @@
         }
     </div>
 
-    <!--Bootstrap (slim jQuery, popper, and bootstrap itself)-->
-    <script src="~/Content/jquery-3.0/jquery-3.0.0.slim.min.js"></script>
-    <script src="~/Content/popper-1.12/popper.min.js"></script>
-    <script src="~/Content/bootstrap-4.0/js/bootstrap.min.js"></script>
     @RenderSection("Scripts", false)
 </body>
 </html>
