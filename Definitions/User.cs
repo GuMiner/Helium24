@@ -33,8 +33,6 @@ namespace Helium24.Definitions
         public DateTime LastLoginDate { get; set; }
         public int LoginCount { get; set; }
 
-        public HashSet<string> EnabledFeatures { get; set; }
-
         /// <summary>
         /// Updates this user (likely deserialized from the network) from the given user.(likely from our DB)
         /// </summary>
@@ -45,7 +43,6 @@ namespace Helium24.Definitions
             RegistrationDate = dbUser.RegistrationDate;
             LastLoginDate = dbUser.LastLoginDate;
             LoginCount = dbUser.LoginCount;
-            EnabledFeatures = dbUser.EnabledFeatures ?? new HashSet<string>();
         }
     }
 }

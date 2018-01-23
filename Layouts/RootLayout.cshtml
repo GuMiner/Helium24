@@ -7,7 +7,7 @@
     int visitCount = 0;
 
     bool isAuthenticated = false;
-    if(this.Context.CurrentUser != null && this.Context.CurrentUser is User)
+    if (this.Context.CurrentUser != null && this.Context.CurrentUser is User)
     {
         User user = (User)this.Context.CurrentUser;
         isAuthenticated = true;
@@ -18,69 +18,74 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-    
-        <!-- Included in our pages so Bing / Google search know we are verified sites. -->
-        <meta name="google-site-verification" content="cScukpQX-5ha2CjIpVu6s6-AJACov7BwotGqxVDyjLE" />
-        <meta name="msvalidate.01" content="54833F3A9AB9EF94EABEF305F306DFED" />
-        
-        <!-- Bootstrap init -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-        <link href="~/Content/bootstrap-4.0/css/bootstrap.min.css" rel="stylesheet">
-    
-        <title>@RenderSection("Title")</title>
-        @RenderSection("StyleSheets", false)
-    </head>
-    <body>
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col"><a href="/">Home</a></div>
-                <div class="col"><a href="/Maps">Maps</a></div>
-                <div class="col"><a href="/Quantum">Quantum</a></div>
-                <div class="col"><a href="/ServerStatus">Status</a></div>
-                <div class="col"><a href="/Documentation">Table</a></div>
-                <div class="col"><a href="/Projects">Projects</a></div>
-                <div class="col"><a href="/Secure">Secure</a></div>
-            </div>
-        </div>
-    
-        <!--Main Page-->
-        @RenderBody()
-        <div class="container">
-            <div class="row justify-content-md-center">
-                @if (isAuthenticated)
-                {
-                    <div class="col">
-                        Welcome @userName (visit #@visitCount)
-                        <form id="logout" method="post" action="/Secure/Logout">
-                            <input type=submit value="Logout all sessions" />
-                        </form>
-                    </div>
+<head>
+    <meta charset="utf-8" />
 
-                }
-                else
-                {
-                }
-                <div class="col-md-auto text-center">
-                    <small>Site Copyright © Gustave Granroth, @(DateTime.UtcNow.Year).</small>
-                </div>
-                <div class="col-md-auto text-center">
-                    <small><a href="mailto:gus.gran@gmail.com">Webmaster</a></small>
-                </div>
-                <div class="col-md-auto text-center">
-                    <small><a href="~/Content/TermsOfUse.txt">Terms of Use</a></small>
-                </div>
-                <div class="col-md-auto text-center">
-                    <small><a href="~/Content/PrivacyPolicy.txt">Privacy Policy</a></small>
-                </div>
+    <!-- Included in our pages so Bing / Google search know we are verified sites. -->
+    <meta name="google-site-verification" content="cScukpQX-5ha2CjIpVu6s6-AJACov7BwotGqxVDyjLE" />
+    <meta name="msvalidate.01" content="54833F3A9AB9EF94EABEF305F306DFED" />
+
+    <!-- Bootstrap init -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <link href="~/Content/bootstrap-4.0/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>@RenderSection("Title")</title>
+    @RenderSection("StyleSheets", false)
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col"><a href="/">Home</a></div>
+            <div class="col"><a href="/Maps">Maps</a></div>
+            <div class="col"><a href="/Quantum">Quantum</a></div>
+            <div class="col"><a href="/ServerStatus">Status</a></div>
+            <div class="col"><a href="/Documentation">Table</a></div>
+            <div class="col"><a href="/Projects">Projects</a></div>
+            <div class="col"><a href="/Secure">Secure</a></div>
+        </div>
+    </div>
+
+    <!--Main Page-->
+    @RenderBody()
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-auto text-center">
+                <small>Site Copyright © Gustave Granroth, @(DateTime.UtcNow.Year).</small>
+            </div>
+            <div class="col-md-auto text-center">
+                <small><a href="mailto:gus.gran@gmail.com">Webmaster</a></small>
+            </div>
+            <div class="col-md-auto text-center">
+                <small><a href="~/Content/TermsOfUse.txt">Terms of Use</a></small>
+            </div>
+            <div class="col-md-auto text-center">
+                <small><a href="~/Content/PrivacyPolicy.txt">Privacy Policy</a></small>
             </div>
         </div>
-    
-        <!--Bootstrap (slim jQuery, popper, and bootstrap itself)-->
-        <script src="~/Content/jquery-3.0/jquery-3.0.0.slim.min.js"></script>
-        <script src="~/Content/popper-1.12/popper.min.js"></script>
-        <script src="~/Content/bootstrap-4.0/js/bootstrap.min.js"></script>
-        @RenderSection("Scripts", false)
-    </body>
+
+        @if (isAuthenticated)
+        {
+            <div class="row justify-content-md-center">
+                <div class="col-md-auto text-center">
+                    <div class="row">
+                        <div class="col-auto">
+                            <span class="text-muted">Welcome <span class="text-info">@userName</span> <small>(visit #@visitCount)</small></span>
+                        </div>
+                        <div class="col-auto">
+                            <form id="logout" method="post" action="/Secure/Logout">
+                                <button type=submit class="btn btn-info btn-sm"> Logout</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!--Bootstrap (slim jQuery, popper, and bootstrap itself)-->
+    <script src="~/Content/jquery-3.0/jquery-3.0.0.slim.min.js"></script>
+    <script src="~/Content/popper-1.12/popper.min.js"></script>
+    <script src="~/Content/bootstrap-4.0/js/bootstrap.min.js"></script>
+    @RenderSection("Scripts", false)
+</body>
 </html>

@@ -172,7 +172,6 @@
     <Compile Include="Interfaces\DataStore\IUserDataStore.cs" />
     <Compile Include="Modules\MapsModule.cs" />
     <Compile Include="Modules\CameraModule.cs" />
-    <Compile Include="Modules\FeaturesModule.cs" />
     <Compile Include="Modules\NotesModule.cs" />
     <Compile Include="Modules\QuoteModule.cs" />
     <Compile Include="Modules\StockModule.cs" />

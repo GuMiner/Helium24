@@ -39,7 +39,6 @@ namespace Helium24
             user.RegistrationDate = DateTime.UtcNow;
             user.LastLoginDate = DateTime.UtcNow;
             user.LoginCount = 1;
-            user.EnabledFeatures = new HashSet<string>();
 
             try
             {

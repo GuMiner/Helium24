@@ -229,7 +229,7 @@ namespace Helium24
             {
                 List<Poi> poi = new List<Poi>();
                 NpgsqlCommand command = new NpgsqlCommand(
-                    $"SELECT UserName, PasswordHash, Name, RegistrationDate, LastLoginDate, LoginCount, EnabledFeaturesJson FROM Users WHERE UserName = :userName", conn);
+                    $"SELECT UserName, PasswordHash, Name, RegistrationDate, LastLoginDate, LoginCount FROM Users WHERE UserName = :userName", conn);
                 command.Parameters.Add(new NpgsqlParameter("userName", userName));
                 NpgsqlDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
@@ -242,7 +242,6 @@ namespace Helium24
                         RegistrationDate = (DateTime)dataReader[3],
                         LastLoginDate = (DateTime)dataReader[4],
                         LoginCount = (int)dataReader[5],
-                        EnabledFeatures = JsonConvert.DeserializeObject<HashSet<string>>((String)dataReader[6])
                     };
                 }
 
@@ -263,24 +262,11 @@ namespace Helium24
                     Tuple.Create<string, object>("RegistrationDate", user.RegistrationDate),
                     Tuple.Create<string, object>("LastLoginDate", user.LastLoginDate),
                     Tuple.Create<string, object>("LoginCount", user.LoginCount),
-                    Tuple.Create<string, object>("EnabledFeaturesJson", JsonConvert.SerializeObject(user.EnabledFeatures)),
+                    Tuple.Create<string, object>("EnabledFeaturesJson", string.Empty), // Deprecated
                 });
                 command.ExecuteNonQuery();
             },
             (ex) => $"Could not add user {user.UserName}");
-        }
-
-        public void UpdateUserEnabledFeatures(string userName, HashSet<string> enabledFeatures)
-        {
-            PerformQuery((conn) =>
-            {
-                NpgsqlCommand command = FormUpdateCommand(conn, "Users", new List<Tuple<string, object>>
-                {
-                    Tuple.Create<string, object>("EnabledFeaturesJson", JsonConvert.SerializeObject(enabledFeatures)),
-                }, Tuple.Create<string, string>("UserName", userName));
-                command.ExecuteNonQuery();
-            },
-            (ex) => $"Could not update user enabled features for {userName}");
         }
 
         public void UpdateUserLoginData(string userName, DateTime lastLoginDate, int loginCount)

@@ -4,17 +4,6 @@
 @{
     Layout = "Layouts/SubpageLayout.cshtml";
 
-    bool isAuthenticated = false;
-    bool isFeatureEnabled = false;
-    bool isAdmin = false;
-    if (this.Context.CurrentUser != null && this.Context.CurrentUser is User)
-    {
-        User user = (User)this.Context.CurrentUser;
-        isAdmin = user.IsAdmin;
-        isFeatureEnabled = user.EnabledFeatures.Contains("Notes");
-        isAuthenticated = true;
-    }
-
     // View items and the URLs
     string notepadLoadingStatus = "notepadLoadingStatus";
     string notepadLastEditDate = "notepadLastEditDate";
@@ -31,31 +20,32 @@
 }
 
 @section Content{
-    <div id="notesSection">
-        @if (isAuthenticated && isFeatureEnabled)
-        {
-            <h2>Notes</h2>
-                <span class="generalStatusBox" id="@notepadLoadingStatus">Loading notes...</span>
-                <span class="smallStatusBox" id="@notepadLastEditDate"></span>
-                <button id="@notepadLoadLastIteration">Load Last Iteration</button>
-                <br />
-                <div class="editorSettings" id="editor">// Enter notes here</div>
-                <br />
-                <button id="@notepadEditSaveButton" type="button">Save Changes</button>
-                <span class="generalStatusBox" id="@notepadEditSaveStatus"></span>
-                <br />
-        }
+    <div class="card" style="width: 40rem;">
+        <div class="card-header">
+            Notes <span class="text-muted" id="@notepadLastEditDate"></span>
+        </div>
+        <div class="card-body">
+            <div class="editorSettings" id="editor">// Enter notes here</div>
+        </div>
+        <div class="card-footer">
+            <div class="row justify-content-between">
+                <div class="col-auto">
+                    <button id="@notepadEditSaveButton" type="button" class="btn btn-secondary btn-sm">Save</button>
+                    <button id="@notepadLoadLastIteration" type="button" class="btn btn-danger btn-sm">Rollback</button>
+                </div>
+                <div class="col-auto">
+                    <span class="alert-warning" role="alert" id="@notepadLoadingStatus"></span>
+                </div>
+            </div>
+        </div>
     </div>
 }
 
 @section Scripts{
-    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.3/ace.js"></script>
 
-    @if (isAuthenticated && isFeatureEnabled)
-    {
-        <!-- Enable the nice, fancy editor. -->
-        <script type="text/javascript">
+    <!-- Enable the nice, fancy editor. -->
+    <script type="text/javascript">
 
         var editor = ace.edit("editor");
         editor.getSession().setMode("ace/mode/javascript");
@@ -99,7 +89,7 @@
         });
 
         // Runs at startup to load the user's notes.
-        function loadUserNotes () {
+        function loadUserNotes() {
             $.ajax({
                 url: '@urlNotes',
                 type: 'GET',
@@ -107,7 +97,7 @@
                 success: function (data) {
 
                     editor.setValue(data.notes);
-                    $("#@notepadLastEditDate").text("Last edit date: " + data.lastEditDate);
+                    $("#@notepadLastEditDate").text("Last editted on: " + data.lastEditDate);
                     $("#@notepadLoadingStatus").text("Successful notepad loading!");
                 },
                 error: function (data) {
@@ -120,5 +110,4 @@
             loadUserNotes();
         });
     </script>
-    }
 }

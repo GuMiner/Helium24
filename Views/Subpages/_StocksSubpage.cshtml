@@ -4,17 +4,6 @@
 @{
     Layout = "Layouts/SubpageLayout.cshtml";
 
-    bool isAuthenticated = false;
-    bool isFeatureEnabled = false;
-    bool isAdmin = false;
-    if (this.Context.CurrentUser != null && this.Context.CurrentUser is User)
-    {
-        User user = (User)this.Context.CurrentUser;
-        isAdmin = user.IsAdmin;
-        isFeatureEnabled = user.EnabledFeatures.Contains("Stocks");
-        isAuthenticated = true;
-    }
-
     // Stock
     string currentDate = "currentDate";
 
@@ -28,7 +17,6 @@
     string sellStockComboBox = "sellStockComboBox";
     string sellAmount = "sellAmount";
     string sellButton = "sellButton";
-    string undoButton = "undoButton";
 
     string buyTicker = "buyTicker";
     string buyName = "buyName";
@@ -61,8 +49,6 @@
 
 @section Content{
     <div id="stocksSection">
-    @if (isAuthenticated && isFeatureEnabled)
-    {
         <h2>Stocks</h2>
         
             <h3>Active</h3>
@@ -128,15 +114,10 @@
                     <button id="@saveSettingsButton" type="button">Save</button><span class="errorSubbox" id="@settingsOperationsError"></span>
                 </div>
             </div>
-    }
     </div>
 }
 
 @section Scripts{
-    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
-    
-    @if (isAuthenticated && isFeatureEnabled)
-    {
         <script type="text/javascript">
 
         // ---- Toggle display of stock sections to avoid page overload.
@@ -357,5 +338,4 @@
             loadActivePositions();
         });
     </script>
-    }
 }

@@ -3,18 +3,7 @@
 
 @{
     Layout = "Layouts/SubpageLayout.cshtml";
-
-    bool isAuthenticated = false;
-    bool isFeatureEnabled = false;
-    bool isAdmin = false;
-    if (this.Context.CurrentUser != null && this.Context.CurrentUser is User)
-    {
-        User user = (User)this.Context.CurrentUser;
-        isAdmin = user.IsAdmin;
-        isFeatureEnabled = user.EnabledFeatures.Contains("Cameras");
-        isAuthenticated = true;
-    }
-
+    
     // View items and the URLs
     string minDate = "minDate";
     string maxDate = "maxDate";
@@ -51,8 +40,6 @@
 
 @section Content{
     <div id="cameraSection">
-    @if (isAuthenticated && isAdmin && isFeatureEnabled)
-    {
         <h2>Camera One (Left) and Three (Right)</h2>
         <div class="blockDisplay">
             <img class="imgScalerLeft" id="@cameraOneImage" />
@@ -94,15 +81,12 @@
                 <th>Delete?</th>
             </tr>
         </table>
-    }
     </div>
 }
 
 @section Scripts{
     <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
 
-    @if (isAuthenticated && isAdmin && isFeatureEnabled)
-    {
         <!-- Show camera-->
         <script type="text/javascript">
             var cameraUpdateTimerId = 0;
@@ -214,5 +198,4 @@
                 startCameraSequence();
             });
             </script>
-    }
 }
