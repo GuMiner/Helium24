@@ -36,8 +36,7 @@
 
 @section Title {@pageName}
 
-<div id="body">
-    <h1>@pageName</h1>
+<div class="container">
     <!-- Show the toggles for all the features -->
     @if (isAuthenticated)
     {
@@ -87,17 +86,20 @@
     <!-- Show an unauthorized area if you are unauthorized. -->
     @if (!isAuthenticated)
     {
-        <h2>Unauthorized</h2>
-        <p>
-            <a href="/Secure/Login">Login</a>
-            <a href="/Secure/Register">Register</a>
-        </p>
+        <div class="jumbotron">
+            <h2>Nothing to display here...</h2>
+            <p class="lead">
+                You currently are not logged in, so we cannot show you any secure data.
+            </p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="/Secure/Login">Login</a>
+                <a class="btn btn-secondary btn-lg" href="/Secure/Register">Register</a>
+            </p>
+        </div>
     }
 </div>
 
 @section Scripts {
-    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
-
     <!-- Handles the enabling and disabling of sections. -->
     @if (isAuthenticated)
     {
