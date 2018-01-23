@@ -34,12 +34,7 @@
     </head>
     <body>
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    <p class="site-title">
-                        <a href="/">&nbsp;&nbsp;Helium24.Net&nbsp;&nbsp;</a>
-                    </p>
-                </div>
+            <div class="row justify-content-center">
                 <div class="col"><a href="/">Home</a></div>
                 <div class="col"><a href="/Maps">Maps</a></div>
                 <div class="col"><a href="/Quantum">Quantum</a></div>
@@ -53,7 +48,7 @@
         <!--Main Page-->
         @RenderBody()
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-md-center">
                 @if (isAuthenticated)
                 {
                     <div class="col">
@@ -67,16 +62,16 @@
                 else
                 {
                 }
-                <div class="col-auto text-center">
+                <div class="col-md-auto text-center">
                     <small>Site Copyright © Gustave Granroth, @(DateTime.UtcNow.Year).</small>
                 </div>
-                <div class="col text-center">
+                <div class="col-md-auto text-center">
                     <small><a href="mailto:gus.gran@gmail.com">Webmaster</a></small>
                 </div>
-                <div class="col text-center">
+                <div class="col-md-auto text-center">
                     <small><a href="~/Content/TermsOfUse.txt">Terms of Use</a></small>
                 </div>
-                <div class="col text-center">
+                <div class="col-md-auto text-center">
                     <small><a href="~/Content/PrivacyPolicy.txt">Privacy Policy</a></small>
                 </div>
             </div>
@@ -87,5 +82,12 @@
         <script src="~/Content/popper-1.12/popper.min.js"></script>
         <script src="~/Content/boostrap-4.0/js/bootstrap.min.js"></script>
         @RenderSection("Scripts", false)
+
+        <!-- Enable tool-tips everywhere -->
+        <script type="text/javascript">
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
     </body>
 </html>

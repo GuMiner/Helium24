@@ -36,27 +36,34 @@
 
 @section Title {@pageName}
 
-<div id="body">
+<div class="container">
     <h1>@pageName</h1>
-    <span class="errorSubbox" id="@generalError">@startupErrorText</span>
+    <div class="alert-warning" id="@generalError">@startupErrorText</div>
     <form method="POST" name="registerForm">
-        Email <input id="@userNameField" name="UserName" type="text" />
+        <div class="form-group">
+            <label for="@nameField">Name</label>
+            <input id="@nameField" class="form-control" type="text" placeholder="Enter your name" />
+        </div>
+        <div class="form-group">
+            <label for="@userNameField">Email</label>
+            <input id="@userNameField" class="form-control" type="text" placeholder="Enter your email" />
+        </div>
+        <div class="form-group">
+            <label for="@passwordField">Password</label>
+            <input id="@passwordField" class="form-control" type="password" placeholder="Password" />
+        </div>
+        <div class="form-group">
+            <label for="@passwordConfirmationField">Password Confirmation</label>
+            <input id="@passwordConfirmationField" class="form-control" type="password" placeholder="Retype your password" />
+        </div>
+        <div class="text-muted">
+            Your data will never be sold or otherwise provided to a third party.
+            <br />
+            Your email will be used to confirm and inform you about your account at <a href="https://helium24.net">Helium24.net</a>
+        </div>
         <br />
-        Password <input id="@passwordField" name="PasswordHash" type="password" />
-        <br />
-        Retype Password <input id="@passwordConfirmationField" name="PasswordConfirmation" type="password" />
-        <br />
-        Real Name <input id="@nameField" name="Name" type="text" />
-        <br />
-        <input id="@registerButton" type="submit" value="Register" />
+        <button id="@registerButton" type="submit" class="btn btn-primary">Register</button>
     </form>
-    <p>
-        <i>Usage and Privacy Policy:</i>
-        <br />
-        Your data will never be sold or otherwise provided to a third party.
-        <br/>
-        Your email will be used to confirm and inform you about your account at <b>Helium24.Net</b>.
-    </p>
 </div>
 
 @section Scripts{
