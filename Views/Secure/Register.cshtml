@@ -6,7 +6,7 @@
     string pageName = "Register";
 
     string userNameField = "userName";
-    string passwordField = "password";
+    string passwordField = "passwordHash";
     string passwordConfirmationField = "passwordConfirmation";
     string nameField = "name";
     
@@ -42,19 +42,19 @@
     <form method="POST" name="registerForm">
         <div class="form-group">
             <label for="@nameField">Name</label>
-            <input id="@nameField" class="form-control" type="text" placeholder="Enter your name" />
+            <input id="@nameField" name="@nameField" class="form-control" type="text" placeholder="Enter your name" />
         </div>
         <div class="form-group">
             <label for="@userNameField">Email</label>
-            <input id="@userNameField" class="form-control" type="text" placeholder="Enter your email" />
+            <input id="@userNameField" name="@userNameField" class="form-control" type="text" placeholder="Enter your email" />
         </div>
         <div class="form-group">
             <label for="@passwordField">Password</label>
-            <input id="@passwordField" class="form-control" type="password" placeholder="Password" />
+            <input id="@passwordField" name="@passwordField" class="form-control" type="password" placeholder="Password" />
         </div>
         <div class="form-group">
             <label for="@passwordConfirmationField">Password Confirmation</label>
-            <input id="@passwordConfirmationField" class="form-control" type="password" placeholder="Retype your password" />
+            <input id="@passwordConfirmationField" name="unused" class="form-control" type="password" placeholder="Retype your password" />
         </div>
         <div class="text-muted">
             Your data will never be sold or otherwise provided to a third party.
@@ -77,10 +77,11 @@
                     e.preventDefault();
                     $("#@generalError").text("The provided passwords do not match!");
                 }
-
-                // Hash the passwords so we aren't sending raw passwords over the network, secure or otherwise.
-                $('#@passwordField').val(Sha256.hash($("#@passwordField").val()));
-                $('#@passwordConfirmationField').val(Sha256.hash($("#@passwordField").val()));
+                else {
+                    // Hash the passwords so we aren't sending raw passwords over the network, HTTPS or otherwise.
+                    $('#@passwordField').val(Sha256.hash($("#@passwordField").val()));
+                    $('#@passwordConfirmationField').val(Sha256.hash($("#@passwordConfirmationField").val()));
+                }
             });
         });
     </script>
