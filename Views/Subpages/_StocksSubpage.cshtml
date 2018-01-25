@@ -43,20 +43,15 @@
     string urlQuotesGroup = "/Quotes/Group";
 }
 
-@section StyleSheets {
-    <link rel="stylesheet" href="~/Content/StockStyles.css">
-}
-
 @section Content{
-    <div id="stocksSection">
-        <h2>Stocks</h2>
-        
-            <h3>Active</h3>
-            <div style="max-width: 100%; overflow: auto;">
-                <button id="@activeStocksTableUpdateButton" type="button" style="float:left;">Refresh</button>
-                <br />
-                <br />
-                <table id="@activeStocksTable" style="border: 1px solid; background: #f9ffc2; min-width: 600px;">
+<div class="card" style="width: 50rem;">
+    <div class="card-header">
+        Stocks <button id="@activeStocksTableUpdateButton" type="button" class="btn btn-info">Refresh</button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <table id="@activeStocksTable" class="table">
                     <tr>
                         <th>Ticker</th>
                         <th>Name</th>
@@ -69,7 +64,10 @@
                     </tr>
                 </table>
             </div>
-
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row justify-content-between">
             <div style="display:normal; padding: 2px;">
                 <h3>Modify Stocks or Settings</h3>
                 <div class="toggleSwitch">
@@ -114,7 +112,9 @@
                     <button id="@saveSettingsButton" type="button">Save</button><span class="errorSubbox" id="@settingsOperationsError"></span>
                 </div>
             </div>
+        </div>
     </div>
+</div>
 }
 
 @section Scripts{
@@ -192,12 +192,10 @@
 
         // Loads active stock purchases
         function loadActivePositions() {
-            $.ajax({
-                url: '@urlActiveStocks',
-                type: 'GET',
-                cache: false,
-                success: function (data) {
-
+            axios.get('@urlActiveStocks')
+                .then(function (response) {
+                    var data = response.data;
+                    
                     // Just perform the removal steps and exist if we have no data.
                     if (data.length == 0) {
                         // Remove all table rows greater than index 0 (leaving the header row)
@@ -218,11 +216,10 @@
                         }
                     }
 
-                    $.ajax({
-                        url: '@urlQuotesGroup' + tickerString,
-                        type: 'GET',
-                        cache: false,
-                        success: function (tickerData) {
+                    axios.get('@urlQuotesGroup' + tickerString)
+                        .then(function (tickerResponse) {
+                            var tickerData = tickerResponse.data;
+
                             // Remove all table rows greater than index 0 (leaving the header row)
                             $("#@activeStocksTable").find("tr:gt(0)").remove();
 
@@ -275,16 +272,14 @@
                                     prefix + "----" + postfix +
                                     prefix + "----" + postfix +
                                     prefix + "<b>" + totalGain.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</b>" + postfix + "</tr>");
-                        },
-                        error: function (data) {
+                        })
+                        .catch(function (data) {
                             $("#@generalOperationalError").text(data.responseText);
-                        }
-                    });
-                },
-                error: function (data) {
+                        });
+                })
+            .catch(function (data) {
                     $("#@generalOperationalError").text(data.responseText);
-                }
-            });
+                });
         }
 
         // Saves and loads stock settings.

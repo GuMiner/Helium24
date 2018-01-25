@@ -19,16 +19,11 @@
 }
 
 @section StyleSheets {
-    <link rel="stylesheet" href="~/Content/NotesStyles.css">
-    
     <!-- ace.js formatting -->
     <style type="text/css" media="screen">
-        #editorSettings {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
+        .editorSettings {
+            width: 600px;
+            height: 400px;
         }
     </style>
 }
@@ -63,7 +58,7 @@
                         </optgroup>
                         <optgroup label="Intermediate">
                             <option value="cobalt">Cobalt</option>
-                            <option value="idle_fingers" selected="selected">idle Fingers</option>
+                            <option value="idle_fingers">idle Fingers</option>
                             <option value="iplastic">IPlastic</option>
                             <option value="kuroir">Kuroir</option>
                             <option value="mono_industrial">Mono Industrial</option>
@@ -283,37 +278,27 @@
         $("#@notepadEditSaveButton").click(function () {
             $("#@notepadEditSaveStatus").text("Saving...");
 
-            $.ajax({
-                url: '@urlNotes',
-                type: 'POST',
-                data: editor.getValue(),
-                dataType: 'text',
-                success: function (data) {
+            axios.post('@urlNotes', editor.getValue())
+                .then(function (data) {
                     $("#@notepadEditSaveStatus").text(data);
-                },
-                error: function (data) {
+                })
+                .catch(function (data) {
                     $("#@notepadEditSaveStatus").text(data.responseText);
-                }
-            });
+                });
         });
 
         // Load with the last iteration when requested
         $("#@notepadLoadLastIteration").click(function () {
             $("#@notepadLoadingStatus").text("Loading last iteration...");
 
-            $.ajax({
-                url: '@urlLastNotes',
-                type: 'GET',
-                data: editor.getValue(),
-                dataType: 'text',
-                success: function (data) {
-                    editor.setValue(data);
+            axios.get('@urlLastNotes')
+                .then(function (response) {
+                    editor.setValue(response.data);
                     $("#@notepadLoadingStatus").text("Last iteration loaded successfully!");
-                },
-                error: function (data) {
-                    $("#@notepadLoadingStatus").text(data.responseText);
-                }
-            });
+                })
+                .catch(function (data) {
+                    $("#@notepadLoadingStatus").text(data);
+                });
         });
 
         // Runs at startup to load the user's notes.
