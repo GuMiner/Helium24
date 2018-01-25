@@ -32,6 +32,8 @@
     string urlCameraThreeSensors = "/Cameras/ThreeSensors";
     string urlQuery = "/Cameras/Query";
     string urlDelete = "/Cameras/Query/Image";
+
+    string generalCameraError = "generalCameraError";
 }
 
 @section StyleSheets {
@@ -39,6 +41,7 @@
 }
 
 @section Content{
+    <div class="alert-warning" id="@generalCameraError" role="alert"></div>
     <div class="row">
         <div class="col">
             <div class="card" style="width: 40rem;">
@@ -90,74 +93,82 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            Update every <input id="@cameraUpdateRateInSeconds" type="number" value="600" /> seconds.
+                            <label for="@cameraUpdateRateInSeconds">Time to wait (seconds) between updates:</label>
+                            <input id="@cameraUpdateRateInSeconds" type="number" value="600" class="form-control"/>
                         </div>
-                        <div class="col">
-                            <button id="@cameraRateUpdateButton" type="button">Update Now</button>
+                        <div class="col align-self-center">
+                            <button id="@cameraRateUpdateButton" type="button" class="btn btn-primary">Update Now</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col">
-            <div class="card" style="width: 35rem;">
-                <div class="card-header">Archive</div>
-                <div class="card-body">
-                    <i>Min Date<input id="@minDate" type="text" value="@minDateValue" /></i>
-                    <br /><i>Max Date<input id="@maxDate" type="text" value="@maxDateValue" /></i>
-                    <br /><button id="@getHistoricalImages" type="button">Run Query</button>
-                    <table id="@historicalImagesTable" style="border: 1px solid; background: #f9ffc2; min-width: 600px;">
-                        <tr>
-                            <th>Date</th>
-                            <th>Camera ID</th>
-                            <th>Image</th>
-                            <th>Delete?</th>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">
+                <button class="btn btn-info" data-toggle="collapse" data-target="#collapsibleBody" aria-expanded="true" aria-controls="collapsibleBody">
+                    Archive (Collapsible)
+                </button>
+            </h5>
+        </div>
+        <div id="collapsibleBody" class="card-body collapse show">
+            <label for="@minDate">Min Archive Date:</label>
+            <input id="@minDate" type="text" value="@minDateValue"  class="form-control"/>
+
+            <label for="@maxDate">Max Archive Date:</label>
+            <input id="@maxDate" type="text" value="@maxDateValue"  class="form-control"/>
+            <button id="@getHistoricalImages" type="button" class="btn btn-secondary">Run Query</button>
+            <table id="@historicalImagesTable" class="table">
+                <tr>
+                    <th>Date</th>
+                    <th>Camera ID</th>
+                    <th>Image</th>
+                    <th>Delete?</th>
+                </tr>
+            </table>
         </div>
     </div>
 }
 
 @section Scripts{
-    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
+    <script type="text/javascript" src="~/Content/es6-promise-auto-4.2/es6-promise.auto.min.js"></script>
+    <script type="text/javascript" src="~/Content/axios-0.17/axios.min.js"></script>
 
     <!-- Show camera-->
     <script type="text/javascript">
             var cameraUpdateTimerId = 0;
 
             function loadCameraImage(url, imageId) {
-                $.ajax({
+                axios({
+                    method: 'get',
                     url: url,
-                    type: 'GET',
-                    cache: false,
-                    processData: false,
-                }).always(function (b64data) {
-                    $("#" + imageId).attr("src", "data:image/jpeg;base64," + b64data);
+                    responseType: 'stream'
+                }).then(function(response) {
+                    $("#" + imageId).attr("src", "data:image/jpeg;base64," + response.data);
+                }).catch(function(response) {
+                    $("#@generalCameraError").text("Error loading camera image ID " + imageId + ": " + response);
                 });
             }
 
             function loadCameraStats(url, temp, power, voltage) {
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    cache: false,
-                    success: function (data) {
-                        data = JSON.parse(data);
+                axios.get(url)
+                    .then(function (response) {
+                    var data = JSON.parse(response.data);
 
-                        var batteryTempC = data.battery_temp.data[0][1][0];
-                        var batteryTempF = batteryTempC * (9.0 / 5.0) + 32;
+                    var batteryTempC = data.battery_temp.data[0][1][0];
+                    var batteryTempF = batteryTempC * (9.0 / 5.0) + 32;
 
-                        // Loads the camera status for temp, power, and voltage.
-                        $("#" + temp).text(batteryTempC.toFixed(2) + " / " + batteryTempF.toFixed(2));
-                        $("#" + power).text(data.battery_level.data[0][1]);
-                        $("#" + voltage).text(data.battery_voltage.data[0][1]);
-                    },
-                    error: function (data) {
+                    // Loads the camera status for temp, power, and voltage.
+                    $("#" + temp).text(batteryTempC.toFixed(2) + " / " + batteryTempF.toFixed(2));
+                    $("#" + power).text(data.battery_level.data[0][1]);
+                    $("#" + voltage).text(data.battery_voltage.data[0][1]);
+                }).catch(function (data) {
                         $("#" + temp).text(data.responseText);
-                    }
-                });
+                    }).catch(function (response) {
+                        $("#@generalCameraError").text("Error loading camera stats from " + url + ": " + response);
+                    });
             }
 
             function loadCameraImagesAndStats() {
@@ -185,18 +196,13 @@
                     CaptureTime: $(this).attr('data-imageid')
                 };
 
-                $.ajax({
-                    url: '@urlDelete',
-                    type: 'DELETE',
-                    data: encapsulatedDate,
-                    success: function (data) {
-                        // Remove the image that we deleted
+                axios({ method: 'delete', url: '@urlDelete', data: encapsulatedDate })
+                    .then(function (data) {
+                        // Remove the image that we deleted from the UI
                         $("#" + rowId).remove();
-                    },
-                    error: function (data) {
-                        // TODO don't leave us hanging...
-                    }
-                });
+                    }).catch(function (data) {
+                        $("#@generalCameraError").text("Error deleting camera image from row " + rowId + ": " + response);
+                    });
             });
 
             $("#@getHistoricalImages").click(function () {
@@ -206,11 +212,10 @@
                     MaxDateTime: $("#@maxDate").val()
                 };
 
-                $.ajax({
-                    url: '@urlQuery',
-                    type: 'POST',
-                    data: dateRange,
-                    success: function (data) {
+                axios
+                    .post('@urlQuery', dateRange)
+                    .then(function (response) {
+                        var data = response.data;
                         // Clear our existing results
                         $("#@historicalImagesTable").find("tr:gt(0)").remove();
                         var prefix = "<td style=\"border-left: 1px dashed; border-top: 1px dashed;\">";
@@ -218,16 +223,15 @@
                         for (var i = 0; i < data.length; i++) {
                             var date = prefix + data[i].date + postfix;
                             var cameraId = prefix + data[i].cameraId + postfix;
-                            var image = prefix + "<img src=\"data:image/jpeg;base64," + data[i].image + "\" />" + postfix;
-                            var deleteButton = prefix + "<button class=\"@deleteButton\" type=\"button\" data-imageid=\"" + data[i].date + "\" data-rowid=\"histTableRow" + (i + 1) + "\">Delete</button>" + postfix;
+                            var image = prefix + "<img src=\"data:image/jpeg;base64," + data[i].image + "\"  width=\"576\" height=\"432\" />" + postfix;
+                            var deleteButton = prefix + "<button class=\"@deleteButton btn btn-secondary\" type=\"button\" data-imageid=\"" + data[i].date + "\" data-rowid=\"histTableRow" + (i + 1) + "\">Delete</button>" + postfix;
                             $("#@historicalImagesTable tr:last").after("<tr id=\"histTableRow" + (i + 1) + "\">" +
                                 date + cameraId + image + deleteButton + "</tr>");
                         }
-                    },
-                    error: function (data) {
-                        // TODO don't leave us hanging...
-                    }
-                });
+                    })
+                    .catch(function (data) {
+                        $("#@generalCameraError").text("Error getting camera images in date range: " + response);
+                    });
             });
 
             $(document).ready(function () {
