@@ -3,7 +3,7 @@
     /// <summary>
     /// Holds information relevant for the home page.
     /// </summary>
-    public class ServerStatusModel
+    public class DiagnosticsModel
     {
         public string ServerAddress { get; set; }
         public string ClientAddress { get; set; }

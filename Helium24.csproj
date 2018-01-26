@@ -189,12 +189,12 @@
     <Compile Include="Utils\Helium24NancyBootstrapper.cs" />
     <Compile Include="Utils\Helium24RootPathProvider.cs" />
     <Compile Include="Definitions\PiCachedDocument.cs" />
-    <Compile Include="Models\ServerStatusModel.cs" />
+    <Compile Include="Models\DiagnosticsModel.cs" />
     <Compile Include="Modules\DatabaseModule.cs" />
     <Compile Include="Modules\ProjectsModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Global.cs" />
-    <Compile Include="Modules\ServerStatusModule.cs" />
+    <Compile Include="Modules\DiagnosticsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\QuoteWrapper.cs" />
     <Compile Include="Utils\Startup.cs" />
@@ -228,7 +228,7 @@
     <None Include="Views\Secure\Register.cshtml" />
     <None Include="Views\Secure\Login.cshtml" />
     <None Include="Views\Secure.cshtml" />
-    <None Include="Views\ServerStatus.cshtml" />
+    <None Include="Views\Diagnostics.cshtml" />
     <Content Include="Views\Subpages\_NotesSubpage.cshtml" />
     <Content Include="Views\Subpages\_StocksSubpage.cshtml" />
     <Content Include="Views\Subpages\_CameraSubpage.cshtml" />

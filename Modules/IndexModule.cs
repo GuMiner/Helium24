@@ -10,20 +10,18 @@ namespace Helium24.Modules
         {
             Get["/"] = parameters => View["Index"];
             Get["/Projects"] = parameters => View["Projects"];
-            Get["/Documentation"] = parameters => View["Documentation"];
-
-            Get["/ServerStatus"] = parameters =>
+            
+            Get["/Diagnostics"] = parameters =>
             {
-                ServerStatusModel model = this.ExtractModelFromHeaders(this.Context.Request.Headers);
-                return View["ServerStatus", model];
+                DiagnosticsModel model = this.ExtractModelFromHeaders(this.Context.Request.Headers);
+                return View["Diagnostics", model];
             };
 
             Get["/Maps"] = parameters => View["Maps"];
-            Get["/Quantum"] = parameters => View["Quantum"];
             Get["/Secure"] = parameters => View["Secure"];
             Get["/Error"] = parameters => View["Error"];
 
-            Get["/Hidden/Shutdown"] = parameters =>
+            Get["/Reset"] = parameters =>
                 this.Authenticate((user) =>
                 {
                     Global.ShutdownEvent.Set();
@@ -32,9 +30,9 @@ namespace Helium24.Modules
         }
 
         /// <summary>
-        /// Extracts the <see cref="ServerStatusModel"/>  from the headers, returning unknown data on failure.
+        /// Extracts the <see cref="DiagnosticsModel"/>  from the headers, returning unknown data on failure.
         /// </summary>
-        private ServerStatusModel ExtractModelFromHeaders(RequestHeaders headers)
+        private DiagnosticsModel ExtractModelFromHeaders(RequestHeaders headers)
         {
             string host = "Unknown";
             string realIp = "Unknown";
@@ -55,7 +53,7 @@ namespace Helium24.Modules
                 forwardedFor = string.Join(", ", headers["X-Forwarded-For"]);
             }
 
-            ServerStatusModel model = new ServerStatusModel()
+            DiagnosticsModel model = new DiagnosticsModel()
             {
                 ClientAddress = realIp,
                 ServerAddress = host + "| " + forwardedFor

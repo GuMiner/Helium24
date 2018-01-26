@@ -6,11 +6,13 @@
     String userName = "";
     int visitCount = 0;
 
+    bool isAdmin = false;
     bool isAuthenticated = false;
     if (this.Context.CurrentUser != null && this.Context.CurrentUser is User)
     {
         User user = (User)this.Context.CurrentUser;
         isAuthenticated = true;
+        isAdmin = user.IsAdmin;
         userName = user.Name;
         visitCount = user.LoginCount;
     }
@@ -36,12 +38,14 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col"><a href="/">Home</a></div>
-            <div class="col"><a href="/Maps">Maps</a></div>
-            <div class="col"><a href="/Quantum">Quantum</a></div>
-            <div class="col"><a href="/ServerStatus">Status</a></div>
-            <div class="col"><a href="/Documentation">Table</a></div>
             <div class="col"><a href="/Projects">Projects</a></div>
+            <div class="col"><a href="/Maps">Maps</a></div>
+            <div class="col text-muted"><a href="/Diagnostics">Diagnostics</a></div>
             <div class="col"><a href="/Secure">Secure</a></div>
+            @if(isAdmin)
+            {
+                <div class="col"><button type="button" class="btn btn-warning">Reset Site</button></div>
+            }
         </div>
     </div>
 
