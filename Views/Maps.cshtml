@@ -135,18 +135,14 @@
             LatLng: JSON.stringify(latLng.toJSON())
         };
 
-        $.ajax({
-            url: '@urlMapData',
-            type: 'POST',
-            data: addPoiData,
-            success: function (data) {
+        axios.post('@urlMapData', addPoiData)
+            .then(function (data) {
                 // Add the new POI to the screen.
                 addNewPoi(latLng, getCurrentPoiTypeText(), data.typeId, data.poiId);
-            },
-            error: function (data) {
+            })
+            .catch(function (data) {
                 $("#@generalError").text(data.responseText + ": " + data.status);
-            }
-        });
+            });
     }
 
     function createPoiLine(latLngOne, latLngTwo) {
@@ -160,18 +156,14 @@
             LngTwo: latLngTwo.lng()
         };
 
-        $.ajax({
-            url: '@urlMapDataLines',
-            type: 'POST',
-            data: addPoiLineData,
-            success: function (data) {
+        axios.post('@urlMapDataLines', addPoiLineData)
+            .then(function (data) {
                 // Add the new POI to the screen.
                 addNewPoiLine(latLngOne, latLngTwo, getCurrentPoiTypeText(), data.typeId, data.poiId);
-            },
-            error: function (data) {
+            })
+            .catch(function (data) {
                 $("#@generalError").text(data.responseText + ": " + data.status);
-            }
-        });
+            });
     }
 
     function addNewPoi(latLng, fullLabel, typeId, poiId) {
@@ -192,18 +184,14 @@
                     PoiId: poiId
                 };
 
-                $.ajax({
-                    url: '@urlMapData',
-                    type: 'DELETE',
-                    data: poiData,
-                    success: function (data) {
+                axios({ method: 'delete', url: '@urlMapData', data: poiData })
+                    .then(function (data) {
                         mk.setMap(null);
                         mk = null;
-                    },
-                    error: function (data) {
+                    })
+                    .catch(function (data) {
                         $("#@generalError").text(data.responseText + ": " + data.status);
-                    }
-                });
+                    });
             }
             else {
                 // Load POI details
@@ -236,18 +224,14 @@
                     PoiId: poiId
                 };
 
-                $.ajax({
-                    url: '@urlMapDataLines',
-                    type: 'DELETE',
-                    data: poiData,
-                    success: function (data) {
+                axios({ method: 'delete', url: '@urlMapDataLines', data: poiData })
+                    .then(function (data) {
                         polyline.setMap(null);
                         polyline = null;
-                    },
-                    error: function (data) {
+                    })
+                    .catch(function (data) {
                         $("#@generalError").text(data.responseText + ": " + data.status);
-                    }
-                });
+                    });
             }
             else {
                 // Load POI details
@@ -268,17 +252,13 @@
             Name: $("#@newPoiType").val()
         };
 
-        $.ajax({
-            url: '@urlMapPoi',
-            type: 'POST',
-            data: poiData,
-            success: function (data) {
+        axios.post('@urlMapPoi', poiData)
+            .then(function (data) {
                 $("#@currentPoiTypeComboBox").append("<option value=\"" + data.idx + "\">" + data.name + "</option>");
-            },
-            error: function (data) {
+            })
+            .catch(function (data) {
                 $("#@generalError").text(data.responseText + ": " + data.status);
-            }
-        });
+            });
     });
 
     // Loads all POI and lines for the specified POI type
@@ -295,35 +275,27 @@
                 }
             }
 
-            $.ajax({
-                url: '@urlMapData' + '/' + index,
-                type: 'GET',
-                cache: false,
-                success: function (data) {
+            axios.get('@urlMapData' + '/' + index)
+                .then(function (data) {
                     // Add the new POI to the screen.
                     for (var i = 0; i < data.length; i++) {
                         addNewPoi(JSON.parse(data[i].latLng), getGivenPoiTypeText(idx), data[i].typeId, data[i].poiId);
                     }
-                },
-                error: function (data) {
+                })
+                .catch(function (data) {
                     $("#@generalError").text(data.responseText + ": " + data.status);
-                }
-            });
+                });
 
-            $.ajax({
-                url: '@urlMapDataLines' + '/' + index,
-                type: 'GET',
-                cache: false,
-                success: function (data) {
+            axios.get('@urlMapDataLines' + '/' + index)
+                .then(function (data) {
                     // Add the new POI to the screen.
                     for (var i = 0; i < data.length; i++) {
                         addNewPoiLine(new google.maps.LatLng(data[i].latOne, data[i].lngOne), new google.maps.LatLng(data[i].latTwo, data[i].lngTwo), getGivenPoiTypeText(idx), data[i].typeId, data[i].poiId);
                     }
-                },
-                error: function (data) {
+                })
+                .catch(function (data) {
                     $("#@generalError").text(data.responseText + ": " + data.status);
-                }
-            });
+                });
         }
     }
 
@@ -342,22 +314,18 @@
     $(document).ready(function () {
 
         // Load POI types and populate the first listing of POI types
-        $.ajax({
-            url: '@urlMapPoi',
-            type: 'GET',
-            cache: false,
-            success: function (data) {
+        axios.get('@urlMapPoi')
+            .then(function (data) {
                 for (var i = 0; i < data.length; i++) {
                     $("#@currentPoiTypeComboBox").append("<option value=\"" + data[i].idx + "\">" + data[i].name + "</option>");
                 }
 
                 $("#@currentPoiTypeComboBox")[0].selectedIndex = 0;
                 loadPoiType(getCurrentPoiTypeId());
-            },
-            error: function (data) {
+            })
+            .catch(function (data) {
                 $("#@generalError").text(data.responseText + ": " + data.status);
-            }
-        });
+            });
     });
 </script>
 
