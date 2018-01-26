@@ -35,19 +35,20 @@
     @RenderSection("StyleSheets", false)
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col"><a href="/">Home</a></div>
-            <div class="col"><a href="/Projects">Projects</a></div>
-            <div class="col"><a href="/Maps">Maps</a></div>
-            <div class="col text-muted"><a href="/Diagnostics">Diagnostics</a></div>
-            <div class="col"><a href="/Secure">Secure</a></div>
-            @if(isAdmin)
-            {
-                <div class="col"><button type="button" class="btn btn-warning">Reset Site</button></div>
-            }
-        </div>
-    </div>
+    <nav class="navbar navbar-dark navbar-expand-sm bg-info py-0">
+        <a class="navbar-brand" href="/">Helium24.Net</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item px-2"><a class="nav-link" href="/Projects">Projects</a></li>
+            <li class="nav-item px-2"><a class="nav-link" href="/Maps">Maps</a></li>
+            <li class="nav-item px-2"><a class="nav-link" href="/Diagnostics">Diagnostics</a></li>
+            <li class="nav-item px-2"><a class="nav-link" href="/Secure">Secure</a></li>
+        </ul>
+
+        @if (isAdmin)
+        {
+            <span class="navbar-text"><a class="btn btn-secondary" href="/Reset">Reset Site</a></span>
+        }
+    </nav>
 
     <!--Main Page-->
     <!--Bootstrap (slim jQuery, popper, and bootstrap itself)-->
