@@ -146,20 +146,15 @@
                 PurchasePrice: $("#@buyPurchasePrice").val()
             };
 
-            $.ajax({
-                url: '@urlStockPurchase',
-                type: 'POST',
-                data: transactionData,
-                dataType: 'text',
-                success: function (data) {
+            axios.post('@urlStockPurchase', transactionData)
+                .then(function (data) {
                     loadActivePositions();
                     loadStockStatus();
                     loadStockAnalysis();
-                },
-                error: function (data) {
+                })
+                .catch(function (data) {
                     $("#@generalOperationalError").text(data.responseText);
-                }
-            });
+                });
         });
 
         // Sells stock purchases
@@ -171,19 +166,14 @@
                 Amount: $("#@sellAmount").val()
             };
 
-            $.ajax({
-                url: '@urlStockSale',
-                type: 'POST',
-                data: sellData,
-                dataType: 'text',
-                success: function (data) {
+            axios.post('@urlStockSale', sellData)
+                .then(function (data) {
                     loadActivePositions();
                     loadStockStatus();
-                },
-                error: function (data) {
+                })
+                .catch(function (data) {
                     $("#@generalOperationalError").text(data.responseText);
-                }
-            });
+                });
         });
 
         $("#@activeStocksTableUpdateButton").click(function () {
@@ -195,7 +185,7 @@
             axios.get('@urlActiveStocks')
                 .then(function (response) {
                     var data = response.data;
-                    
+
                     // Just perform the removal steps and exist if we have no data.
                     if (data.length == 0) {
                         // Remove all table rows greater than index 0 (leaving the header row)
@@ -207,7 +197,7 @@
                         return;
                     }
 
-                    // Perform another AJAX query to get the current quotes for all the tickers.
+                    // Perform another REST query to get the current quotes for all the tickers.
                     var tickerString = "?";
                     for (var i = 0; i < data.length; i++) {
                         tickerString += data[i].ticker;
@@ -243,7 +233,7 @@
                                 // Ensure our digits are fixed-precision, but also have commas in the appropriate positioning.
                                 totalPurchaseCash += data[i].purchaseAmount * data[i].purchasePrice;
                                 var purchaseCash = prefix + (data[i].purchaseAmount * data[i].purchasePrice).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + postfix;
-                                
+
                                 // Current stock ticker price.
                                 var cashValue = tickerData.tickerValues[data[i].ticker.toLowerCase()];
                                 var currentCash = prefix + cashValue + postfix;
@@ -290,34 +280,25 @@
                 TradeCommission: $("#@tradeCommission").val()
             };
 
-            $.ajax({
-                url: '@urlStockSettings',
-                type: 'POST',
-                data: settingsData,
-                dataType: 'text',
-                success: function (data) {
-                },
-                error: function (data) {
+            axios.post('@urlStockSettings', settingsData)
+                .then(function (data) {
+                })
+                .catch(function (data) {
                     $("#@settingsOperationsError").text(data);
-                }
-            });
+                });
         });
 
         function loadStockSettings() {
-            $.ajax({
-                url: '@urlStockSettings',
-                type: 'GET',
-                cache: false,
-                success: function (data) {
+            axios.get('@urlStockSettings')
+                .then(function (data) {
                     sellStockFee = data.sellStockFee;
                     sellStockCommission = data.tradeCommission;
                     $("#@sellStockFee").val(sellStockFee);
                     $("#@tradeCommission").val(sellStockCommission);
-                },
-                error: function (data) {
+                })
+                .catch(function (data) {
                     $("#@settingsOperationsError").text(data);
-                }
-            });
+                });
         }
 
         // Setup global stock information.
