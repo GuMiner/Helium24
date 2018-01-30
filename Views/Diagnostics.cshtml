@@ -4,78 +4,86 @@
 @{
     Layout = "Layouts/RootLayout.cshtml";
     string pageName = "Status";
+
+    string generalError = "generalError";
+    string dbStatus = "dbStatus";
+    string autoUpdateLabel = "autoUpdateLabel";
+    string lastUpdateStatusLabel = "lastUpdateStatusLabel";
 }
 
 @section Title {@pageName}
 
 @section StyleSheets {
-    <link rel="stylesheet" href="~/Content/Scripts/chartist.css">
-    <link rel="stylesheet" href="~/Content/Scripts/chartist.legend.css">
+    <link href="~/Content/chartist-0.11/chartist.min.css" rel="stylesheet" />
+    <style>
+        .ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
+            stroke: lightgreen;
+        }
+
+        .ct-series-a .ct-area, .ct-series-a .ct-slice-donut-solid, .ct-series-a .ct-slice-pie {
+            fill: lightgreen;
+        }
+
+        .ct-series-b .ct-bar, .ct-series-b .ct-line, .ct-series-b .ct-point, .ct-series-b .ct-slice-donut {
+            stroke: lightblue;
+        }
+
+        .ct-series-b .ct-area, .ct-series-b .ct-slice-donut-solid, .ct-series-b .ct-slice-pie {
+            fill: lightblue;
+        }
+    </style>
 }
 
-<div id="body">
-    <h1>@pageName</h1>
-    <h2>VM Status</h2>
-    <p>
-        <div class="ct-chart ct-octave"></div>
-        <br />
-        Chart will auto-update in <span id="autoUpdateLabel">00:00</span>. <span id="lastUpdateStatusLabel"></span>
-    </p>
-    <h2>Site Statistics</h2>
-    <div class="content-wrapper">
-        <article>
-            <b>Helium24</b> runs on a <a href="https://www.digitalocean.com/">Digital Ocean</a> VM in a US datacenter,
-            <br />
-            &nbsp;&nbsp;as an ASP.NET Razor (C# /ASP.NET / <a href="http://nancyfx.org/">Nancy</a>) application.
-            <br />
-            This site previously lived as a MVC-style site on a <a href="http://azure.microsoft.com/en-us/services/app-service/web/">Microsoft Azure Web App</a>,
-            <br />
-            &nbsp;&nbsp;has lived as an <a href="https://www.openshift.com/">OpenShift</a>-hosted <a href="http://nodejs.org/">Node.JS</a> server,
-            <br />
-            &nbsp;&nbsp;and was birthed as a collection of HTML, CSS, and Java applet files on a network share.
-        </article>
-        <aside class="asideServerStatus">
-            Page Loaded: @(DateTime.Now) <br />
-            Client Address: @Model.ClientAddress <br />
-            Server Address: @Model.ServerAddress <br />
-            DB Status: <span id="serverStatus">Checking...</span> <br />
-        </aside>
+<div class="alert-warning" id="@generalError" role="alert"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-auto align-self-center">
+            <div class="row py-2">
+                <button class="btn disabled" style="background:lightgreen">CPU %</button>
+            </div>
+            <div class="row py-2">
+                <button class="btn disabled" style="background:lightblue">Disk Used %</button>
+            </div>
+        </div>
+        <div class="col">
+            <div class="ct-chart ct-octave"></div>
+        </div>
     </div>
-    <h2>History</h2>
-    <div class="content-wrapper">
-        <ul class="float-left">
-            <li> July 2017: Improved secure status page and swapped back to SQL as ES is too heavy for the backing PI.</li>
-            <li> April 2016: Secure notes / stock functionality. Lots of CSS cleanup. Added (finally) the 3D printing experiments page.</li>
-            <li> March 2016: Added ElasticSearch functionality, server status page; general organization.</li>
-            <li> November 2015: Finalized switch from an Azure Web App to a Digital Ocean VM, using NancyFx instead of MVC.
-            <li> September 2015: Transitioned backend database, web application cleanup. </li>
-            <li> August 2015: Transitioned domain registrars, removed unused portions. Finalized switch from Node.JS to an ASP.NET MVC applitaiton. </li>
-            <li> April 2015: Cleaned up CSS and home page; created new logo.</li>
-            <li> March 2015: Cleaned up documents and integrated with <a href="https://datatables.net/">DataTables</a>.</li>
-            <li> February 2015: Setup website to experiment with Web API.</li>
-        </ul>
+    <div class="row justify-content-between">
+        <div class="col-auto align-self-center">
+            <div class="row py-2">
+                <button class="btn disabled" style="background:orange">Chart will auto-update in <span id="@autoUpdateLabel">00:00</span></button>
+            </div>
+            <div class="row py-2">
+                <span id="@lastUpdateStatusLabel" class="text-muted">Chart loading...</span>
+            </div>
+        </div>
+        <div class="col-auto">
+            <b>Page Loaded:</b> @(DateTime.Now) <br />
+            <b>Client Address:</b> @Model.ClientAddress <br />
+            <b>Server Address:</b> @Model.ServerAddress <br />
+            <b>DB Status:</b> <span id="@dbStatus">Checking...</span> <br />
+        </div>
     </div>
 </div>
 
 @section Scripts{
-    <script type="text/javascript" src="~/Content/Scripts/jquery-2.1.4.js"></script>
-    <script type="text/javascript" src="~/Content/Scripts/chartist.js"></script>
-    <script type="text/javascript" src="~/Content/Scripts/chartist-plugin-axistitle.js"></script>
-    <script type="text/javascript" src="~/Content/Scripts/chartist-plugin-legend.js"></script>
-    
+    <script type="text/javascript" src="~/Content/es6-promise-auto-4.2/es6-promise.auto.min.js"></script>
+    <script type="text/javascript" src="~/Content/axios-0.17/axios.min.js"></script>
+    <script type="text/javascript" src="~/Content/chartist-0.11/chartist.min.js"></script>
+    <script type="text/javascript" src="~/Content/chartist-plugin-axistitle-0.0.4/chartist-plugin-axistitle.min.js"></script>
+
     <!-- Availability scripts-->
     <script type="text/javascript">
         // Update the status of the SQL server
-        $.ajax({
-            url: '/Status/PostgreSQL',
-            type: 'GET',
-            success: function (data) {
-                $("#serverStatus").text(data);
-            },
-            error: function (data) {
-                $("#serverStatus").text(data);
-            }
-        });
+        axios.get('/Status/PostgreSQL')
+            .then(function (response) {
+                var data = response.data;
+                $("#@dbStatus").text(data);
+            })
+            .catch(function (response) {
+                $("#@generalError").text(response.message);
+            });
     </script>
 
     <!-- Server status script-->
@@ -83,7 +91,7 @@
 
         // CONSTANTS
         var REFRESH_TIME_SECONDS = 60 * 10;
-        
+
         // Chart for display.
         var serverUsageChart = null;
 
@@ -91,40 +99,34 @@
         var autoUpdateTime = 0;
         function countdownAutoUpdate() {
             --autoUpdateTime;
-            if (autoUpdateTime <= 0)
-            {
+            if (autoUpdateTime <= 0) {
                 autoUpdateTime = REFRESH_TIME_SECONDS;
             }
 
             var minutes = parseInt(autoUpdateTime / 60);
             var seconds = parseInt(autoUpdateTime - minutes * 60);
 
-            $("#autoUpdateLabel").text((minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
+            $("#@autoUpdateLabel").text((minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds);
         }
 
         // Updates the server usage chart periodically.
         function updateServerUsageChart() {
             // Update the chart
-            $.getJSON("../Status/Server", function (result) {
-                serverUsageChart.update(result);
+            axios.get("/Status/Server")
+                .then(function (response) {
+                    serverUsageChart.update(response.data);
 
-                // Update the chart update information.
-                $.getJSON("../Status/Server/Validity", function (result) {
-                    $("#lastUpdateStatusLabel").text("Last update had " + result.validElements + " valid status elements and " + result.invalidElements + " simulated elements.");
-                }).done(function () {
-                    console.log("Validity update done.");
-                }).fail(function () {
-                    console.log("Validity update failure!");
-                }).always(function () {
-                    console.log("UValidity call complete.");
+                    // Update the chart update information.
+                    axios.get("/Status/Server/Validity")
+                        .then(function (response) {
+                            var result = response.data;
+                            $("#@lastUpdateStatusLabel").text("Last update had " + result.validElements + " valid status elements and " + result.invalidElements + " simulated elements.");
+                        }).catch(function (response) {
+                            $("#@generalError").text(response.message);
+                        });
+                }).catch(function (response) {
+                    $("#@generalError").text(response.message);
                 });
-            }).done(function () {
-              console.log("Usage chart update done.");
-            }).fail(function () {
-              console.log("Usage chart update failure!");
-            }).always(function () {
-              console.log("Usage chart call complete.");
-            });
         }
 
         // Load up the server usage chart and starts the periodic updates.
@@ -139,7 +141,7 @@
                     name: 'Disk Usage %',
                     data: [1, 2, 3, 4, 5, 6, 7, 8, 9]
                 }]
-            },{
+            }, {
                 showArea: true,
                 showLine: true,
                 showPoint: false,
@@ -154,14 +156,13 @@
                     showGrid: false
                 },
                 plugins: [
-                  Chartist.plugins.legend(),
                   Chartist.plugins.ctAxisTitle({
                       axisX: {
                           axisTitle: 'Time',
                           axisClass: 'ct-axis-title',
                           offset: {
-                              x: 0,
-                              y: 50
+                              x: -50,
+                              y: 20
                           },
                           textAnchor: 'middle'
                       },
@@ -170,7 +171,7 @@
                           axisClass: 'ct-axis-title',
                           offset: {
                               x: 0,
-                              y: 0
+                              y: -15
                           },
                           textAnchor: 'middle',
                           flipTitle: false
