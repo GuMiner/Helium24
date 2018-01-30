@@ -28,54 +28,45 @@
 <div class="alert-warning" id="@generalError" role="alert"></div>
 <div class="card">
     <div class="card-header">
-        Point of Interest Settings
+        Maps
     </div>
     <div class="card-body">
-            <div class="row justify-content-left">
-                <div class="col-auto">
-                    <label for="@accessCode">Access Code</label>
-                </div>
-                <div class="col-auto">
-                    <input style="width: 20%" id="@accessCode" type="password" class="form-control" />
-                </div>
-                <div class="col-auto">
-                    <label for="@newPoiType">New POI Type</label>
-                </div>
-                <div class="col-auto">
-                    <input style="width: 20%" id="@newPoiType" type="text" class="form-control" />
-                </div>
-                <div class="col-auto">
-                    <button id="@newPoiButton" type="button" class="btn btn-secondary">Add</button>
-                </div>
-            </div>
-
-            <div class="row justify-content-left">
-                <div class="col-auto">
-                    <label for="@editModeCheckbox">Edit Mode</label>
-                </div>
-                <div class="col-auto">
-                    <input id="@editModeCheckbox" type="checkbox" class="form-control" />
-                </div>
-                <div class="col-auto">
-                    <label for="@lineModeCheckbox">Line Mode</label>
-                </div>
-                <div class="col-auto">
-                    <input id="@lineModeCheckbox" type="checkbox" class="form-control" />
+        <div class="card">
+            <div class="card-header">
+                <div class="row justify-content-between">
+                    <div class="col-auto">
+                        <div class="row justify-content-start">
+                            <div class="col-auto align-self-center">
+                                <label for="@currentPoiTypeComboBox">Current POI type</label>
+                            </div>
+                            <div class="col-auto">
+                                <select id="@currentPoiTypeComboBox" class="form-control"></select>
+                            </div>
+                            <div class="col-auto">
+                                <button id="@loadAllButton" type="button" class="btn btn-primary">Load All POI Types</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-info" data-toggle="collapse" data-target="#collapsibleBody" aria-expanded="true" aria-controls="collapsibleBody">
+                            Edit
+                        </button>
+                    </div>
                 </div>
             </div>
-            
-            <div class="row justify-content-left">
-                <div class="col-auto">
-                    <label for="@currentPoiTypeComboBox">Current POI type</label>
-                </div>
-                <div class="col-auto">
-                    <select id="@currentPoiTypeComboBox" class="form-control"></select>
-                </div>
-                <div class="col-auto">
-                    <button id="@loadAllButton" type="button" class="btn btn-primary">Load All POI Types</button>
-                </div>
+            <div id="collapsibleBody" class="card-body collapse hide">
+                <label for="@accessCode">Edit-Access Code</label>
+                <input style="width: 20%" id="@accessCode" type="password" class="form-control" />
+                <label for="@newPoiType">New POI Type</label>
+                <input style="width: 20%" id="@newPoiType" type="text" class="form-control" />
+                <button id="@newPoiButton" type="button" class="btn btn-secondary">Add</button>
+                <label for="@editModeCheckbox">Edit Mode</label>
+                <input id="@editModeCheckbox" type="checkbox" class="form-control" />
+                <label for="@lineModeCheckbox">Line Mode</label>
+                <input id="@lineModeCheckbox" type="checkbox" class="form-control" />
             </div>
         </div>
+    </div>
 </div>
 <div id="map" style="width:100%; height: 700px;"></div>
 

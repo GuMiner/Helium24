@@ -1,6 +1,7 @@
 ﻿using Helium24.Definitions;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 
 namespace Helium24.Tasks
 {
@@ -21,7 +22,7 @@ namespace Helium24.Tasks
             long freeSpace = 0;
             long totalSpace = 0;
             DriveInfo[] drives = DriveInfo.GetDrives();
-            foreach (DriveInfo drive in drives)
+            foreach (DriveInfo drive in drives.Where(d => d.DriveType == DriveType.Fixed))
             {
                 freeSpace += drive.AvailableFreeSpace;
                 totalSpace += drive.TotalSize;
