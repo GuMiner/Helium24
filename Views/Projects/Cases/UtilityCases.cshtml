@@ -1,0 +1,28 @@
+﻿@using System;
+@using Helium24.Models;
+
+@{
+    String projectName = "3D Printed Cases -- Accessories";
+    Layout = "Layouts/RootLayout.cshtml";
+
+    Tag[] tags = new Tag[] { Tag.Hardware, Tag.Printer };
+    ProjectHeader header = new ProjectHeader(projectName, "March 2014", tags);
+}
+
+@section Title {@projectName}
+
+<div class="card">
+    @Html.Partial("../Common/CardHeader.cshtml", header)
+    <div class="card-body">
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Cases/Utility/charger.jpg", "Lithium-Polymer USB Battery Charger"))
+        <br />
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Cases/Utility/programmer.jpg", "USB-ASP Atmel programmer"))
+        @Html.Partial("../Common/ParagraphStart.cshtml")
+        I had purchased a lithium-polymer USB battery charger and a USB-ASP Atmel programmer, both without cases.
+        <br />
+        Although I had to do a bit of sanding, making these two cases taught me how to more effectively design cases for other projects.
+        @Html.Partial("../Common/ParagraphEnd.cshtml")
+    </div>
+</div>

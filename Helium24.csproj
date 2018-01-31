@@ -213,7 +213,7 @@
     <Content Include="Views\Error.cshtml" />
     <Content Include="Views\Projects.cshtml" />
     <Content Include="Views\Projects\AlgorithmAssistant.cshtml" />
-    <Content Include="Views\Projects\Cases\Cases.cshtml" />
+    <Content Include="Views\Projects\GeigerCounter.cshtml" />
     <Content Include="Views\Projects\ChessBoard.cshtml" />
     <Content Include="Views\Projects\CncMillSoftware.cshtml" />
     <Content Include="Views\Projects\CodeGell.cshtml" />
@@ -234,6 +234,9 @@
     <Content Include="Views\Projects\Common\ParagraphEnd.cshtml" />
     <Content Include="Views\Projects\Common\ImageCard.cshtml" />
     <Content Include="Views\Projects\Cases\NanoCase.cshtml" />
+    <Content Include="Views\Projects\Cases\PiCase.cshtml" />
+    <Content Include="Views\Projects\Cases\GalileoCase.cshtml" />
+    <Content Include="Views\Projects\Cases\UtilityCases.cshtml" />
     <None Include="Views\Secure\Register.cshtml" />
     <None Include="Views\Secure\Login.cshtml" />
     <None Include="Views\Secure.cshtml" />

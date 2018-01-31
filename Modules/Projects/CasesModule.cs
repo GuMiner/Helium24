@@ -11,6 +11,9 @@ namespace Helium24.Modules
             : base("/Projects/Cases")
         {
             AddStaticRoute("NanoCase");
+            AddStaticRoute("PiCase");
+            AddStaticRoute("GalileoCase");
+            AddStaticRoute("UtilityCases");
         }
 
         /// <summary>

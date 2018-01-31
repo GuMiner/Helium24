@@ -10,9 +10,11 @@ namespace Helium24.Modules
         public ProjectsModule()
             : base("/Projects")
         {
+            AddStaticRoute("FluxSim");
+            AddStaticRoute("GeigerCounter");
+
             AddStaticRoute("Simulator");
             AddStaticRoute("CodeGell");
-            AddStaticRoute("FluxSim");
             AddStaticRoute("SpecialistsCalculator");
             AddStaticRoute("AlgorithmAssistant");
             AddStaticRoute("ElectronicsAndPcb");
