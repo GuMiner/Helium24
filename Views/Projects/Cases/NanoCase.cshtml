@@ -1,0 +1,32 @@
+﻿@using System;
+@using Helium24.Models;
+
+@{
+    String projectName = "3D Printed Cases -- Arduino Nano";
+    Layout = "Layouts/RootLayout.cshtml";
+
+    Tag[] tags = new Tag[] { Tag.Hardware, Tag.Printer };
+    ProjectHeader header = new ProjectHeader(projectName, "November 2015", tags);
+}
+
+@section Title {@projectName}
+
+<div class="card">
+    @Html.Partial("../Common/CardHeader.cshtml", header)
+    <div class="card-body">
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Cases/Nano/nano_case.jpg", "Arduino Nano slide-on case"))
+        @Html.Partial("../Common/ParagraphStart.cshtml")
+            This nifty little case slides on tightly, with:
+        <ul>
+            <li>A recessed slot for the USB interface on the back</li>
+            <li>A slot to access the interface pins (lower-right)</li>
+            <li>A slot to see the status LEDs</li>
+            <li>A cutout for the programming pins.</li>
+        </ul>
+        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("../Common/ParagraphStart.cshtml")
+            The Arduino Nano is currently being used to run <a href="https://github.com/gnea/grbl">GRBL</a> to control my CNC engraver / mini-mill.
+        @Html.Partial("../Common/ParagraphEnd.cshtml")
+    </div>
+</div>

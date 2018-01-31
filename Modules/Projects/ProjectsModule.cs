@@ -19,7 +19,6 @@ namespace Helium24.Modules
             AddStaticRoute("CncMillSoftware");
             AddStaticRoute("Experiments");
             AddStaticRoute("PrintingIntro");
-            AddStaticRoute("Cases");
             AddStaticRoute("ChessBoard");
             AddStaticRoute("Models");
             AddStaticRoute("NotableScreenshots");

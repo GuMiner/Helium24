@@ -174,10 +174,11 @@
     <Compile Include="Interfaces\DataStore\ISystemStatsDataStore.cs" />
     <Compile Include="Interfaces\DataStore\IUserDataStore.cs" />
     <Compile Include="Modules\MapsModule.cs" />
-    <Compile Include="Modules\CameraModule.cs" />
-    <Compile Include="Modules\NotesModule.cs" />
-    <Compile Include="Modules\QuoteModule.cs" />
-    <Compile Include="Modules\StockModule.cs" />
+    <Compile Include="Modules\Subpages\CameraModule.cs" />
+    <Compile Include="Modules\Subpages\NotesModule.cs" />
+    <Compile Include="Modules\Projects\CasesModule.cs" />
+    <Compile Include="Modules\Subpages\QuoteModule.cs" />
+    <Compile Include="Modules\Subpages\StockModule.cs" />
     <Compile Include="NancyModuleExtensions.cs" />
     <Compile Include="SqlDataStore.cs" />
     <Compile Include="Tasks\ImageStorageTask.cs" />
@@ -186,7 +187,7 @@
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Models\SecureModel.cs" />
     <Compile Include="Modules\SecureModule.cs" />
-    <Compile Include="Modules\StatusModule.cs" />
+    <Compile Include="Modules\Diagnostics\StatusModule.cs" />
     <Compile Include="Tasks\SystemStatisticsTask.cs" />
     <Compile Include="UrlResolver.cs" />
     <Compile Include="Utils\Helium24NancyBootstrapper.cs" />
@@ -194,10 +195,10 @@
     <Compile Include="Definitions\PiCachedDocument.cs" />
     <Compile Include="Models\DiagnosticsModel.cs" />
     <Compile Include="Modules\DatabaseModule.cs" />
-    <Compile Include="Modules\ProjectsModule.cs" />
+    <Compile Include="Modules\Projects\ProjectsModule.cs" />
     <Compile Include="Modules\IndexModule.cs" />
     <Compile Include="Global.cs" />
-    <Compile Include="Modules\DiagnosticsModule.cs" />
+    <Compile Include="Modules\Diagnostics\DiagnosticsModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\QuoteWrapper.cs" />
     <Compile Include="Utils\Startup.cs" />
@@ -212,7 +213,7 @@
     <Content Include="Views\Error.cshtml" />
     <Content Include="Views\Projects.cshtml" />
     <Content Include="Views\Projects\AlgorithmAssistant.cshtml" />
-    <Content Include="Views\Projects\Cases.cshtml" />
+    <Content Include="Views\Projects\Cases\Cases.cshtml" />
     <Content Include="Views\Projects\ChessBoard.cshtml" />
     <Content Include="Views\Projects\CncMillSoftware.cshtml" />
     <Content Include="Views\Projects\CodeGell.cshtml" />
@@ -232,6 +233,7 @@
     <Content Include="Views\Projects\Common\ParagraphStart.cshtml" />
     <Content Include="Views\Projects\Common\ParagraphEnd.cshtml" />
     <Content Include="Views\Projects\Common\ImageCard.cshtml" />
+    <Content Include="Views\Projects\Cases\NanoCase.cshtml" />
     <None Include="Views\Secure\Register.cshtml" />
     <None Include="Views\Secure\Login.cshtml" />
     <None Include="Views\Secure.cshtml" />
