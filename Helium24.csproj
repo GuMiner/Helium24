@@ -174,6 +174,7 @@
     <Compile Include="Interfaces\DataStore\ISystemStatsDataStore.cs" />
     <Compile Include="Interfaces\DataStore\IUserDataStore.cs" />
     <Compile Include="Modules\MapsModule.cs" />
+    <Compile Include="Modules\Projects\MobileModule.cs" />
     <Compile Include="Modules\Subpages\CameraModule.cs" />
     <Compile Include="Modules\Subpages\NotesModule.cs" />
     <Compile Include="Modules\Projects\CasesModule.cs" />
@@ -212,7 +213,7 @@
     <Content Include="Views\Index.cshtml" />
     <Content Include="Views\Error.cshtml" />
     <Content Include="Views\Projects.cshtml" />
-    <Content Include="Views\Projects\AlgorithmAssistant.cshtml" />
+    <Content Include="Views\Projects\Mobile\AlgorithmAssistant.cshtml" />
     <Content Include="Views\Projects\GeigerCounter.cshtml" />
     <Content Include="Views\Projects\ChessBoard.cshtml" />
     <Content Include="Views\Projects\CncMillSoftware.cshtml" />
@@ -223,7 +224,7 @@
     <Content Include="Views\Projects\NotableScreenshots.cshtml" />
     <Content Include="Views\Projects\PrintingIntro.cshtml" />
     <Content Include="Views\Projects\Simulator.cshtml" />
-    <Content Include="Views\Projects\SpecialistsCalculator.cshtml" />
+    <Content Include="Views\Projects\Mobile\SpecialistsCalculator.cshtml" />
     <None Include="Properties\app.manifest" />
     <Content Include="Views\Documentation.cshtml" />
     <Content Include="Views\Projects\Experiments.cshtml" />

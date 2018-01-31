@@ -8,7 +8,7 @@
         <div class="card">
             <img class="card-img-top img-fluid rounded" alt="Image in card" src="@Model.Uri" />
             <div class="card-footer">
-                @Model.Title
+                @Html.Raw(@Model.Title)
             </div>
         </div>
     </div>

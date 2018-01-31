@@ -15,8 +15,7 @@ namespace Helium24.Modules
 
             AddStaticRoute("Simulator");
             AddStaticRoute("CodeGell");
-            AddStaticRoute("SpecialistsCalculator");
-            AddStaticRoute("AlgorithmAssistant");
+            
             AddStaticRoute("ElectronicsAndPcb");
             AddStaticRoute("CncMillSoftware");
             AddStaticRoute("Experiments");
