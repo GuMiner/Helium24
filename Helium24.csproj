@@ -160,6 +160,7 @@
     <Compile Include="Definitions\Stock\ActivePositions.cs" />
     <Compile Include="Definitions\Stock\StockSettings.cs" />
     <Compile Include="Definitions\Note.cs" />
+    <Compile Include="Definitions\Projects\Tag.cs" />
     <Compile Include="Definitions\User.cs" />
     <Compile Include="Definitions\SystemStat.cs" />
     <Compile Include="DocumentationCache.cs" />
