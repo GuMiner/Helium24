@@ -14,49 +14,25 @@
 <div class="card">
     @Html.Partial("Common/CardHeader.cshtml", header)
     <div class="card-body">
-        <div class="row justify-content-md-center">
-            <div class="col-auto text-left">
-                When you have access to an <a href="https://www.epiloglaser.com/products/legend-laser-series.htm">Epilog Helix</a>
-                and a <a href="http://www.ulsinc.com/products/">Universal</a> laser -- and need a chess set -- you improvise.
-                <br />
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-auto">
-                <div class="card">
-                    <img class="card-img-top img-fluid rounded" alt="Image in card" src="~/Blobs/Projects/ChessBoard/board.jpg" />
-                    <div class="card-footer">
-                        Laser-engraved chess board with marbled squares
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-auto text-left">
-                This chess board was created within 10 minutes using <a href="http://en.wikipedia.org/wiki/Microsoft_Visio">Visio</a>,
-                and engraved in 30 minutes on the Universal laser.
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-auto text-left">
-                Normally the translucent (engraved) squares would be completely opaque, but by (accidentally) reducing the laser power
-                I instead engraved marbled squares.
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-auto text-left">
-                With 3"-scale chess pieces from the <a href="http://www.unclesgames.com/">local game store</a>, the chess set was made complete.
-            </div>
-        </div>
-        <div class="row justify-content-md-center">
-            <div class="col-auto">
-                <div class="card">
-                    <img class="card-img-top img-fluid rounded" alt="Image in card" src="~/Blobs/Projects/ChessBoard/boardWithPieces.jpg" />
-                    <div class="card-footer">
-                        Laser-engraved chess board with pieces
-                    </div>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            When you have access to an <a href="https://www.epiloglaser.com/products/legend-laser-series.htm">Epilog Helix</a>
+            and a <a href="http://www.ulsinc.com/products/">Universal</a> laser -- and need a chess set -- you improvise.
+            <br />
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/ChessBoard/board.jpg", "Laser-engraved chess board with marbled squares"))
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            This chess board was created within 10 minutes using <a href="http://en.wikipedia.org/wiki/Microsoft_Visio">Visio</a>,
+            and engraved in 30 minutes on the Universal laser.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            Normally the translucent (engraved) squares would be completely opaque, but by (accidentally) reducing the 
+            laser power I instead engraved marbled squares.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            With 3"-scale chess pieces from the <a href="http://www.unclesgames.com/">local game store</a>, the chess set was made complete.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/ChessBoard/boardWithPieces.jpg", "Laser-engraved chess board with pieces"))
     </div>
 </div>

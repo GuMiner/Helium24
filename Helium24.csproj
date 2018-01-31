@@ -161,6 +161,7 @@
     <Compile Include="Definitions\Stock\StockSettings.cs" />
     <Compile Include="Definitions\Note.cs" />
     <Compile Include="Models\Projects\ProjectHeader.cs" />
+    <Compile Include="Models\Projects\Image.cs" />
     <Compile Include="Models\Projects\Tag.cs" />
     <Compile Include="Definitions\User.cs" />
     <Compile Include="Definitions\SystemStat.cs" />
@@ -228,6 +229,9 @@
     <Content Include="Views\Maps.cshtml" />
     <Content Include="Views\Quantum.cshtml" />
     <Content Include="Views\Projects\Common\CardHeader.cshtml" />
+    <Content Include="Views\Projects\Common\ParagraphStart.cshtml" />
+    <Content Include="Views\Projects\Common\ParagraphEnd.cshtml" />
+    <Content Include="Views\Projects\Common\ImageCard.cshtml" />
     <None Include="Views\Secure\Register.cshtml" />
     <None Include="Views\Secure\Login.cshtml" />
     <None Include="Views\Secure.cshtml" />
