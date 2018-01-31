@@ -1,4 +1,4 @@
-﻿namespace Helium24.Definitions
+﻿namespace Helium24.Models
 {
     /// <summary>
     /// Defines a tag for projects

@@ -160,7 +160,8 @@
     <Compile Include="Definitions\Stock\ActivePositions.cs" />
     <Compile Include="Definitions\Stock\StockSettings.cs" />
     <Compile Include="Definitions\Note.cs" />
-    <Compile Include="Definitions\Projects\Tag.cs" />
+    <Compile Include="Models\Projects\ProjectHeader.cs" />
+    <Compile Include="Models\Projects\Tag.cs" />
     <Compile Include="Definitions\User.cs" />
     <Compile Include="Definitions\SystemStat.cs" />
     <Compile Include="DocumentationCache.cs" />
@@ -226,6 +227,7 @@
     <Content Include="Views\Projects\Experiments.cshtml" />
     <Content Include="Views\Maps.cshtml" />
     <Content Include="Views\Quantum.cshtml" />
+    <Content Include="Views\Projects\Common\CardHeader.cshtml" />
     <None Include="Views\Secure\Register.cshtml" />
     <None Include="Views\Secure\Login.cshtml" />
     <None Include="Views\Secure.cshtml" />

@@ -1,0 +1,25 @@
+﻿@using Helium24.Models
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<ProjectHeader>
+@model Helium24.Models.ProjectHeader
+
+<div class="card-header">
+    <div class="row justify-content-between">
+        <div class="col-auto align-self-center">
+            @Model.Title
+        </div>
+        <div class="col-auto">
+            <div class="row">
+                @foreach (Tag tag in Model.Tags)
+                {
+                    <div class="col-auto px-1 py-0">
+                        <button class="btn btn-sm disabled" style="background:@tag.HtmlColor">@tag.Name</button>
+                    </div>
+                }
+                <div class="col-auto align-self-center">
+                    <span class="text-muted">@Model.Date</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

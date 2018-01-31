@@ -1,36 +1,18 @@
 ﻿@using System;
-@using Helium24.Definitions;
+@using Helium24.Models;
 
 @{
     String appName = "Laser-Engraved Chess Board";
     Layout = "Layouts/RootLayout.cshtml";
 
     Tag[] tags = new Tag[] { Tag.Hardware, Tag.Laser, Tag.Games };
+    ProjectHeader header = new ProjectHeader("Laser-Engraved Chess Board", "April 2015", tags);
 }
 
 @section Title {@appName}
 
 <div class="card">
-    <div class="card-header">
-        <div class="row justify-content-between">
-            <div class="col-auto align-self-center">
-                Laser Engraved Chess Board
-            </div>
-            <div class="col-auto">
-                <div class="row">
-                    @foreach (Tag tag in tags)
-                    {
-                        <div class="col-auto px-1 py-0">
-                            <button class="btn btn-sm disabled" style="background:@tag.HtmlColor">@tag.Name</button>
-                        </div>
-                    }
-                    <div class="col-auto align-self-center">
-                        <span class="text-muted">April 2015</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("Common/CardHeader.cshtml", header)
     <div class="card-body">
         <div class="row justify-content-md-center">
             <div class="col-auto text-left">
