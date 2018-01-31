@@ -2,14 +2,14 @@
 @using Helium24.Models;
 
 @{
-    String appName = "Laser-Engraved Chess Board";
+    String projectName = "Laser-Engraved Chess Board";
     Layout = "Layouts/RootLayout.cshtml";
 
     Tag[] tags = new Tag[] { Tag.Hardware, Tag.Laser, Tag.Games };
-    ProjectHeader header = new ProjectHeader("Laser-Engraved Chess Board", "April 2015", tags);
+    ProjectHeader header = new ProjectHeader(projectName, "April 2015", tags);
 }
 
-@section Title {@appName}
+@section Title {@projectName}
 
 <div class="card">
     @Html.Partial("Common/CardHeader.cshtml", header)

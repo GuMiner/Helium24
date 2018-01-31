@@ -9,6 +9,7 @@
         public static Tag Software { get; } = new Tag("Software", "lightblue");
         public static Tag Laser { get; } = new Tag("Laser", "red");
         public static Tag Games { get; } = new Tag("Games", "lightgreen");
+        public static Tag Simulation { get; } = new Tag("Simulation", "magenta");
 
         public Tag(string name, string htmlColor)
         {

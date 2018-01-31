@@ -1,113 +1,76 @@
-﻿@{
-    String appName = "FluxSim";
+﻿@using System;
+@using Helium24.Models;
+
+@{
+    String projectName = "FluxSim";
     Layout = "Layouts/RootLayout.cshtml";
+
+    Tag[] tags = new Tag[] { Tag.Software, Tag.Simulation };
+    ProjectHeader header = new ProjectHeader(projectName, "September 2014", tags);
 }
 
-@section Title {@appName}
+@section Title {@projectName}
 
-@section StyleSheets {
-    <link rel="stylesheet" href="~/Content/ProjectStyles.css">
-}
-
-<!-- We need to load the MathJax CDN before we try to display any latex -->
-<script type="text/javascript"
-  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<div id="body">
-    
-    <h2>@appName</h2>
-
-    <p>
-        <b>@appName</b> was a short thermal simulation program I wrote to perform more testing of the <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a> 
-        matrix math library in combination with the <a href="http://www.sfml-dev.org/">SFML</a> library for visual display. The simulation is performed by solving a large 
-        sparse matrix linking each neighboring cell (pixel in the image) to each other cell and locally equalizing the temperatures -- which, with time, will simulate heat flow. 
-        The physical and math details were derived from one of my older textbooks, 'Nuclear Heat Transport' by M. M. El-Wakil.
-    </p>
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~/Content/Projects/FluxSim/FluxSim1.png" width="650" />
-        </article>
-        <minimalProjectAside>
-            <h4>Initial Distribution</h4>
-            An initial, random thermal distribution after a little bit of simulation time.
+<div class="card">
+    @Html.Partial("Common/CardHeader.cshtml", header)
+    <div class="card-body">
+        <h3 class="text-muted">About</h3>
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            <b>@projectName</b> is thermal simulation program I wrote to test
+            the <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a> matrix math library and
+            the <a href="http://www.sfml-dev.org/">SFML</a> graphics library.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/FluxSim/FluxSim1.png", "Partially-equalized random thermal distribution."))
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            The thermal dynamics are performed by iteratively solving a large spare matrix linking each neighboring cell
+            (image pixel)<br/> to each other cell and locally equalizing the temperatures, simulating heat flow.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/FluxSim/FluxSim2.png", "Substantially-equalized thermal distribution."))
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            The physics and mathematical infrastructure for this program were derived from 
+            <a href="https://books.google.com/books/about/Nuclear_heat_transport.html?id=97UjAAAAMAAJ">Nuclear Heat Transport</a>
+            by <span class="text-muted">M. M. El-Wakil</span>
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        
+        <h3 class="text-muted">Capabilities</h3>
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            This application accurately simulates the thermal transport over time within a piece of aluminum, <br /> although other 
+            materials can be added with material files which specify the material heat capacity at different temperatures.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/FluxSim/FluxSim3.png", "Heat flow from a cold aluminum rectangle to hot walls."))
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            Because this application simply simulates a massive 2D grid as a matrix, it was easy to add support for insulated points and fixed-temperature points.
             <br />
-            <br />
-            I used a display concept from one of my previous SFML games, in that there's a main display window and secondary console for longer error or informational messages.
-            The console can be barely seen in the upper-left of this screenshot.
-        </minimalProjectAside>
-    </div>
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~/Content/Projects/FluxSim/FluxSim2.png" width="650" />
-        </article>
-        <minimalProjectAside>
-            <h4>Final Distribution</h4>
-            At this point in time, the entire area has mostly equalized to the temperature of the wall -- the inner section still is 'colder', 
-            but will asymptotically approach the wall temperature over time.
-        </minimalProjectAside>
-    </div>
-    <h3>Physical Details</h3>
-    <p>
-        This application accurately simulates the thermal transport over time within a piece of aluminum, although other materials can be added by creating the
-        material definition file defining the heat capacity of the material at different temperatures. Of course, any changes will also require code changes, as I
-        wrote this mostly for personal enrichment.
+            Simluating additional geometry, while certainly possible, has not been experimented with.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/FluxSim/FluxSim4.png", "Fixed-temperature points, evenly distributed throughout the simulation grid."))
+
+        <h3 class="text-muted">Software</h3>
+        @Html.Partial("Common/ParagraphStart.cshtml")
+        This program is written in platform-independent C++ code, but you'll have to source the libraries yourself and I have not tested Unix/OS X compilation.
         <br />
-        <b>@appName</b> supports insulated points, fixed-temperature points, and can simulate with various different geometries upon the grid.
-    </p>
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~~/Content/Projects/FluxSim/FluxSim4.png" width="650" />
-        </article>
-        <minimalProjectAside>
-            <h4>Fixed-Temperature Points</h4>
-            Each of the red pixels are fixed at the same temperature as the outer wall, which causes the inner area to equalize much faster.
-        </minimalProjectAside>
-    </div>
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~/Content/Projects/FluxSim/FluxSim5.png" width="650" />
-        </article>
-        <minimalProjectAside>
-            <h4>Insulated Points</h4>
-            The insulated points change color based upon the average temperature by all surrounding points. In this image, the points are most clearly visible
-            around the edges, where there's the largest thermal gradient.
-        </minimalProjectAside>
-    </div>
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~/Content/Projects/FluxSim/FluxSim3.png" width="650" />
-        </article>
-        <minimalProjectAside>
-            <h4>Thermal Gradient</h4>
-            In this screenshot, the central rectangle is very cold, which causes the rainbow (thermal gradient) that eventually stabilizes, in contrast to the constant-temperature case.
-        </minimalProjectAside>
-    </div>
-    <h3>Program Download</h3>
-    <p>
-        This program is written in platform-independent C++ code, but you'll have to source the libraries yourself and I make no guarantees about unix/mac compilation.
+        The Windows executable can be downloaded <a href="~/Blobs/Projects/FluxSim/FluxSim_WinExecutable.zip">here</a> -- you'll also need the
+        Visual Studio 2012 (32-bit) <a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679">C++ redistributable</a>.
         <br />
-        The Windows executable can be downloaded <a href="~/Content/Projects/FluxSim/FluxSim_WinExecutable.zip">here</a> -- you'll also need the
-        <a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679">VS 2012 (x32) redistributable</a>.
-        <br />
-        The source code and assets can be downloaded <a href="~/Content/Projects/FluxSim/FluxSim_WinExecutable.zip">here</a>
-    </p>
-    <h3>Final Notes</h3>
-    <p>
-        You can view two HTML5 videos of the interactive process, or just download the files with 
-        <a href="~/Content/Projects/FluxSim/boxGen.mp4">this link</a> and <a href="~/Content/Projects/FluxSim/various.mp4">this other</a> link.
-        <br />
-        Overall, both videos run through various scenarios that are built-in to the code at different time rates.
-    </p>
-    <video class="imgScaler" width="400" height="300" controls>
-        <source src="~/Content/Projects/FluxSim/boxGen.mp4" type="video/mp4">
-        Your browser does not support the video tag, which means it also has security holes or is hopelessly old.
-    </video>
-    <video class="imgScaler" width="400" height="300" controls>
-        <source src="~/Content/Projects/FluxSim/various.mp4" type="video/mp4">
-        Your browser does not support the video tag, which means it also has security holes or is hopelessly old.
-    </video>
+        The source code and assets can be downloaded <a href="~/Blobs/Projects/FluxSim/FluxSim_SourcesAssets.zip">here</a>
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        
+        <div class="row justify-content-md-center">
+            <div class="col-auto">
+                <div class="card">
+                    <video class="card-img-top img-fluid rounded" controls alt="Video in card">
+                        <source src="~/Blobs/Projects/FluxSim/demo.mp4" type="video/mp4">
+                            Your browser does not support the video tag. Sorry.
+                    </video>
+                    <div class="card-footer">
+                        FluxSim in action, simulating heat flow.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-@section Scripts{
-}
