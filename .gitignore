@@ -7,6 +7,9 @@ LogoFiles/
 # Ignore the folder we use for creating drops to send to Helium24.net
 drop/
 
+# Ignore our binary blob folder (images, PDFS, etc)
+Blobs/
+
 # User-specific files
 *.suo
 *.user

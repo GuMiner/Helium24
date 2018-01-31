@@ -52,14 +52,13 @@ namespace Helium24
 
         protected override void ConfigureConventions(NancyConventions nancyConventions)
         {
-            // To allow lets-encrypt to renew the certs, call:
-            // cd /etc/letsencrypt/certbot
-            // service nginx stop
-            // service apache2 stop
-            // supervisorctl stop helium24
-            // ./certbot-auto certonly -d mail.helium24.net -d helium24.net
-            // You may need to toggle the website on/off to reduce ram usage.
+            // Needed for lets-encrypt auto-renewal
             this.Conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory(".well-known", null));
+
+            // Needed to store blobs we store on the server but not in GitHub (space considerations)
+            this.Conventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("Blobs", null));
+
+            // Still allow stuff in the /Content folder and general NancyFx locations.
             base.ConfigureConventions(nancyConventions);
         }
 

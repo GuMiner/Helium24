@@ -1,40 +1,65 @@
 ﻿@{
-    String appName = "Chess Board";
+    String appName = "Laser-Engraved Chess Board";
     Layout = "Layouts/RootLayout.cshtml";
 }
 
 @section Title {@appName}
 
-@section StyleSheets {
-    <link rel="stylesheet" href="~/Content/ImageStyles.css">
-}
-
-<div id="body">
-    
-    <h2>@appName</h2>
-
-    <p>
-        I realized I left my chess board back with my parents, so the <b>@appName</b> project was started to replace that, and to test engraving on the 
-        Microsoft Garage <a href="http://www.ulsinc.com/products/">Universal</a> laser.
-        <br />
-        This was also my first non-group project using that laser, in comparison to the <a href="https://www.epiloglaser.com/products/legend-laser-series.htm">Epilog Helix</a>
-        laser there that I have used several times.
-    </p>
-    <h3>Design & Execution</h3>
-    <p>
-        It's a 12" by 12" chess board with a little margin and my name engraved on it -- created within 10 minutes using <a href="http://en.wikipedia.org/wiki/Microsoft_Visio">Visio</a>.
-        <br />
-        This was a trivial project -- it just took 30 minutes to engrave at the speed I had set.
-    </p>
-    <h3>Results</h3>
-    <p>
-        I didn't set the laser power high enough, so instead of clear squares, I ended up with marbled squares -- an awesome improvement!
-        <br />
-        Also, with the 3"-scale chess pieces from <a href="http://www.unclesgames.com/">Uncle's Games</a>, the chess set looks nice and is completely usable.
-    </p>
-    <img class="img1400px" src="~/Content/Projects/ChessBoard/DSC00839.jpg" />
-    <img class="img1400px" src="~/Content/Projects/ChessBoard/DSC00841.jpg" />
+<div class="card">
+    <div class="card-header">
+        <div class="row justify-content-between">
+            <div class="col-auto">
+                Laser Engraved Chess Board
+            </div>
+            <div class="col-auto">
+                <span class="text-muted">April 2015</span>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="row justify-content-md-center">
+            <div class="col-auto text-left">
+                When you have access to an <a href="https://www.epiloglaser.com/products/legend-laser-series.htm">Epilog Helix</a>
+                and a <a href="http://www.ulsinc.com/products/">Universal</a> laser -- and need a chess set -- you improvise.
+                <br />
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-auto">
+                <div class="card">
+                    <img class="card-img-top img-fluid rounded" alt="Image in card" src="~/Blobs/Projects/ChessBoard/board.jpg" />
+                    <div class="card-footer">
+                        Laser-engraved chess board with marbled squares
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-auto text-left">
+                This chess board was created within 10 minutes using <a href="http://en.wikipedia.org/wiki/Microsoft_Visio">Visio</a>,
+                and engraved in 30 minutes on the Universal laser.
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-auto text-left">
+                Normally the translucent (engraved) squares would be completely opaque, but by (accidentally) reducing the laser power
+                I instead engraved marbled squares.
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-auto text-left">
+                With 3"-scale chess pieces from the <a href="http://www.unclesgames.com/">local game store</a>, the chess set was made complete.
+            </div>
+        </div>
+        <div class="row justify-content-md-center">
+            <div class="col-auto">
+                <div class="card">
+                    <img class="card-img-top img-fluid rounded" alt="Image in card" src="~/Blobs/Projects/ChessBoard/boardWithPieces.jpg" />
+                    <div class="card-footer">
+                        Laser-engraved chess board with pieces
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-@section Scripts{
-}
