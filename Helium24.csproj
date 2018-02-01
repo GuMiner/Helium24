@@ -238,6 +238,7 @@
     <Content Include="Views\Projects\Cases\PiCase.cshtml" />
     <Content Include="Views\Projects\Cases\GalileoCase.cshtml" />
     <Content Include="Views\Projects\Cases\UtilityCases.cshtml" />
+    <Content Include="Views\Projects\QuantumComputing.cshtml" />
     <None Include="Views\Secure\Register.cshtml" />
     <None Include="Views\Secure\Login.cshtml" />
     <None Include="Views\Secure.cshtml" />

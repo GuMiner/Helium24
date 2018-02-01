@@ -12,15 +12,15 @@ namespace Helium24.Modules
         {
             AddStaticRoute("FluxSim");
             AddStaticRoute("GeigerCounter");
-
             AddStaticRoute("Simulator");
             AddStaticRoute("CodeGell");
-            
-            AddStaticRoute("ElectronicsAndPcb");
             AddStaticRoute("CncMillSoftware");
+            AddStaticRoute("ChessBoard");
+            AddStaticRoute("QuantumComputing");
+
+            AddStaticRoute("ElectronicsAndPcb");
             AddStaticRoute("Experiments");
             AddStaticRoute("PrintingIntro");
-            AddStaticRoute("ChessBoard");
             AddStaticRoute("Models");
             AddStaticRoute("NotableScreenshots");
         }

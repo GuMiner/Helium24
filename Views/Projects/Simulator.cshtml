@@ -1,64 +1,37 @@
-﻿@{
-    String appName = "Simulator";
+﻿@using System;
+@using Helium24.Models;
+
+@{
+    String projectName = "Simulator";
     Layout = "Layouts/RootLayout.cshtml";
+
+    Tag[] tags = new Tag[] { Tag.Software, Tag.Simulation };
+    ProjectHeader header = new ProjectHeader(projectName, "April 2015", tags);
 }
 
-@section Title {@appName}
+@section Title {@projectName}
 
-@section StyleSheets {
-    <link rel="stylesheet" href="~/Content/ProjectStyles.css">
-}
-
-<!-- We need to load the MathJax CDN before we try to display any latex -->
-<script type="text/javascript"
-  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<div class="card">
+    @Html.Partial("Common/CardHeader.cshtml", header)
+    <div class="card-body">
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            The terribly-named <b>@projectName</b> project was started to investigate a number of technologies.
+            Primarily, I wanted to determine the difference between modern OpenGL and modern DirectX, so I wrote this application as a C++ DirectX Windows Modern Application.
+            Secondarily, I had previously programmed an electromagnetic simulator that did not take into account the speed of light, 
+            so I wanted to attempt creating a more realistic small-scale electromagnetic simulation.
+            Finally, I was interested in seeing how creating a full-screen Windows Modern Application would be different than a desktop OpenGL / DirectX application.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+    </div>
+</div>
 
 <!-- TODO: Make all the styles more muted, add hover-over for links -->
 <div id="body">
     
-    <h2>@appName</h2>
-    <h3>Synopsis (or) Why more Quantum Computing Documentation</h3>
-    <p>
-        Quantum computing is a well-hyped technology
-        It is easier to understand than it is presented as, but less useful than it sounds.
-        This document goes over quantum computing from the software engineer's perspective.
-        There is quite a lot of existing documentation about quantum computing in the world already.
-        The problem with existing documentation targetted towards the general scientific community is it:
-        <ul>
-            <li>Skips key fundamental <a href="https://en.wikipedia.org/wiki/Quantum_computing">details</a></li>
-            <li>Only provides a <a href="www.explainthatstuff.com/quantum-computing.html"> high level view</a> or <a href="http://michaelnielsen.org/blog/quantum-computing-for-everyone/">avoids the question</a></li>
-            <li>Doesn't actually <a href="https://www.ibm.com/developerworks/library/l-quant/index.html">underlying mathematics</a></li>
-            <li>Goes overboard with the <a href="https://docs.microsoft.com/en-us/quantum/quantum-concepts-2-vectorsmatrices?view=qsharp-preview">underlying mathematics</a></li>
-            <li>Too much <a href="https://arxiv.org/pdf/quant-ph/9809016.pdf">unnecessary detail</a>,  <a href="https://benjamingood.files.wordpress.com/2010/01/quantum_computing.pdf">terminology or physics</a></li>
-        </ul>
-    </p>
-    <h3>
-        Executive Summary (or) What can Quantum Computer Do
-    </h3>
-    <p>
-        It has been said that qc can "cure cancer and address global warming""
-        Quantum computers drastically speed up certain computations. We can break these into two categories:
-        <ol>
-            <li>Simulating Quantum Processes</li>
-            <li>Speeding up Classical Computations</li>
-        </ol>
-        #1 is arguably where the most benefit of quantum computing will be seen.
-        However, implemeting these processes is highly domain-specific and will require a scale that we won't have in the near term.
-        The ordinary software engineer will be exposed to these processes as new or improved APIs.
-        See <a href="https://docs.microsoft.com/en-us/azure/#pivot=products&panel=cognitive">Azure Cognitive Services</a> for API examples
-        In the very long term, qnautm computers <i>may</i> be the equivalent of an on-board FPGA or daughter board (such as a GPU) to augment existing CPUs.
-
-        #2 is where we will get some short-term benefit of quantum computing, although it requires a scale we don't currently have. 
-        Effectively, using quantum computing is the equivalent to writing in assembly to perform a specific optimized speed up.
-        Quantum computing is not a solve-everything technology (no P=NP or other absurd conclusions), but it does speed up certain situations.
-        These will probably also be exposed as APIs, both to run well-known algorithms and to write small custom ones for situation-specific scenarios.
-
-        This document focuses on #2.
+    
     </p>
     <h3>Mathematics</h3>
     <p>
-        The mathematics for <b>@appName</b> were driven from the design requirements that I would not be simulating quantum mechanical effects, and that I'd only
+        The mathematics for <b>@projectName</b> were driven from the design requirements that I would not be simulating quantum mechanical effects, and that I'd only
         be dealing with point particles. With my previous simulator, I'd used <i>Lorentz's Force Law</i>, in combination with <i>Newton's Second Law</i> for 
         particle motion, and (approximations) of the electric and magnetic fields based upon the particle positions and velocities.
     </p>
@@ -132,7 +105,7 @@
             <img class="imgScaler" src="~/Content/Projects/Simulator.png" width="650" />
         </article>
         <minimalProjectAside>
-            <b>@appName</b>: This screenshot shows several technical aspects of the 
+            <b>@projectName</b>: This screenshot shows several technical aspects of the 
             simulation: 
             <ul>
                 <li>Geometry-shader generated arrows</li>
