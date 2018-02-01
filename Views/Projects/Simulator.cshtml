@@ -25,110 +25,75 @@
             so I wanted to attempt creating a more realistic small-scale electromagnetic simulation.
             Finally, I was interested in seeing how creating a full-screen Windows Modern Application would be different than a desktop OpenGL / DirectX application.
         @Html.Partial("Common/ParagraphEnd.cshtml")
-    </div>
-</div>
-
-<!-- TODO: Make all the styles more muted, add hover-over for links -->
-<div id="body">
-    
-    
-    </p>
-    <h3>Mathematics</h3>
-    <p>
-        The mathematics for <b>@projectName</b> were driven from the design requirements that I would not be simulating quantum mechanical effects, and that I'd only
-        be dealing with point particles. With my previous simulator, I'd used <i>Lorentz's Force Law</i>, in combination with <i>Newton's Second Law</i> for 
-        particle motion, and (approximations) of the electric and magnetic fields based upon the particle positions and velocities.
-    </p>
-    <div class="content-wrapper">
-        <article class="equationSubBox">
-            $$\vec{F}=q(\vec{E} + \vec{v}\times\vec{B})$$
-        </article>
-        <aside class="subbox">
-            <b>Lorentz's Force Law</b>, for a point charge in an electric and magnetic field.
-        </aside>
-    </div>
-    <br />
-    <div class="content-wrapper">
-        <article class="equationSubBox">
-            $$\vec{F}=m\vec{a}$$
-        </article>
-        <aside class="subbox">
-            <b>Newton's Second Law</b>. The law is <i>simple</i>, but you have to be careful to use a reasonably-accurate integration method (or tiny timesteps).
-        </aside>
-    </div>
-    <div class="content-wrapper">
-        <article class="equationSubBox">
-            $$\vec{E(r)}=\frac{1}{4\pi\epsilon_0}\sum\limits_{i}\frac{q_i}{R^2}\hat{R}$$
-        </article>
-        <aside class="subbox">
-            <b>Electric Field</b> at a point \(r\) given \(\vec{R}\) the vector from the point charge to your point \(r\), summed over all particles.
-        </aside>
-    </div>
-    <div class="content-wrapper">
-        <article class="equationSubBox">
-            $$\vec{B(r)}=\frac{\mu_0}{4\pi}\sum\limits_{i}\frac{q_i\vec{v_i}\times\hat{R_i}}{R_i^2}$$
-        </article>
-        <aside class="subbox">
-            <b>Magnetic Field</b> at a point \(r\) given \(\vec{R_i}\) the vector from the point charges to your point \(r\), summed over all particles.
-        </aside>
-    </div>
-    <p>
-        However, the electric and magnetic field approximations above don't take into account the time for a perturbation (such as particle motion) to be visible to
-        other particles, given the speed of light and the travel time for the electromagnetic wave. These equations are only correct for non-relativistic particles -- or 
-        when we're not interested in realtivistic effects (such as radio waves).
-    </p>
-    <p>
-        For this simulation, I used the moving point charge fields calculation from my E&M course, and stored the history of each particle's motion so that time effects could be properly considered.
-    </p>
-    <div class="content-wrapper">
-        <article class="equationSubBox">
-            $$\vec{E(r,t)}=\frac{1}{4\pi\epsilon_0}\sum\limits_{i}\frac{q_iR_i}{(\vec{R_i}\cdot\vec{u_i})^3}((c^2-v_i^2)\vec{u_i}+\vec{R_i}\times(\vec{u_i}\times\vec{a_i}))$$
-        </article>
-        <aside class="subbox">
-            <b>Electric Field</b> at a point \(r\) given \(\vec{R_i}\) the vector from the point charges to your point \(r\) <i>accounting for when the particle was given the light delay</i>, summed over all particles.
-        </aside>
-    </div>
-    <div class="content-wrapper">
-        <article class="equationSubBox">
-            $$\vec{B(r,t)}=\frac{1}{c}\hat{R}\times\vec{E(r,t)})$$
-        </article>
-        <aside class="subbox">
-            <b>Magnetic Field</b> at a point \(r\) given \(\vec{R_i}\) the vector from the point charges to your point \(r\), summed over all particles. Note that in both cases, \(\vec{u}=c\hat{R}-\vec{v}\)
-        </aside>
-    </div>
-    <p>
-        Also, for the physicists out there I didn't add the <i>Abraham-Lorentz</i> force to each particle, because -- as expected -- the particle spontaneously accelerates when done so.
-    </p>
-    <h3>Software</h3>
-    <p>
-
-    </p>
-    <br />
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~/Content/Projects/Simulator.png" width="650" />
-        </article>
-        <minimalProjectAside>
-            <b>@projectName</b>: This screenshot shows several technical aspects of the 
-            simulation: 
+        <h3 class="text-muted">Mathematics</h3>
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            To test all of these technologies, I decided to not simulate quantum mechanics and only simulate point particles.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            With my previous simulator, I had used <i>Lorentz's Force Law</i> in combination with <i>Newton's Second Law</i> to simulate particle motion, and roughly approximate the electric
+            and magnetic fields from the particle positions and velocities.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/EquationCard.cshtml",
+            new Equation(@"\vec{F}=q(\vec{E} + \vec{v}\times\vec{B})", 
+                "1. Lorentz's Force Law for a point charge <br /> in an electric and a magnetic field."))
+        <br />
+        @Html.Partial("Common/EquationCard.cshtml",
+            new Equation(@"\vec{F}=m\vec{a}", "2. Newton's Second Law"))
+        <br />
+        @Html.Partial("Common/EquationCard.cshtml",
+            new Equation(@"\vec{E(r)}=\frac{1}{4\pi\epsilon_0}\sum\limits_{i}\frac{q_i}{R^2}\hat{R}",
+                @"3. The steady-state electric field at \(r\) given \(\vec{R}\) <br />(the vector from a point charge to your point \(r\)) <br /> summed over all particles."))
+        <br />
+        @Html.Partial("Common/EquationCard.cshtml",
+            new Equation(@"\vec{B(r)}=\frac{\mu_0}{4\pi}\sum\limits_{i}\frac{q_i\vec{v_i}\times\hat{R_i}}{R_i^2}",
+                @"4. The steady-state magnetic field at \(r\) given \(\vec{R}\), summed over all particles."))
+        <br />
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            However, these approximates above don't account for the time that it takes for changes in a particle's position to be visible to other particles, because
+            information only travels at the speed of light. These approximate equations above are only correct for non-relativistic, steady-state situations.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            For this simulation, I used a (less approximate) equation from my E&M course 
+            and stored the history of each particle's motion so that time effects could be properly considered. By setting \(\vec{u}=c\hat{R}-\vec{v}\), the following equations were used:
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/EquationCard.cshtml",
+            new Equation(@"\vec{E(r,t)}=\frac{1}{4\pi\epsilon_0}\sum\limits_{i}\frac{q_iR_i}{(\vec{R_i}\cdot\vec{u_i})^3}((c^2-v_i^2)\vec{u_i}+\vec{R_i}\times(\vec{u_i}\times\vec{a_i}))",
+                @"5. The same as #3, but where the vector \(\vec{R}\) <br /><i>accounts for when the particle was given the light speed delay</i>"))
+        <br />
+        @Html.Partial("Common/EquationCard.cshtml",
+            new Equation(@"\vec{B(r,t)}=\frac{1}{c}\hat{R}\times\vec{E(r,t)})",
+                @"6. The magnetic field, calculated using the electric field from #5."))
+        @Html.Partial("Common/ParagraphStart.cshtml")
+        <span class="text-muted">
+            For the physicists out there I didn't add the <i>Abraham-Lorentz</i> force to these equations because -- as expected -- the particles spontaneously accelerates when done so.
+        </span>
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        <h3 class="text-muted">Results</h3>
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Simulator/Simulator.png", "All-in-one screenshot of two orbiting charged particles."))
+        <br />
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            In terms of the software, this screenshot shows:
             <ul>
                 <li>Geometry-shader generated arrows</li>
-                <li>Combining Direct2D and Direct3D to draw info text.</li>
-                <li>Interactivity (keyboard, not shown)</li>
-                <li>Fullscreen Windows Modern Apps</li>
+                <li>The usage of both Direct2D and Direct3D to draw info text.</li>
+                <li>A fullscreen Windows Modern App</li>
             </ul>
-        </minimalProjectAside>
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ParagraphStart.cshtml")
+        In terms of the simulation, this screenshot also shows the electromagnetic waves being propagated over time, as expected.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ParagraphStart.cshtml")
+        Surprisingly, I found programming in modern DirectX to be extremely similar to programming in modern OpenGL. In both cases, you load shaders, setup the data format for the shaders,
+        load a vertex buffer with triangles, and batch render through the shaders. Even the shading languages (HLSL/GLSL) are very much C-like, with minor differences.
+        Overall, if you know how to do vertex-array-based OpenGL or DirectX programming, you'll be able to transition into using the other language very, very quickly.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
     </div>
-    <p>
-        This screenshot also shows the electromagnetic waves from two counter-rotating charged particles. Note that this
-        does <i>not</i> show subatomic particles counter-rotating -- such as an electron and a positron<a href="http://en.wikipedia.org/wiki/Electron%E2%80%93positron_annihilation"><sup>+</sup></a> -- because at that
-        scale, quantum mechanical effects appear.
-    </p>
-    <p>
-        Surprisingly, I found programming in modern DirectX to be extreemely similar to programming in modern OpenGL. In both cases, you load up the shaders, setup the data format for the shaders, 
-        load the vertex buffer with the triangles, and render the result in batch. Even the shading languages (HLSL/GLSL) are very much C-like, with minor differences. Overall, I believe that if you
-        know how to do vertex-array-based OpenGL or DirectX programming, you'll be able to transition into using the other language very, very quickly.
-    </p>
 </div>
 
 @section Scripts{

@@ -1,0 +1,15 @@
+﻿@using Helium24.Models
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Equation>
+@model Helium24.Models.Equation
+
+<div class="row justify-content-md-center">
+    <div class="col-auto">
+        <div class="card rounded">
+            <div class="card-body p-0">@Model.EquationText</div>
+            <div class="card-footer">
+                @Html.Raw(@Model.Title)
+            </div>
+        </div>
+    </div>
+</div>

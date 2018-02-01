@@ -160,6 +160,7 @@
     <Compile Include="Definitions\Stock\ActivePositions.cs" />
     <Compile Include="Definitions\Stock\StockSettings.cs" />
     <Compile Include="Definitions\Note.cs" />
+    <Compile Include="Models\Projects\Equation.cs" />
     <Compile Include="Models\Projects\ProjectHeader.cs" />
     <Compile Include="Models\Projects\Image.cs" />
     <Compile Include="Models\Projects\Tag.cs" />
@@ -238,6 +239,7 @@
     <Content Include="Views\Projects\Cases\GalileoCase.cshtml" />
     <Content Include="Views\Projects\Cases\UtilityCases.cshtml" />
     <Content Include="Views\Projects\QuantumComputing.cshtml" />
+    <Content Include="Views\Projects\Common\EquationCard.cshtml" />
     <None Include="Views\Secure\Register.cshtml" />
     <None Include="Views\Secure\Login.cshtml" />
     <None Include="Views\Secure.cshtml" />
