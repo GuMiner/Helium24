@@ -1,97 +1,56 @@
-﻿@{
-    String appName = "CodeGell";
+﻿@using System;
+@using Helium24.Models;
+
+@{
+    String projectName = "CodeGell";
     Layout = "Layouts/RootLayout.cshtml";
+
+    Tag[] tags = new Tag[] { Tag.Software, Tag.Games };
+    ProjectHeader header = new ProjectHeader(projectName, "June 2014", tags);
 }
 
-@section Title {@appName}
+@section Title {@projectName}
 
-@section StyleSheets {
-    <link rel="stylesheet" href="~/Content/ProjectStyles.css">
-}
-
-<!-- We need to load the MathJax CDN before we try to display any latex -->
-<script type="text/javascript"
-  src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
-
-<div id="body">
-    
-    <h2>@appName</h2>
-
-    <p>
-        The <b>@appName</b> project was started to see if real-time CSG generation with volumetric texture map creation would be feasible to use
-        within a computer game. Overall, while I received acceptable performance results rendering one object, the resulting application would
-        not be scalable for use within a production computer game.
-    </p>
-    <h3>Software Design</h3>
-    <p>
-        <b>@appName</b> uses a <a href="https://github.com/GuMiner/Surface-Netgen-Fork">modified version</a> of the 
-        <a href="http://sourceforge.net/projects/netgen-mesher/">Netgen library</a>, which has been stripped-down 
-        to only generate triangles, surface meshes, and overall improve performance and usability for realtime operations.
-        More information on the <a href="https://github.com/GuMiner/Surface-Netgen-Fork">modified version</a> can be found on its 
-        <a href="https://github.com/GuMiner/Surface-Netgen-Fork">Github page.</a>
-    </p>
-    <p>
-        Overall, when <b>@appName</b> is given a description of an object, it will send it through my Netgen variant to determine the 
-        triangles forming the object's mesh, put the triangles on a texture image, and fill the texture using an appropriate volumetric
-        voxel texture. With this process, <b>@appName</b> renders in real-time object <i>cuts</i> and <i>holes</i> instead of the <i>object itself</i> in
-        a traditional computer game rendering engine.
-    </p>
-    <p>
-        <b>@appName</b> uses modern OpenGL 4.0 rendering, along with <a href="http://glew.sourceforge.net/">GLEW</a> (modified BSD & MIT license), 
-        <a href="https://github.com/GuMiner/Surface-Netgen-Fork">Surface-Netgen-Fork</a> (LGPL v2 license), and <a href="http://www.glfw.org/index.html">GLFW3</a> (zlib/png license).
-    </p>
-    <p>
-        For the application itself and usage instructions, please see the project <a href="https://github.com/GuMiner/Volumetric-CSG-Texture-Mapping">GitHub page.</a>
-    </p>
-    <h3>Examples</h3>
-    <p>
-        For all of these examples, the object description provided was 'cube with two cylinders cut out'. 
-    </p>
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~/Content/Projects/CodeGell/Triangle ID texture shaded.png" width="650" />
-        </article>
-        <minimalProjectAside>
-            <h4>The Triangles</h4>
-            This image snippet was initially created to validate that the texture mapping was correctly working. In this 
-            image, each triangle formed from the meshing process is texture mapped with an image of a triangle, so that all
-            the triangle boundaries are clearly visible.
-        </minimalProjectAside>
-    </div>
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~/Content/Projects/CodeGell/Watermelon volumetric texture shaded.png" width="650" />
-        </article>
-        <minimalProjectAside>
-            <h4>The Watermelon</h4>
-            This image  displays a volumetrically-defined watermelon texture, with black seeds being
-            partially cutout by the cylinders that are cutting into the watermelon.
-            <br />
-            Note that I left in thin traces, so that you can still see the triangle boundaries at certain
-            points on the watermelon skin.
-        </minimalProjectAside>
-    </div>
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~/Content/Projects/CodeGell/checkerboard volumetric texture shaded.png" width="650" />
-        </article>
-        <minimalProjectAside>
-            <h4>The Checkerboard</h4>
-            This image displays a volumetrically-defined checkerboard texture. Note that the
-            checkerboard pattern is clearly replicated throughout the cylindrical cutouts.
-        </minimalProjectAside>
-    </div>
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~/Content/Projects/CodeGell/High-Res fragment shaded.png" width="650" />
-        </article>
-        <minimalProjectAside>
-            <h4>The Shaded Cubes</h4>
-            This final image was not rendered through texture-mapping, but was instead rendered
-            through a volumetric fragment shader. Although this method provides for the cleanest
-            resulting image, it is also the slowest and least practical to use within a real-time
-            computer game.
-        </minimalProjectAside>
+<div class="card">
+    @Html.Partial("Common/CardHeader.cshtml", header)
+    <div class="card-body">
+        <h3 class="text-muted">About</h3>
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            <b>@projectName</b> project tests if real-time CSG generation with volumetric texture map creation is feasible for use
+            within a computer game. Overall, while performance was acceptable rendering one object,
+            the resulting application would not be scalable for use within a production computer game.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/CodeGell/checkerboard volumetric texture shaded.png", "A volumetrically-rendered checkerboard"))
+        <br />
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            <b>@projectName</b> uses a <a href="https://github.com/GuMiner/Surface-Netgen-Fork">modified version</a> of the
+            <a href="http://sourceforge.net/projects/netgen-mesher/">Netgen library</a>, which I had stripped-down
+            to only generate triangles, surface meshes, and overall improve performance and usability for realtime operations.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            When <b>@projectName</b> is given a description of an object, it will send it through my Netgen variant to determine the
+            triangles forming the object's mesh, put the triangles on a texture image, and fill the texture using an appropriate volumetric
+            voxel texture. With this process, <b>@projectName</b> renders in real-time object <i>cuts</i> and <i>holes</i> instead of the <i>object itself</i> in
+            a traditional computer game rendering engine.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/CodeGell/Triangle ID texture shaded.png", "CSG from Netgen, without volumetric textures."))
+        <h3 class="text-muted">Software</h3>
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            <b>@projectName</b> uses modern OpenGL 4.0 rendering, along with <a href="http://glew.sourceforge.net/">GLEW</a>,
+            <a href="https://github.com/GuMiner/Surface-Netgen-Fork">Surface-Netgen-Fork</a>, and <a href="http://www.glfw.org/index.html">GLFW3</a>.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            For more information, see the source code on <a href="https://github.com/GuMiner/Volumetric-CSG-Texture-Mapping">GitHub</a>.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/CodeGell/Watermelon volumetric texture shaded.png", "\"Watermellon\" volumetric texture shaded object."))
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/CodeGell/High-Res fragment shaded.png", "Volumetric fragment-shared object."))
     </div>
 </div>
