@@ -229,7 +229,6 @@
     <Content Include="Views\Documentation.cshtml" />
     <Content Include="Views\Projects\Experiments.cshtml" />
     <Content Include="Views\Maps.cshtml" />
-    <Content Include="Views\Quantum.cshtml" />
     <Content Include="Views\Projects\Common\CardHeader.cshtml" />
     <Content Include="Views\Projects\Common\ParagraphStart.cshtml" />
     <Content Include="Views\Projects\Common\ParagraphEnd.cshtml" />

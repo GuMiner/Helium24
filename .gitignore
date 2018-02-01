@@ -1,6 +1,5 @@
 # Ignore folders and files that may have sensitive data for now
 App.config
-Content/
 Deployment/
 LogoFiles/
 
