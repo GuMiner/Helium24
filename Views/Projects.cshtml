@@ -1,6 +1,18 @@
-﻿@{
+﻿@using System;
+@using Helium24.Models;
+@using System.Collections.Generic;
+
+@{
     Layout = "Layouts/RootLayout.cshtml";
     string pageName = "Projects";
+    
+    // TOOD: Need a new wrapper data type to store the thumbnail for the project.
+    ProjectHeader[] projects = new ProjectHeader[]
+    { 
+        // TODO: Put all projects here.
+        new ProjectHeader("3D Printed Cases -- Intel Galileo Gen 2", "September 2014", new Tag[] { Tag.Hardware, Tag.Printer }),
+        new ProjectHeader("3D Printed Cases -- Arduino Nano", "November 2015", new Tag[] { Tag.Hardware, Tag.Printer })
+    };
 }
 
 @section Title {@pageName}
@@ -9,7 +21,32 @@
     <link rel="stylesheet" href="~/Content/ProjectStyles.css">
 }
 
-<div id="subHeader">
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-auto">
+            @foreach (ProjectHeader project in projects)
+            {
+                <!--<div class="col-auto px-1 py-0">
+                    <button class="btn btn-sm disabled" style="background:attag.HtmlColor">attag.Name</button>
+                </div>-->
+
+                <div class="card">
+                    <img class="card-img-top img-fluid rounded" alt="Image in card" src="Thumbnail Goes Here" />
+                    <div class="card-footer">
+                        @project.Title
+                        <!-- TODO: Deduplicate this logic with the logic in CardHeader.cshtml -->
+                        @foreach (Tag tag in project.Tags)
+                        {
+                            <div class="col-auto px-1 py-0">
+                                <button class="btn btn-sm disabled" style="background:@tag.HtmlColor">@tag.Name</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
     <div class="content-wrapper">
         <div class="float-left">
             <h4 class="submenu">Desktop Software</h4>

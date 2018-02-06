@@ -11,6 +11,10 @@
 
 @section Title {@projectName}
 
+@section StyleSheets {
+    <link href="~/Content/katex-0.9/katex.min.css" rel="stylesheet" />
+}
+
 <div class="card">
     @Html.Partial("Common/CardHeader.cshtml", header)
     <div class="card-body">
@@ -53,7 +57,7 @@
             For the forseeable future (where quantum computers are expensive to use), most data-heavy applications <i>also</i> won't involve quantum computing due to the limited input / output of these devices.
         @Html.Partial("Common/ParagraphEnd.cshtml")
         <br />
-        <h3 class="text-muted">Operation</h3>
+        <h3 class="text-muted">Operation -- In Progress</h3>
         @Html.Partial("Common/ParagraphStart.cshtml")
             Despite all of the above, quantum computing is quite fascinating and a worthwhile technology to investigate.
         @Html.Partial("Common/ParagraphEnd.cshtml")
@@ -67,7 +71,18 @@
             What makes quantum computing interesting is that inside the quantum circuit, each bit is represented as 2-element 
             <a href="https://en.wikipedia.org/wiki/Vector_space">vector</a> of <a href="https://en.wikipedia.org/wiki/Complex_number">complex</a> numbers.
         @Html.Partial("Common/ParagraphEnd.cshtml")
-        $$\vec{B(r)}=\frac{\mu_0}{4\pi}\sum\limits_{i}\frac{q_i\vec{v_i}\times\hat{R_i}}{R_i^2}$$
+        @Html.Partial("Common/ParagraphStart.cshtml")
+        $$\vec{One}=\begin{pmatrix}0\\1\end{pmatrix}$$ $$\vec{Zero}=\begin{pmatrix}1\\0\end{pmatrix}$$
+        The vectors for each quantum bit are combined together in a way such that we can perform large-scale matrix mathematics.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
     </div>
 </div>
-        
+
+@section Scripts{
+    <script type="text/javascript" src="~/Content/katex-0.9/katex.min.js"></script>
+    <script type="text/javascript" src="~/Content/katex-0.9/contrib/auto-render.min.js"></script>
+
+    <script type="text/javascript">
+    renderMathInElement(document.body);
+    </script>
+}

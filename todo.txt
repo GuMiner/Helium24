@@ -1,0 +1,8 @@
+In rough priority order:
+- Create a new favicon and logo.
+- Process all the 'unprocessed' pages.
+- Update the projects page to load dynamically and support sorting, searching, etc, by storing the project metadata server-side, not duplicated in places.
+- Add current projects (milling, numanistics, spinner, hiking, skiing, etc)
+- Update all project thumbnails to be auto-generated or at least better.
+- Finish the QC page
+- Update the Documentation page to be a project and load much, much faster with better SQL queries.
