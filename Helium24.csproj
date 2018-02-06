@@ -161,6 +161,7 @@
     <Compile Include="Definitions\Stock\StockSettings.cs" />
     <Compile Include="Definitions\Note.cs" />
     <Compile Include="Models\Projects\Equation.cs" />
+    <Compile Include="Models\Projects\ProjectThumbnail.cs" />
     <Compile Include="Models\Projects\ProjectHeader.cs" />
     <Compile Include="Models\Projects\Image.cs" />
     <Compile Include="Models\Projects\Tag.cs" />

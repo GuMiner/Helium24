@@ -1,4 +1,5 @@
 In rough priority order:
+- Attributions page.
 - Create a new favicon and logo.
 - Process all the 'unprocessed' pages.
 - Update the projects page to load dynamically and support sorting, searching, etc, by storing the project metadata server-side, not duplicated in places.
