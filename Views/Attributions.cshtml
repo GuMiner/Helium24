@@ -1,0 +1,44 @@
+﻿@using System;
+@using Helium24.Models;
+@using System.Collections.Generic;
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+    string pageName = "Attributions";
+
+    List<Attribution> attributions = new List<Attribution>()
+    {
+        new Attribution("Ace", "1.2.9", "https://ace.c9.io/", "In-browser text editor"),
+        new Attribution("Axios", "0.17.0", "https://github.com/axios/axios", "Javascript REST API library"),
+        new Attribution("Bootstrap", "4.0.0", "https://getbootstrap.com/", "HTML frontend toolkit"),
+        new Attribution("Chartist", "0.11.0", "https://gionkunz.github.io/chartist-js/", "Javascript charting library"),
+        new Attribution("Katex", "0.9.0", "https://khan.github.io/KaTeX/", "Javascript math typesetting"),
+        new Attribution("Newtonsoft.Json", "9.0.1", "https://www.newtonsoft.com/json", "C# JSON serialization / deserialization")
+    };
+}
+
+@section Title {@pageName}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-auto">
+            <h3>Attributions</h3>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-auto">
+            As with any large software project, several existing components were used to build this website:
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-auto py-2">
+            <ul>
+                @foreach (Attribution attrib in attributions)
+            {
+                    <li><a href="@attrib.Uri">@attrib.Name @attrib.Version</a> — @attrib.Usage</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+</div>

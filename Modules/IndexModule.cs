@@ -17,6 +17,7 @@ namespace Helium24.Modules
                 return View["Diagnostics", model];
             };
 
+            Get["/Attributions"] = parameters => View["Attributions"];
             Get["/Maps"] = parameters => View["Maps"];
             Get["/Secure"] = parameters => View["Secure"];
             Get["/Error"] = parameters => View["Error"];

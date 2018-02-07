@@ -161,6 +161,7 @@
     <Compile Include="Definitions\Stock\ActivePositions.cs" />
     <Compile Include="Definitions\Stock\StockSettings.cs" />
     <Compile Include="Definitions\Note.cs" />
+    <Compile Include="Models\Attribution.cs" />
     <Compile Include="Models\Projects\Equation.cs" />
     <Compile Include="Models\Projects\Project.cs" />
     <Compile Include="Models\Projects\Image.cs" />
@@ -242,6 +243,7 @@
     <Content Include="Views\Projects\Common\EquationCard.cshtml" />
     <Content Include="Views\Projects\Common\Base\TagButtons.cshtml" />
     <Content Include="Views\Projects\Common\Base\FormattedDate.cshtml" />
+    <Content Include="Views\Attributions.cshtml" />
     <None Include="Views\Secure\Register.cshtml" />
     <None Include="Views\Secure\Login.cshtml" />
     <None Include="Views\Secure.cshtml" />
