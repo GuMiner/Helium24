@@ -1,18 +1,17 @@
 ﻿@using System;
 @using Helium24.Models;
 
-@{
-    String projectName = "3D Printed Cases -- Arduino Nano";
-    Layout = "Layouts/RootLayout.cshtml";
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
 
-    Tag[] tags = new Tag[] { Tag.Hardware, Tag.Printer };
-    ProjectHeader header = new ProjectHeader(projectName, "November 2015", tags);
+@{
+    Layout = "Layouts/RootLayout.cshtml";
 }
 
-@section Title {@projectName}
+@section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("../Common/CardHeader.cshtml", header)
+    @Html.Partial("../Common/CardHeader.cshtml", Model)
     <div class="card-body">
         @Html.Partial("../Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/Cases/Nano/nano_case.jpg", "Arduino Nano slide-on case"))

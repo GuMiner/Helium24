@@ -1,29 +1,28 @@
 ﻿@using System;
 @using Helium24.Models;
 
-@{
-    String projectName = "3D Printed Cases -- Raspberry Pi Model B+";
-    Layout = "Layouts/RootLayout.cshtml";
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
 
-    Tag[] tags = new Tag[] { Tag.Hardware, Tag.Printer };
-    ProjectHeader header = new ProjectHeader(projectName, "October 2014", tags);
+@{
+    Layout = "Layouts/RootLayout.cshtml";
 }
 
-@section Title {@projectName}
+@section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("../Common/CardHeader.cshtml", header)
+    @Html.Partial("../Common/CardHeader.cshtml", Model)
     <div class="card-body">
         @Html.Partial("../Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/Cases/Pi/rpi_case.jpg", "Raspberry Pi Model B+ Case"))
         @Html.Partial("../Common/ParagraphStart.cshtml")
-            This case stores my raspberry pi, which I use as a local interface between the router and other IoT devices.
+        This case stores my raspberry pi, which I use as a local interface between the router and other IoT devices.
         @Html.Partial("../Common/ParagraphEnd.cshtml")
         <br />
         @Html.Partial("../Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/Cases/Pi/rpi_lid.jpg", "Raspberry Pi Model B+ Lid"))
         @Html.Partial("../Common/ParagraphStart.cshtml")
-            The lid is mostly for aesthetics -- it doesn't tightly attach to the case.
+        The lid is mostly for aesthetics -- it doesn't tightly attach to the case.
         @Html.Partial("../Common/ParagraphEnd.cshtml")
     </div>
 </div>

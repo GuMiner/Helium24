@@ -1,7 +1,7 @@
 ﻿@using Helium24.Models
 
-@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<ProjectHeader>
-@model Helium24.Models.ProjectHeader
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
 
 <div class="card-header">
     <div class="row justify-content-between">
@@ -10,14 +10,9 @@
         </div>
         <div class="col-auto">
             <div class="row">
-                @foreach (Tag tag in Model.Tags)
-                {
-                    <div class="col-auto px-1 py-0">
-                        <button class="btn btn-sm disabled" style="background:@tag.HtmlColor">@tag.Name</button>
-                    </div>
-                }
+                @Html.Partial("/Projects/Common/Base/TagButtons.cshtml", Model.Tags)
                 <div class="col-auto align-self-center">
-                    <span class="text-muted">@Model.Date</span>
+                    <span class="text-muted">@Html.Partial("/Projects/Common/Base/FormattedDate.cshtml", Model.Date)</span>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@ In rough priority order:
 - Attributions page.
 - Create a new favicon and logo.
 - Process all the 'unprocessed' pages.
-- Update the projects page to load dynamically and support sorting, searching, etc, by storing the project metadata server-side, not duplicated in places.
+- Update the projects page to load dynamically and support sorting, searching, etc
 - Add current projects (milling, numanistics, spinner, hiking, skiing, etc)
 - Update all project thumbnails to be auto-generated or at least better.
 - Finish the QC page

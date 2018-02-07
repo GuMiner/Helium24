@@ -5,16 +5,6 @@
     /// </summary>
     public class Tag
     {
-        public static Tag Hardware { get; } = new Tag("Hardware", "orange");
-            public static Tag LaserMill { get; } = new Tag("Laser / Mill", "red");
-            public static Tag Printer { get; } = new Tag("3D Printer", "chartreuse");
-            public static Tag Electronics { get; } = new Tag("Electronics", "olivedrab");
-
-        public static Tag Software { get; } = new Tag("Software", "lightblue");
-            public static Tag Mobile { get; } = new Tag("Mobile", "slateblue");
-            public static Tag Games { get; } = new Tag("Games", "lightgreen");
-            public static Tag Simulation { get; } = new Tag("Simulation", "magenta");
-
         public Tag(string name, string htmlColor)
         {
             this.Name = name;
@@ -24,5 +14,31 @@
         public string Name { get; }
 
         public string HtmlColor { get; }
+
+        public static Tag ConvertFromWellKnownTag(WellKnownTag wellKnownTag)
+        {
+            switch (wellKnownTag)
+            {
+                case WellKnownTag.Hardware:
+                    return new Tag("Hardware", "orange");
+                case WellKnownTag.LaserMill:
+                    return new Tag("Laser / Mill", "red");
+                case WellKnownTag.Printer:
+                    return new Tag("3D Printer", "chartreuse");
+                case WellKnownTag.Electronics:
+                    return new Tag("Electronics", "olivedrab");
+                case WellKnownTag.Software:
+                    return new Tag("Software", "lightblue");
+                case WellKnownTag.Mobile:
+                    return new Tag("Mobile", "slateblue");
+                case WellKnownTag.Games:
+                    return new Tag("Games", "lightgreen");
+                case WellKnownTag.Simulation:
+                    return new Tag("Simulation", "magenta");
+                case WellKnownTag.None:
+                default:
+                    return new Models.Tag("Unknown", "brown");
+        }
     }
+}
 }

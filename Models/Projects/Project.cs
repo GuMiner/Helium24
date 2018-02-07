@@ -5,9 +5,9 @@ namespace Helium24.Models
     /// <summary>
     /// Defines the data necessary to display a thumbnail of a project.
     /// </summary>
-    public class ProjectThumbnail
+    public class Project
     {
-        public ProjectThumbnail(string thumbnailUri, string projectUri, string title, DateTime date, Tag[] tags)
+        public Project(string thumbnailUri, string projectUri, string title, DateTime date, Tag[] tags)
         {
             this.ThumbnailUri = thumbnailUri;
             this.ProjectUri = projectUri;

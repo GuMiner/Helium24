@@ -1,22 +1,21 @@
 ﻿@using System;
 @using Helium24.Models;
 
-@{
-    String projectName = "Specialist's Calculator";
-    Layout = "Layouts/RootLayout.cshtml";
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
 
-    Tag[] tags = new Tag[] { Tag.Software, Tag.Mobile };
-    ProjectHeader header = new ProjectHeader(projectName, "August 2014", tags);
+@{
+    Layout = "Layouts/RootLayout.cshtml";
 }
 
-@section Title {@projectName}
+@section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("../Common/CardHeader.cshtml", header)
+    @Html.Partial("../Common/CardHeader.cshtml", Model)
     <div class="card-body">
         <h3 class="text-muted">About</h3>
         @Html.Partial("../Common/ParagraphStart.cshtml")
-        <b>@projectName</b> was a scientific calculator with unit analysis functionality, designed for users heavily using unit analysis.
+        <b>@Model.Title</b> was a scientific calculator with unit analysis functionality, designed for users heavily using unit analysis.
         @Html.Partial("../Common/ParagraphEnd.cshtml")
         <br />
         @Html.Partial("../Common/ImageCard.cshtml",

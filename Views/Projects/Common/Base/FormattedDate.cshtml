@@ -1,0 +1,7 @@
+﻿@using System;
+@using System.Globalization;
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<DateTime>
+@model System.DateTime
+
+@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(Model.Month) @Model.Year

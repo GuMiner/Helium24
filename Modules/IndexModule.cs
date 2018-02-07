@@ -9,7 +9,7 @@ namespace Helium24.Modules
         public IndexModule()
         {
             Get["/"] = parameters => View["Index"];
-            Get["/Projects"] = parameters => View["Projects"];
+            Get["/Projects"] = parameters => View["Projects", Global.Projects];
             
             Get["/Diagnostics"] = parameters =>
             {

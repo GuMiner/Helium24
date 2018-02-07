@@ -1,37 +1,36 @@
 ﻿@using System;
 @using Helium24.Models;
 
-@{
-    String projectName = "Laser-Engraved Chess Board";
-    Layout = "Layouts/RootLayout.cshtml";
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
 
-    Tag[] tags = new Tag[] { Tag.Hardware, Tag.LaserMill, Tag.Games };
-    ProjectHeader header = new ProjectHeader(projectName, "April 2015", tags);
+@{
+    Layout = "Layouts/RootLayout.cshtml";
 }
 
-@section Title {@projectName}
+@section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("Common/CardHeader.cshtml", header)
+    @Html.Partial("Common/CardHeader.cshtml", Model)
     <div class="card-body">
         @Html.Partial("Common/ParagraphStart.cshtml")
-            When you have access to an <a href="https://www.epiloglaser.com/products/legend-laser-series.htm">Epilog Helix</a>
-            and a <a href="http://www.ulsinc.com/products/">Universal</a> laser -- and need a chess set -- you improvise.
-            <br />
+        When you have access to an <a href="https://www.epiloglaser.com/products/legend-laser-series.htm">Epilog Helix</a>
+        and a <a href="http://www.ulsinc.com/products/">Universal</a> laser -- and need a chess set -- you improvise.
+        <br />
         @Html.Partial("Common/ParagraphEnd.cshtml")
         @Html.Partial("Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/ChessBoard/board.jpg", "Laser-engraved chess board with marbled squares"))
         <br />
         @Html.Partial("Common/ParagraphStart.cshtml")
-            This chess board was created within 10 minutes using <a href="http://en.wikipedia.org/wiki/Microsoft_Visio">Visio</a>,
-            and engraved in 30 minutes on the Universal laser.
+        This chess board was created within 10 minutes using <a href="http://en.wikipedia.org/wiki/Microsoft_Visio">Visio</a>,
+        and engraved in 30 minutes on the Universal laser.
         @Html.Partial("Common/ParagraphEnd.cshtml")
         @Html.Partial("Common/ParagraphStart.cshtml")
-            Normally the translucent (engraved) squares would be completely opaque, but by (accidentally) reducing the 
-            laser power I instead engraved marbled squares.
+        Normally the translucent (engraved) squares would be completely opaque, but by (accidentally) reducing the
+        laser power I instead engraved marbled squares.
         @Html.Partial("Common/ParagraphEnd.cshtml")
         @Html.Partial("Common/ParagraphStart.cshtml")
-            With 3"-scale chess pieces from the <a href="http://www.unclesgames.com/">local game store</a>, the chess set was made complete.
+        With 3"-scale chess pieces from the <a href="http://www.unclesgames.com/">local game store</a>, the chess set was made complete.
         @Html.Partial("Common/ParagraphEnd.cshtml")
         @Html.Partial("Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/ChessBoard/boardWithPieces.jpg", "Laser-engraved chess board with pieces"))

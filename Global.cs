@@ -1,8 +1,14 @@
-﻿using Helium24.Interfaces;
+﻿using Helium24.Definitions;
+using Helium24.Interfaces;
+using Helium24.Models;
 using Helium24.Tasks;
 using Microsoft.Owin.Hosting;
 using Nancy.Json;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
@@ -22,6 +28,9 @@ namespace Helium24
         public static IStockDataStore StockStore { get; private set; }
         public static IDocumentationDataStore DocsStore { get; private set; }
         public static IMapsDataStore MapsStore { get; private set; }
+
+        // TODO: Make this an IoC instead of a static data type
+        public static List<Project> Projects { get; private set; }
 
         /// <summary>
         /// Action to perform when logging.
@@ -51,6 +60,7 @@ namespace Helium24
         public static void Main(string[] args)
         {
             // Setup the data stores
+            // TODO: Use IoC built into our web framework.
             SqlDataStore dataStore = new SqlDataStore();
             Global.CameraStore = dataStore;
             Global.NotesStore = dataStore;
@@ -59,6 +69,10 @@ namespace Helium24
             Global.StockStore = dataStore;
             Global.DocsStore = dataStore;
             Global.MapsStore = dataStore;
+
+            List<SerializedProject> serializedProjects =
+                JsonConvert.DeserializeObject<List<SerializedProject>>(File.ReadAllText("./Content/Projects.json"));
+            Global.Projects = serializedProjects.Select(item => (Project)item).ToList();
             
             // Turn off certificate validation, because it doesn't work with self-signed stuffs.
             ServicePointManager.ServerCertificateValidationCallback =

@@ -1,25 +1,13 @@
 ﻿@using System;
 @using Helium24.Models;
 @using System.Collections.Generic;
-@using System.Globalization;
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<List<Project>>
+@model System.Collections.Generic.List<Helium24.Models.Project>
 
 @{
     Layout = "Layouts/RootLayout.cshtml";
     string pageName = "Projects";
-    
-    ProjectThumbnail[] projects = new ProjectThumbnail[]
-    { 
-        // TODO: Put all projects here.
-        new ProjectThumbnail("/Blobs/ProjectThumbnails/GeigerCounter.png", "/Projects/GeigerCounter", "Geiger Counter", new DateTime(2013, 11, 1), new Tag[] { Tag.Hardware, Tag.Printer, Tag.Electronics }),
-        new ProjectThumbnail("/Blobs/ProjectThumbnails/Mobile/AlgorithmAssistant.png", "/Projects/Mobile/AlgorithmAssistant", "Algorithm Assistant", new DateTime(2013, 12, 1), new Tag[] { Tag.Software, Tag.Mobile }),
-        new ProjectThumbnail("/Blobs/ProjectThumbnails/Cases/UtilityCases.png", "/Projects/Cases/UtilityCases", "Utility Cases", new DateTime(2014, 3, 1), new Tag[] { Tag.Hardware, Tag.Printer }),
-        new ProjectThumbnail("/Blobs/ProjectThumbnails/Mobile/SpecialistsCalculator.png", "/Projects/Mobile/SpecialistsCalculator", "Specialists Calculator", new DateTime(2014, 8, 1), new Tag[] { Tag.Software, Tag.Mobile }),
-        new ProjectThumbnail("/Blobs/ProjectThumbnails/Cases/GalileoCase.png", "/Projects/Cases/GalileoCase", "Intel Galileo Gen 2 Case", new DateTime(2014, 8, 1), new Tag[] { Tag.Hardware, Tag.Printer }),
-        new ProjectThumbnail("/Blobs/ProjectThumbnails/Simulator.png", "/Projects/Simulator", "Simulator", new DateTime(2015, 4, 1), new Tag[] { Tag.Software, Tag.Simulation }),
-        new ProjectThumbnail("/Blobs/ProjectThumbnails/ChessBoard.png", "/Projects/ChessBoard", "Chess Board", new DateTime(2015, 4, 1), new Tag[] { Tag.Hardware, Tag.LaserMill, Tag.Games }),
-        new ProjectThumbnail("/Blobs/ProjectThumbnails/Cases/PiCase.png", "/Projects/Cases/PiCase", "Raspberry Pi Case", new DateTime(2015, 10, 1), new Tag[] { Tag.Hardware, Tag.Printer }),
-        new ProjectThumbnail("/Blobs/ProjectThumbnails/Cases/NanoCase.png", "/Projects/Cases/NanoCase", "Arduino Nano Case", new DateTime(2015, 11, 1), new Tag[] { Tag.Hardware, Tag.Printer })
-    };
 }
 
 @section Title {@pageName}
@@ -29,8 +17,8 @@
 }
 
 <div class="container-fluid">
-    <div class="row justify-content-md-center">
-            @foreach (ProjectThumbnail project in projects)
+        <div class="row justify-content-md-center">
+            @foreach (Project project in Model)
             {
                 <div class="col-auto px-1 py-1">
                     <div class="card">
@@ -43,99 +31,93 @@
                                 </div>
                                 <div class="col-auto align-self-center px-0">
                                     <!-- TODO: This should instead link to all projects done this month.-->
-                                    <a href="@project.ProjectUri" class="text-muted">@CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(project.Date.Month) @project.Date.Year</a>
+                                    <a href="@project.ProjectUri" class="text-muted">@Html.Partial("/Projects/Common/Base/FormattedDate.cshtml", project.Date)</a>
                                 </div>
                             </div>
                             <div class="row">
-                                <!-- TODO: Deduplicate this logic with the logic in CardHeader.cshtml -->
-                                @foreach (Tag tag in project.Tags)
-                                {
-                                    <div class="col-auto px-1 py-0">
-                                        <button class="btn btn-sm disabled" style="background:@tag.HtmlColor">@tag.Name</button>
-                                    </div>
-                                }
+                                @Html.Partial("/Projects/Common/Base/TagButtons.cshtml", project.Tags)
                             </div>
                         </div>
                     </div>
                 </div>
             }
+        </div>
+
+        <div class="content-wrapper">
+            <div class="float-left">
+                <h4 class="submenu">Desktop Software</h4>
+                <ul class="submenu">
+                    <li><a href="/Projects/CodeGell">CodeGell</a></li>
+                    <li><a href="/Projects/FluxSim">FluxSim</a></li>
+                </ul>
+            </div>
+
+            <div class="float-left">
+                <h4 class="submenu">CNC Mill</h4>
+                <ul class="submenu">
+                    <li><a href="/Projects/ElectronicsAndPcb">Electronics / PCB</a></li>
+                    <li><a href="/Projects/CncMillSoftware">Pro CNC 3020 Software</a></li>
+                </ul>
+            </div>
+
+            <div class="float-left">
+                <h4 class="submenu">3D Printing</h4>
+                <ul class="submenu">
+                    <li><a href="/Projects/PrintingIntro">Introduction</a></li>
+                    <li><a href="/Projects/Experiments">Experiments</a></li>
+
+                </ul>
+            </div>
+
+            <div class="float-left">
+                <h4 class="submenu">Laser Cutting</h4>
+                <ul class="submenu">
+                    <li><a href="/Projects/ChessBoard">Chess Board</a></li>
+                    <li><a href="/Projects/Models">Models</a></li>
+                </ul>
+            </div>
+
+            <div class="float-left">
+                <h4 class="submenu">Historical</h4>
+                <ul class="submenu">
+                    <li><a href="/Projects/NotableScreenshots">Notable Screenshots</a></li>
+                    <li>[slow] <a href="http://test-cnp.rhcloud.com/">Node.JS Prior Site</a>
+                    <li>[slow] <a href="http://g-cnp.rhcloud.com/">Oldest prior site</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 
-    <div class="content-wrapper">
-        <div class="float-left">
-            <h4 class="submenu">Desktop Software</h4>
-            <ul class="submenu">
-                <li><a href="/Projects/CodeGell">CodeGell</a></li>
-                <li><a href="/Projects/FluxSim">FluxSim</a></li>
-            </ul>
+    <div id="body">
+        <h3>Featured @pageName</h3>
+        <div class="content-wrapper">
+            <article>
+                <img class="imgScaler" src="~/Content/Projects/agow.png" width="700" />
+            </article>
+            <minimalAside>
+                <h4><a href="https://github.com/GuMiner/agow">AGOW (December 2016)</a></h4>
+                This was an attempt at an open-world physics simulation-based game, with a world the size of King County, Washington.
+                <br />
+                <br />
+                Unfortunately the story didn't pan out, physics stopped responding reliably over 10k items, and the overarching design was lacking.
+                <br />
+                <br />
+                On the other hand, I now have a complete heightmap of King County I've used for some 3D printing projects and a much deeper knowledge of graphics and game design.
+                <br />
+                <br />
+            </minimalAside>
         </div>
-
-        <div class="float-left">
-            <h4 class="submenu">CNC Mill</h4>
-            <ul class="submenu">
-                <li><a href="/Projects/ElectronicsAndPcb">Electronics / PCB</a></li>
-                <li><a href="/Projects/CncMillSoftware">Pro CNC 3020 Software</a></li>
-            </ul>
-        </div>
-
-        <div class="float-left">
-            <h4 class="submenu">3D Printing</h4>
-            <ul class="submenu">
-                <li><a href="/Projects/PrintingIntro">Introduction</a></li>
-                <li><a href="/Projects/Experiments">Experiments</a></li>
-                
-            </ul>
-        </div>
-
-        <div class="float-left">
-            <h4 class="submenu">Laser Cutting</h4>
-            <ul class="submenu">
-                <li><a href="/Projects/ChessBoard">Chess Board</a></li>
-                <li><a href="/Projects/Models">Models</a></li>
-            </ul>
-        </div>
-
-        <div class="float-left">
-            <h4 class="submenu">Historical</h4>
-            <ul class="submenu">
-                <li><a href="/Projects/NotableScreenshots">Notable Screenshots</a></li>
-                <li>[slow] <a href="http://test-cnp.rhcloud.com/">Node.JS Prior Site</a>
-                <li>[slow] <a href="http://g-cnp.rhcloud.com/">Oldest prior site</a></li>
-            </ul>
+        <br />
+        <div class="content-wrapper">
+            <article>
+                <img class="imgScaler" src="~/Content/Projects/FinalBoard.png" width="700" />
+            </article>
+            <minimalAside>
+                <h4><a href="/Projects/ElectronicsAndPcb">Mill Board (February 2015)</a></h4>
+                This screenshot displays my PCB design for a six-motor CNC mill, with pads for a 128x64 LCD display, 12-button keypad, and ATMega 328P-PU controller.
+                <br />
+                <br />
+                This was the first PCB I had prototyped, which despite some minor design errors, has worked excellently for its intended purpose.
+            </minimalAside>
         </div>
     </div>
-</div>
-
-<div id="body">
-    <h3>Featured @pageName</h3>
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~/Content/Projects/agow.png" width="700"/>
-        </article>
-        <minimalAside>
-            <h4><a href="https://github.com/GuMiner/agow">AGOW (December 2016)</a></h4>
-            This was an attempt at an open-world physics simulation-based game, with a world the size of King County, Washington.
-            <br />
-            <br />
-            Unfortunately the story didn't pan out, physics stopped responding reliably over 10k items, and the overarching design was lacking.
-            <br />
-            <br />
-            On the other hand, I now have a complete heightmap of King County I've used for some 3D printing projects and a much deeper knowledge of graphics and game design.
-            <br />
-            <br />
-        </minimalAside>
-    </div>
-    <br />
-    <div class="content-wrapper">
-        <article>
-            <img class="imgScaler" src="~/Content/Projects/FinalBoard.png" width="700"/>
-        </article>
-        <minimalAside>
-            <h4><a href="/Projects/ElectronicsAndPcb">Mill Board (February 2015)</a></h4>
-            This screenshot displays my PCB design for a six-motor CNC mill, with pads for a 128x64 LCD display, 12-button keypad, and ATMega 328P-PU controller.
-            <br />
-            <br />
-            This was the first PCB I had prototyped, which despite some minor design errors, has worked excellently for its intended purpose.
-        </minimalAside>
-    </div>
-</div>

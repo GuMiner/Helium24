@@ -1,41 +1,40 @@
 ﻿@using System;
 @using Helium24.Models;
 
-@{
-    String projectName = "Geiger Counter";
-    Layout = "Layouts/RootLayout.cshtml";
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
 
-    Tag[] tags = new Tag[] { Tag.Hardware, Tag.Printer, Tag.Electronics };
-    ProjectHeader header = new ProjectHeader(projectName, "November 2013", tags);
+@{
+    Layout = "Layouts/RootLayout.cshtml";
 }
 
-@section Title {@projectName}
+@section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("Common/CardHeader.cshtml", header)
+    @Html.Partial("../Common/CardHeader.cshtml", Model)
     <div class="card-body">
         @Html.Partial("Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/GeigerCounter/geiger_top.jpg", "The Geiger counter, in operation."))
         <br />
         @Html.Partial("Common/ParagraphStart.cshtml")
-            It is not that hard to make your own Geiger Counter. Simply:
-            <ul>
-                <li>Purchase a kit from <a href="https://sites.google.com/site/diygeigercounter/home">DIYGeigerCounter</a></li>
-                <li>Purchase a geiger counter tube from <a href="http://www.goldmine-elec-products.com/">Electronic Goldmine</a></li>
-                <li>Assemble the electronics</li>
-                <li>Put it in a case, such as mine on <a href="https://www.thingiverse.com/thing:191113">Thingiverse</a> or your own</li>
-                <li>Test it with a uranium-glazed pottery piece from <a href="https://www.ebay.com/">Ebay</a></li>
-            </ul>
+        It is not that hard to make your own Geiger Counter. Simply:
+        <ul>
+            <li>Purchase a kit from <a href="https://sites.google.com/site/diygeigercounter/home">DIYGeigerCounter</a></li>
+            <li>Purchase a geiger counter tube from <a href="http://www.goldmine-elec-products.com/">Electronic Goldmine</a></li>
+            <li>Assemble the electronics</li>
+            <li>Put it in a case, such as mine on <a href="https://www.thingiverse.com/thing:191113">Thingiverse</a> or your own</li>
+            <li>Test it with a uranium-glazed pottery piece from <a href="https://www.ebay.com/">Ebay</a></li>
+        </ul>
         @Html.Partial("Common/ParagraphEnd.cshtml")
         @Html.Partial("Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/GeigerCounter/geiger_side.jpg", "Side view of the geiger-counter, without the lid on."))
         <br />
         @Html.Partial("Common/ParagraphStart.cshtml")
-            This case stores 6-AA's, the main electronics, the geiger-counter tube (as a snap-on component),<br />
-         and various interactive components, such as the power switch (left side) and brightness control (right side).
+        This case stores 6-AA's, the main electronics, the geiger-counter tube (as a snap-on component),<br />
+        and various interactive components, such as the power switch (left side) and brightness control (right side).
         @Html.Partial("Common/ParagraphEnd.cshtml")
         @Html.Partial("Common/ParagraphStart.cshtml")
-            As-is, this case design nearly covered the entire build plate of the 3D printer I had at the time.
+        As-is, this case design nearly covered the entire build plate of the 3D printer I had at the time.
         @Html.Partial("Common/ParagraphEnd.cshtml")
         @Html.Partial("Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/GeigerCounter/electronics.jpg", "Geiger counter electronics, without the case."))

@@ -1,29 +1,28 @@
 ﻿@using System;
 @using Helium24.Models;
 
-@{
-    String projectName = "Algorithm Assistant";
-    Layout = "Layouts/RootLayout.cshtml";
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
 
-    Tag[] tags = new Tag[] { Tag.Software, Tag.Mobile };
-    ProjectHeader header = new ProjectHeader(projectName, "December 2013 / June 2014", tags);
+@{
+    Layout = "Layouts/RootLayout.cshtml";
 }
 
-@section Title {@projectName}
+@section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("../Common/CardHeader.cshtml", header)
+    @Html.Partial("../Common/CardHeader.cshtml", Model)
     <div class="card-body">
         <h3 class="text-muted">About</h3>
         @Html.Partial("../Common/ParagraphStart.cshtml")
-        <b>@projectName</b> was a small mobile application to describe, demonstrate, and visualize algorithms.
+        <b>@Model.Title</b> was a small mobile application to describe, demonstrate, and visualize algorithms.
         @Html.Partial("../Common/ParagraphEnd.cshtml")
         <br />
         @Html.Partial("../Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/Mobile/aa1.png", "A screenshot of the O(n²)<br /> Gnome sort algorithm."))
         <br />
         @Html.Partial("../Common/ParagraphStart.cshtml")
-        You can download this mobile application -- if you have a Windows Phone -- from the 
+        You can download this mobile application -- if you have a Windows Phone -- from the
         <a href="http://www.windowsphone.com/en-us/store/app/algorithm-assistant/67ae99ed-c534-4a48-b3ec-6c274b40db9a">Windows Phone store</a>
         @Html.Partial("../Common/ParagraphEnd.cshtml")
         <br />
