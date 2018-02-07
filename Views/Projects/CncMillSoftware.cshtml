@@ -1,23 +1,22 @@
 ﻿@using System;
 @using Helium24.Models;
 
-@{
-    String projectName = "Pro CNC 3020 Software";
-    Layout = "Layouts/RootLayout.cshtml";
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
 
-    Tag[] tags = new Tag[] { Tag.Hardware, Tag.Software, Tag.LaserMill };
-    ProjectHeader header = new ProjectHeader(projectName, "May 2015", tags);
+@{
+    Layout = "Layouts/RootLayout.cshtml";
 }
 
-@section Title {@projectName}
+@section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("Common/CardHeader.cshtml", header)
+    @Html.Partial("../Common/CardHeader.cshtml", Model)
     <div class="card-body">
         <h3 class="text-muted">Hardware</h3>
         @Html.Partial("Common/ParagraphStart.cshtml")
-            After experimentation with my own CNC milling hardware, I decided to instead purchase a 3020-aluminum based CNC <i>engraver.</i>
-            This relatively-inexpensive device was sufficiently sturdy to repurpose as a <i>mill</i>, for low-hardness materials.
+        After experimentation with my own CNC milling hardware, I decided to instead purchase a 3020-aluminum based CNC <i>engraver.</i>
+        This relatively-inexpensive device was sufficiently sturdy to repurpose as a <i>mill</i>, for low-hardness materials.
         @Html.Partial("Common/ParagraphEnd.cshtml")
         <br />
         @Html.Partial("Common/ImageCard.cshtml",
@@ -30,24 +29,24 @@
         with 1600 steps per axis revolution.
         @Html.Partial("Common/ParagraphEnd.cshtml")
         @Html.Partial("Common/ParagraphStart.cshtml")
-            In practice, this device isn't nearly that accurate, but it's nice to see the limitation is not in the control hardware.
+        In practice, this device isn't nearly that accurate, but it's nice to see the limitation is not in the control hardware.
         @Html.Partial("Common/ParagraphEnd.cshtml")
         <br />
         <h3 class="text-muted">Software</h3>
         @Html.Partial("Common/ParagraphStart.cshtml")
-            The software that came with the device required both Windows XP and a Parallel port.
-            Having neither, I decided to write my own using the microcontrollers I had on hand.
+        The software that came with the device required both Windows XP and a Parallel port.
+        Having neither, I decided to write my own using the microcontrollers I had on hand.
         @Html.Partial("Common/ParagraphEnd.cshtml")
         <br />
         @Html.Partial("Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/CncMillSoftware/MillMisspelling.jpg", "I didn't have a parakkel port either."))
         @Html.Partial("Common/ParagraphStart.cshtml")
-            With those microcontrollers, I wrote the following:
+        With those microcontrollers, I wrote the following:
         @Html.Partial("Common/ParagraphEnd.cshtml")
         @Html.Partial("Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/CncMillSoftware/V1Results.jpg", "Netduino (C#)"))
         @Html.Partial("Common/ParagraphStart.cshtml")
-            <b>Version 1:</b> This initial software verified that I could drive the mill, at a pitifully slow speed.
+        <b>Version 1:</b> This initial software verified that I could drive the mill, at a pitifully slow speed.
         @Html.Partial("Common/ParagraphEnd.cshtml")
         <br />
         @Html.Partial("Common/ImageCard.cshtml",
@@ -67,11 +66,11 @@
         @Html.Partial("Common/ParagraphEnd.cshtml")
         <br />
         @Html.Partial("Common/ParagraphStart.cshtml")
-            Unfortunately, the Arduino Nano is significantly more sensitive to voltage transients when running the
-            mill spindle. I have to run the mill at a slow feedrate and spindle rate to avoid resetting the device.
+        Unfortunately, the Arduino Nano is significantly more sensitive to voltage transients when running the
+        mill spindle. I have to run the mill at a slow feedrate and spindle rate to avoid resetting the device.
         @Html.Partial("Common/ParagraphEnd.cshtml")
         @Html.Partial("Common/ParagraphStart.cshtml")
-            However, I'm able to run at a reasonable rate, unlike the Netduinio, Parallax Propeller, or Raspberry PI.
+        However, I'm able to run at a reasonable rate, unlike the Netduinio, Parallax Propeller, or Raspberry PI.
         @Html.Partial("Common/ParagraphEnd.cshtml")
     </div>
 </div>

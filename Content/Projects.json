@@ -17,6 +17,12 @@
 		"date": "2014-03-01",
 		"tags": ["Hardware", "Printer"]
 	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/CodeGell.png",
+		"projectUri": "/Projects/CodeGell",
+		"title": "CodeGell",
+		"date": "2014-06-01",
+		"tags": ["Software", "Games"]
+	}, {
 		"thumbnailUri": "/Blobs/ProjectThumbnails/Mobile/SpecialistsCalculator.png",
 		"projectUri": "/Projects/Mobile/SpecialistsCalculator",
 		"title": "Specialists Calculator",
@@ -29,6 +35,12 @@
 		"date": "2014-08-01",
 		"tags": ["Hardware", "Printer"]
 	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/FluxSim.png",
+		"projectUri": "/Projects/FluxSim",
+		"title": "Flux Sim",
+		"date": "2014-08-01",
+		"tags": ["Software", "Simulation"]
+	}, {
 		"thumbnailUri": "/Blobs/ProjectThumbnails/Simulator.png",
 		"projectUri": "/Projects/Simulator",
 		"title": "Simulator",
@@ -40,6 +52,12 @@
 		"title": "Chess Board",
 		"date": "2015-04-01",
 		"tags": ["Hardware", "LaserMill", "Games"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/CncMillSoftware.png",
+		"projectUri": "/Projects/CncMillSoftware",
+		"title": "Pro CNC 3020 Software",
+		"date": "2015-05-01",
+		"tags": ["Hardware", "Software", "LaserMill"]
 	}, {
 		"thumbnailUri": "/Blobs/ProjectThumbnails/Cases/PiCase.png",
 		"projectUri": "/Projects/Cases/PiCase",
