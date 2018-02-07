@@ -13,7 +13,10 @@
         new Attribution("Bootstrap", "4.0.0", "https://getbootstrap.com/", "HTML frontend toolkit"),
         new Attribution("Chartist", "0.11.0", "https://gionkunz.github.io/chartist-js/", "Javascript charting library"),
         new Attribution("Katex", "0.9.0", "https://khan.github.io/KaTeX/", "Javascript math typesetting"),
-        new Attribution("Newtonsoft.Json", "9.0.1", "https://www.newtonsoft.com/json", "C# JSON serialization / deserialization")
+        new Attribution("Nancy", "1.4.3", "https://www.nuget.org/packages/Nancy/1.4.3", "Web framework for the .NET platform"),
+        new Attribution("Newtonsoft.Json", "9.0.1", "https://www.newtonsoft.com/json", "C# JSON serialization / deserialization"),
+        new Attribution("Npgsql", "3.2.1", "http://www.npgsql.org/", "ADO.NET data provider for PostgreSQL"),
+        new Attribution("SHA256", "1.0", "http://www.movable-type.co.uk/scripts/sha256.html", "SHA256 Javascript implementation")
     };
 }
 
@@ -34,7 +37,7 @@
         <div class="col-auto py-2">
             <ul>
                 @foreach (Attribution attrib in attributions)
-            {
+                {
                     <li><a href="@attrib.Uri">@attrib.Name @attrib.Version</a> — @attrib.Usage</li>
                 }
             </ul>
