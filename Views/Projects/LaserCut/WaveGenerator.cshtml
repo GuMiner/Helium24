@@ -1,0 +1,29 @@
+﻿@using System;
+@using Helium24.Models;
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+}
+
+@section Title {@Model.Title}
+
+<div class="card">
+    @Html.Partial("Common/CardHeader.cshtml", Model)
+    <div class="card-body">
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            I spent some time in <a href="http://products.office.com/en-us/visio/flowchart-software">Visio</a> to generate a wave generator board from wooden scrap material, so that I could
+            experiment with Microsoft Garage's <a href="https://www.epiloglaser.com/products/legend-laser-series.htm">Epilog Helix</a> laser cutter.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            This board was designed to recreate the <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/Waves/standw.html">standing wave</a>
+            experiment with a linear actuator being driven with a <a href="http://www.mathworks.com/help/matlab/math/discrete-fourier-transform-dft.html">Fourier Transform</a>-generated waveform.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/LaserCut/WaveGenerator/waveholder.jpg", "The laser-cut wave generator board. A linear actuator on one end vibrates the string, generating standing waves."))
+    </div>
+</div>

@@ -23,6 +23,24 @@
 		"date": "2014-06-01",
 		"tags": ["Software", "Games"]
 	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/LaserCut/WaveGenerator.png",
+		"projectUri": "/Projects/LaserCut/WaveGenerator",
+		"title": "Wave Generator",
+		"date": "2014-07-01",
+		"tags": ["Hardware", "LaserMill"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/LaserCut/FilamentHolder.png",
+		"projectUri": "/Projects/LaserCut/FilamentHolder",
+		"title": "Filament Holder",
+		"date": "2014-07-01",
+		"tags": ["Hardware", "LaserMill"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/LaserCut/SpaceShuttleModel.png",
+		"projectUri": "/Projects/LaserCut/SpaceShuttleModel",
+		"title": "Space Shuttle Model",
+		"date": "2014-07-01",
+		"tags": ["Hardware", "LaserMill"]
+	}, {
 		"thumbnailUri": "/Blobs/ProjectThumbnails/Mobile/SpecialistsCalculator.png",
 		"projectUri": "/Projects/Mobile/SpecialistsCalculator",
 		"title": "Specialists Calculator",
@@ -41,6 +59,18 @@
 		"date": "2014-08-01",
 		"tags": ["Software", "Simulation"]
 	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/LaserCut/DescentModels.png",
+		"projectUri": "/Projects/LaserCut/DescentModels",
+		"title": "Descent Models",
+		"date": "2014-08-01",
+		"tags": ["Hardware", "LaserMill"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/LaserCut/SaturnVModel.png",
+		"projectUri": "/Projects/LaserCut/SaturnVModel",
+		"title": "Saturn V Model",
+		"date": "2014-10-01",
+		"tags": ["Hardware", "LaserMill"]
+	}, {
 		"thumbnailUri": "/Blobs/ProjectThumbnails/Pcb/MillBoardElectronics.png",
 		"projectUri": "/Projects/Pcb/MillBoardElectronics",
 		"title": "Mill Board Electronics",
@@ -53,8 +83,8 @@
 		"date": "2015-04-01",
 		"tags": ["Software", "Simulation"]
 	}, {
-		"thumbnailUri": "/Blobs/ProjectThumbnails/ChessBoard.png",
-		"projectUri": "/Projects/ChessBoard",
+		"thumbnailUri": "/Blobs/ProjectThumbnails/LaserCut/ChessBoard.png",
+		"projectUri": "/Projects/LaserCut/ChessBoard",
 		"title": "Chess Board",
 		"date": "2015-04-01",
 		"tags": ["Hardware", "LaserMill", "Games"]

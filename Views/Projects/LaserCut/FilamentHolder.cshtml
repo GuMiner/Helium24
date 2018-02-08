@@ -1,0 +1,30 @@
+﻿@using System;
+@using Helium24.Models;
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+}
+
+@section Title {@Model.Title}
+
+<div class="card">
+    @Html.Partial("Common/CardHeader.cshtml", Model)
+    <div class="card-body">
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            I decided to use a laser cutter to generate a filament holder for a 3D printer
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            Unfortunately, due to the positioning of plastic feed input to the 3D printer, friction in the holder,
+            and lack of stability in the holder, I was not able to use the 3D printer plastic holder for its intended purpose.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/LaserCut/FilamentHolder/laser_plans.png", "The plans for the filament holder to be laser-cut, along with other plans."))
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/LaserCut/FilamentHolder/filamentholder.jpg", "The laser-cut filament holder."))
+    </div>
+</div>

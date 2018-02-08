@@ -1,0 +1,24 @@
+﻿@using System;
+@using Helium24.Models;
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+}
+
+@section Title {@Model.Title}
+
+<div class="card">
+    @Html.Partial("Common/CardHeader.cshtml", Model)
+    <div class="card-body">
+        @Html.Partial("Common/ParagraphStart.cshtml")
+        Using <a href="http://www.123dapp.com/make">Autodesk 123D Make</a>, I converted the
+        <a href="http://nasa3d.arc.nasa.gov/detail/saturnv-c">Saturn V Model</a> from <a href="http://www.nasa.gov/">NASA</a> to a physical model.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/LaserCut/SaturnVModel/saturn_v.jpg", "The laser-cut Saturn V model"))
+    </div>
+</div>

@@ -217,12 +217,12 @@
     <Content Include="Views\Projects.cshtml" />
     <Content Include="Views\Projects\Mobile\AlgorithmAssistant.cshtml" />
     <Content Include="Views\Projects\GeigerCounter.cshtml" />
-    <Content Include="Views\Projects\ChessBoard.cshtml" />
+    <Content Include="Views\Projects\LaserCut\ChessBoard.cshtml" />
     <Content Include="Views\Projects\CncMillSoftware.cshtml" />
     <Content Include="Views\Projects\CodeGell.cshtml" />
     <Content Include="Views\Projects\Pcb\MillBoardElectronics.cshtml" />
     <Content Include="Views\Projects\FluxSim.cshtml" />
-    <Content Include="Views\Projects\Unprocessed\Models.cshtml" />
+    <Content Include="Views\Projects\LaserCut\FilamentHolder.cshtml" />
     <Content Include="Views\Projects\Unprocessed\NotableScreenshots.cshtml" />
     <Content Include="Views\Projects\Unprocessed\PrintingIntro.cshtml" />
     <Content Include="Views\Projects\Simulator.cshtml" />
@@ -244,6 +244,10 @@
     <Content Include="Views\Projects\Common\Base\TagButtons.cshtml" />
     <Content Include="Views\Projects\Common\Base\FormattedDate.cshtml" />
     <Content Include="Views\Attributions.cshtml" />
+    <Content Include="Views\Projects\LaserCut\SpaceShuttleModel.cshtml" />
+    <Content Include="Views\Projects\LaserCut\DescentModels.cshtml" />
+    <Content Include="Views\Projects\LaserCut\SaturnVModel.cshtml" />
+    <Content Include="Views\Projects\LaserCut\WaveGenerator.cshtml" />
     <None Include="Views\Secure\Register.cshtml" />
     <None Include="Views\Secure\Login.cshtml" />
     <None Include="Views\Secure.cshtml" />
