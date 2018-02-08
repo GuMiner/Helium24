@@ -1,0 +1,47 @@
+﻿@using System;
+@using Helium24.Models;
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+}
+
+@section Title {@Model.Title}
+
+<div class="card">
+    @Html.Partial("../Common/CardHeader.cshtml", Model)
+    <div class="card-body">
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/3DPrinting/GETurbine/turbine.jpg", "GE Turbine Model, assembled."))
+        <br />
+        @Html.Partial("../Common/ParagraphStart.cshtml")
+            Available from <a href="http://www.thingiverse.com/thing:392115">Thingiverse</a>, this print was a mechanical parts test.
+            While this model required a significant amount of time (and sanding), the turbine is able to freely spin on the two
+            bearings attached to the frame.
+            <br />
+            Print time was excessive.
+        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/3DPrinting/GETurbine/turbine_gears.jpg", "Gearing closeup, perpendicular"))
+        <br />
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/3DPrinting/GETurbine/turbine_gears2.jpg", "Gearing closeup, inline"))
+        <br />
+        @Html.Partial("../Common/ParagraphStart.cshtml")
+            With the printing tolerances in my inexpensive 3D printer, each gear needed sanding for proper alignment.
+            However, each gear nicely aligns with each other once sanding was complete.
+        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/3DPrinting/GETurbine/turbine_main_gear.jpg", "Main turbine cutaway"))
+        <br />
+        @Html.Partial("../Common/ParagraphStart.cshtml")
+            The slicer software would generate extreme vibration about halfway through the print, as it attempted to trace out thin vanes of the main fan.
+            <br />
+            The solution was to send the model into <a href="https://www.microsoft.com/en-us/store/p/3d-builder/9wzdncrfj3t6">3D Builder</a> and reduce the model quality until there were few enough triangles to avoid the vibration.
+        @Html.Partial("../Common/ParagraphEnd.cshtml")
+    </div>
+</div>

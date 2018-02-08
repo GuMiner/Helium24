@@ -14,18 +14,15 @@
     @Html.Partial("../Common/CardHeader.cshtml", Model)
     <div class="card-body">
         @Html.Partial("../Common/ImageCard.cshtml",
-            new Image("/Blobs/Projects/Cases/Nano/nano_case.jpg", "Arduino Nano slide-on case"))
+            new Image("/Blobs/Projects/3DPrinting/Cases/Pi/rpi_case.jpg", "Raspberry Pi Model B+ Case"))
         @Html.Partial("../Common/ParagraphStart.cshtml")
-            This nifty little case slides on tightly, with:
-        <ul>
-            <li>A recessed slot for the USB interface on the back</li>
-            <li>A slot to access the interface pins (lower-right)</li>
-            <li>A slot to see the status LEDs</li>
-            <li>A cutout for the programming pins.</li>
-        </ul>
+        This case stores my raspberry pi, which I use as a local interface between the router and other IoT devices.
         @Html.Partial("../Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/3DPrinting/Cases/Pi/rpi_lid.jpg", "Raspberry Pi Model B+ Lid"))
         @Html.Partial("../Common/ParagraphStart.cshtml")
-            The Arduino Nano is currently being used to run <a href="https://github.com/gnea/grbl">GRBL</a> to control my CNC engraver / mini-mill.
+        The lid is mostly for aesthetics -- it doesn't tightly attach to the case.
         @Html.Partial("../Common/ParagraphEnd.cshtml")
     </div>
 </div>

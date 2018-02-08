@@ -11,8 +11,8 @@
 		"date": "2013-12-01",
 		"tags": ["Software", "Mobile"]
 	}, {
-		"thumbnailUri": "/Blobs/ProjectThumbnails/Cases/UtilityCases.png",
-		"projectUri": "/Projects/Cases/UtilityCases",
+		"thumbnailUri": "/Blobs/ProjectThumbnails/3DPrinting/Cases/UtilityCases.png",
+		"projectUri": "/Projects/3DPrinting/Cases/UtilityCases",
 		"title": "Utility Cases",
 		"date": "2014-03-01",
 		"tags": ["Hardware", "Printer"]
@@ -47,8 +47,8 @@
 		"date": "2014-08-01",
 		"tags": ["Software", "Mobile"]
 	}, {
-		"thumbnailUri": "/Blobs/ProjectThumbnails/Cases/GalileoCase.png",
-		"projectUri": "/Projects/Cases/GalileoCase",
+		"thumbnailUri": "/Blobs/ProjectThumbnails/3DPrinting/Cases/GalileoCase.png",
+		"projectUri": "/Projects/3DPrinting/Cases/GalileoCase",
 		"title": "Intel Galileo Gen 2 Case",
 		"date": "2014-08-01",
 		"tags": ["Hardware", "Printer"]
@@ -95,16 +95,40 @@
 		"date": "2015-05-01",
 		"tags": ["Hardware", "Software", "LaserMill"]
 	}, {
-		"thumbnailUri": "/Blobs/ProjectThumbnails/Cases/PiCase.png",
-		"projectUri": "/Projects/Cases/PiCase",
+		"thumbnailUri": "/Blobs/ProjectThumbnails/3DPrinting/Cases/PiCase.png",
+		"projectUri": "/Projects/3DPrinting/Cases/PiCase",
 		"title": "Raspberry Pi Case",
 		"date": "2015-10-01",
 		"tags": ["Hardware", "Printer"]
 	}, {
-		"thumbnailUri": "/Blobs/ProjectThumbnails/Cases/NanoCase.png",
-		"projectUri": "/Projects/Cases/NanoCase",
+		"thumbnailUri": "/Blobs/ProjectThumbnails/3DPrinting/Cases/NanoCase.png",
+		"projectUri": "/Projects/3DPrinting/Cases/NanoCase",
 		"title": "Arduino Nano Case",
 		"date": "2015-11-01",
+		"tags": ["Hardware", "Printer"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/3DPrinting/GearHolder.png",
+		"projectUri": "/Projects/3DPrinting/GearHolder",
+		"title": "Gear Holder",
+		"date": "2015-12-01",
+		"tags": ["Hardware", "Printer"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/3DPrinting/GETurbine.png",
+		"projectUri": "/Projects/3DPrinting/GETurbine",
+		"title": "GE Turbine Model",
+		"date": "2016-01-01",
+		"tags": ["Hardware", "Printer"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/3DPrinting/N64Logo.png",
+		"projectUri": "/Projects/3DPrinting/N64Logo",
+		"title": "Nintendo 64 Logo",
+		"date": "2016-02-01",
+		"tags": ["Hardware", "Printer"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/3DPrinting/PhoneHolder.png",
+		"projectUri": "/Projects/3DPrinting/PhoneHolder",
+		"title": "Phone Holder",
+		"date": "2016-04-01",
 		"tags": ["Hardware", "Printer"]
 	}
 ]

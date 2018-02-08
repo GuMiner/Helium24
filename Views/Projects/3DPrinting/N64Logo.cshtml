@@ -14,15 +14,21 @@
     @Html.Partial("../Common/CardHeader.cshtml", Model)
     <div class="card-body">
         @Html.Partial("../Common/ImageCard.cshtml",
-            new Image("/Blobs/Projects/Cases/Pi/rpi_case.jpg", "Raspberry Pi Model B+ Case"))
+            new Image("/Blobs/Projects/3DPrinting/N64Logo/n64.jpg", "A Nintendo 64 Logo, in plastic."))
+        <br />
         @Html.Partial("../Common/ParagraphStart.cshtml")
-        This case stores my raspberry pi, which I use as a local interface between the router and other IoT devices.
+        Available from <a href="http://www.thingiverse.com/thing:14519">Thingiverse</a>, this print was a size and thin-walled part test.
+        <br />
+        Print time was 180 minutes.
         @Html.Partial("../Common/ParagraphEnd.cshtml")
         <br />
         @Html.Partial("../Common/ImageCard.cshtml",
-            new Image("/Blobs/Projects/Cases/Pi/rpi_lid.jpg", "Raspberry Pi Model B+ Lid"))
+            new Image("/Blobs/Projects/3DPrinting/N64Logo/n64_innards.jpg", "The broken leg of the N64 logo."))
+        <br />
         @Html.Partial("../Common/ParagraphStart.cshtml")
-        The lid is mostly for aesthetics -- it doesn't tightly attach to the case.
+        This print was performed with 5% infill, and with a very thin wall, leaving an extremely hollow interior.
+        <br />
+        Unfortunately, this infill was too little, leading to one of the legs to partially break, revealing the innards.
         @Html.Partial("../Common/ParagraphEnd.cshtml")
     </div>
 </div>
