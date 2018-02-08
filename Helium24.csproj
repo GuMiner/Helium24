@@ -220,7 +220,7 @@
     <Content Include="Views\Projects\ChessBoard.cshtml" />
     <Content Include="Views\Projects\CncMillSoftware.cshtml" />
     <Content Include="Views\Projects\CodeGell.cshtml" />
-    <Content Include="Views\Projects\Unprocessed\ElectronicsAndPcb.cshtml" />
+    <Content Include="Views\Projects\Pcb\MillBoardElectronics.cshtml" />
     <Content Include="Views\Projects\FluxSim.cshtml" />
     <Content Include="Views\Projects\Unprocessed\Models.cshtml" />
     <Content Include="Views\Projects\Unprocessed\NotableScreenshots.cshtml" />

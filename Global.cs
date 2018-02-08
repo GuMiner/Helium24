@@ -72,7 +72,7 @@ namespace Helium24
 
             List<SerializedProject> serializedProjects =
                 JsonConvert.DeserializeObject<List<SerializedProject>>(File.ReadAllText("./Content/Projects.json"));
-            Global.Projects = serializedProjects.Select(item => (Project)item).ToList();
+            Global.Projects = serializedProjects.Select(item => (Project)item).OrderByDescending(item => item.Date).ToList();
             
             // Turn off certificate validation, because it doesn't work with self-signed stuffs.
             ServicePointManager.ServerCertificateValidationCallback =

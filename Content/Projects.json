@@ -41,6 +41,12 @@
 		"date": "2014-08-01",
 		"tags": ["Software", "Simulation"]
 	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/Pcb/MillBoardElectronics.png",
+		"projectUri": "/Projects/Pcb/MillBoardElectronics",
+		"title": "Mill Board Electronics",
+		"date": "2015-02-01",
+		"tags": ["Hardware", "LaserMill"]
+	}, {
 		"thumbnailUri": "/Blobs/ProjectThumbnails/Simulator.png",
 		"projectUri": "/Projects/Simulator",
 		"title": "Simulator",
