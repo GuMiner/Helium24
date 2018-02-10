@@ -1,4 +1,52 @@
 [{
+		"thumbnailUri": "/Blobs/ProjectThumbnails/Simulation/FieldSimulator.png",
+		"projectUri": "/Projects/Simulation/FieldSimulator",
+		"title": "Field Simulator",
+		"date": "2009-01-01",
+		"tags": ["Software", "Simulation"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/Simulation/VectorFlow.png",
+		"projectUri": "/Projects/Simulation/VectorFlow",
+		"title": "Vector Flow",
+		"date": "2010-06-01",
+		"tags": ["Software", "Simulation"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/Mobile/PdaLissajousCurves.png",
+		"projectUri": "/Projects/Mobile/PdaLissajousCurves",
+		"title": "iPAQ PDA Lissajous Curves",
+		"date": "2010-08-01",
+		"tags": ["Software", "Mobile"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/Mobile/PdaDraftingProgram.png",
+		"projectUri": "/Projects/Mobile/PdaDraftingProgram",
+		"title": "iPAQ PDA Drafting Program",
+		"date": "2011-01-01",
+		"tags": ["Software", "Mobile"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/Simulation/BeamFlow.png",
+		"projectUri": "/Projects/Simulation/BeamFlow",
+		"title": "Beam Flow",
+		"date": "2011-12-01",
+		"tags": ["Software", "Simulation"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/Mobile/PdaFractalViewer.png",
+		"projectUri": "/Projects/Mobile/PdaFractalViewer",
+		"title": "iPAQ PDA Fractal Viewer",
+		"date": "2011-03-01",
+		"tags": ["Software", "Mobile"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/Mobile/PdaParticleCollider.png",
+		"projectUri": "/Projects/Mobile/PdaParticleCollider",
+		"title": "iPAQ PDA Particle Collider",
+		"date": "2011-07-01",
+		"tags": ["Software", "Mobile"]
+	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/CourseDegreeTracker.png",
+		"projectUri": "/Projects/CourseDegreeTracker",
+		"title": "Course Degree Tracker",
+		"date": "2012-12-01",
+		"tags": ["Software"]
+	}, {
 		"thumbnailUri": "/Blobs/ProjectThumbnails/GeigerCounter.png",
 		"projectUri": "/Projects/GeigerCounter",
 		"title": "Geiger Counter",
@@ -53,8 +101,8 @@
 		"date": "2014-08-01",
 		"tags": ["Hardware", "Printer"]
 	}, {
-		"thumbnailUri": "/Blobs/ProjectThumbnails/FluxSim.png",
-		"projectUri": "/Projects/FluxSim",
+		"thumbnailUri": "/Blobs/ProjectThumbnails/Simulation/FluxSim.png",
+		"projectUri": "/Projects/Simulation/FluxSim",
 		"title": "Flux Sim",
 		"date": "2014-08-01",
 		"tags": ["Software", "Simulation"]
@@ -77,8 +125,8 @@
 		"date": "2015-02-01",
 		"tags": ["Hardware", "LaserMill"]
 	}, {
-		"thumbnailUri": "/Blobs/ProjectThumbnails/Simulator.png",
-		"projectUri": "/Projects/Simulator",
+		"thumbnailUri": "/Blobs/ProjectThumbnails/Simulation/Simulator.png",
+		"projectUri": "/Projects/Simulation/Simulator",
 		"title": "Simulator",
 		"date": "2015-04-01",
 		"tags": ["Software", "Simulation"]

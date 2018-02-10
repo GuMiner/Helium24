@@ -1,0 +1,35 @@
+﻿@using System;
+@using Helium24.Models;
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+}
+
+@section Title {@Model.Title}
+
+<div class="card">
+    @Html.Partial("../Common/CardHeader.cshtml", Model)
+    <div class="card-body">
+        @Html.Partial("../Common/ParagraphStart.cshtml")
+            This application was a small mobile application to test bitmap fonts and 
+            draw Lissajous curves on an older Windows Mobile PDA.
+        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Mobile/PdaLissajousCurves/LissajousCurves1.png", "Simple Lissajous curves, with the text overlay"))
+        <br />
+        @Html.Partial("../Common/ParagraphStart.cshtml")
+            This application was a partial success -- drawing bitmap fonts is fast on a low-power
+            device, but does not look very good.
+        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Mobile/PdaLissajousCurves/LissajousCurves2.png", "Simple Lissajous curves, without the text overlay"))
+        <br />
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Mobile/PdaLissajousCurves/LissajousCurves3.png", "Bitmap text demonstration, in the about page"))
+    </div>
+</div>

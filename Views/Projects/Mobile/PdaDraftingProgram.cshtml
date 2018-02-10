@@ -1,0 +1,34 @@
+﻿@using System;
+@using Helium24.Models;
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+}
+
+@section Title {@Model.Title}
+
+<div class="card">
+    @Html.Partial("../Common/CardHeader.cshtml", Model)
+    <div class="card-body">
+        @Html.Partial("../Common/ParagraphStart.cshtml")
+            This simple application takes the top and front view of drafting lines to construct
+            a 3D wireframe view of the lines. 
+        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Mobile/PdaDraftingProgram/perspectiveDrafting1.png", "An empty drafting pane"))
+        <br />
+        @Html.Partial("../Common/ParagraphStart.cshtml")
+        I wrote this program to simplify drafting homework, to verify proper 3D perspection of 2D lines.
+        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Mobile/PdaDraftingProgram/perspectiveDrafting2.png", "Drawing / adding lines in the drafting program"))
+        <br />
+        @Html.Partial("../Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Mobile/PdaDraftingProgram/perspectiveDrafting3.png", "3D view of a drafted tetrahedron"))
+    </div>
+</div>

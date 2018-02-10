@@ -1,0 +1,34 @@
+﻿@using System;
+@using Helium24.Models;
+
+@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<Project>
+@model Helium24.Models.Project
+
+@{
+    Layout = "Layouts/RootLayout.cshtml";
+}
+
+@section Title {@Model.Title}
+
+<div class="card">
+    @Html.Partial("../Common/CardHeader.cshtml", Model)
+    <div class="card-body">
+        @Html.Partial("Common/ParagraphStart.cshtml")
+        <b>@Model.Title</b> simulates non-interacting particles with particle traces, as a Java load and visualization experiment.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Simulation/VectorFlow/vectorFlow1.png", "Particle simulation with mirrors, absorbers, counters, and attenuators"))
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Simulation/VectorFlow/vectorFlow2.png", "Paricle simulation with collisions, non-euclidean space, and different colors"))
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Simulation/VectorFlow/vectorFlow3.png", "Particle simulation with non-euclidean space"))
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Simulation/VectorFlow/vectorFlow4.png", "Particle simulation with collisions and gravity"))
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/Simulation/VectorFlow/vectorFlow5.png", "White 2D box containing particles; <br /> Blue 2D box counting particles going in and out"))
+    </div>
+</div>

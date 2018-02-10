@@ -1,6 +1,8 @@
 In rough priority order:
 - Create a new favicon and logo.
 - Process all the 'unprocessed' pages.
+--> Ship and setup auto-CI environment <--
+- Fix project pages to auto-wrap if multiple images are in a row.
 - Update the projects page to load dynamically and support sorting, searching, etc
 - Add current projects (milling, numanistics, spinner, hiking, skiing, both other PCB boards, etc)
 - Update all project thumbnails to be auto-generated or at least better.
