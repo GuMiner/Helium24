@@ -13,6 +13,7 @@
 <div class="card">
     @Html.Partial("../Common/CardHeader.cshtml", Model)
     <div class="card-body">
+        <h3 class="text-muted">About</h3>
         @Html.Partial("Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/GeigerCounter/geiger_top.jpg", "The Geiger counter, in operation."))
         <br />
@@ -33,10 +34,42 @@
         This case stores 6-AA's, the main electronics, the geiger-counter tube (as a snap-on component),<br />
         and various interactive components, such as the power switch (left side) and brightness control (right side).
         @Html.Partial("Common/ParagraphEnd.cshtml")
-        @Html.Partial("Common/ParagraphStart.cshtml")
-        As-is, this case design nearly covered the entire build plate of the 3D printer I had at the time.
-        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
         @Html.Partial("Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/GeigerCounter/electronics.jpg", "Geiger counter electronics, without the case."))
+        <br />
+        <h3 class="text-muted">Case Design</h3>
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            This was one of the first useful projects I designed and printed with my 3D printer. 
+            The design was partly restricted, because I had to fit the entire case design within the build plate of the 3D printer I had then.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/GeigerCounter/wire_base.png", "Geiger Counter base (wireframe)"))
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/GeigerCounter/render_base.png", "Geiger Counter base (render)"))
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/GeigerCounter/wire_lid.png", "Geiger Counter lid (wireframe)"))
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/GeigerCounter/render_lid.png", "Geiger Counter lid (render)"))
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/GeigerCounter/wire_tube.png", "Geiger Counter tube holder (wireframe)"))
+        @Html.Partial("Common/ImageCard.cshtml",
+            new Image("/Blobs/Projects/GeigerCounter/render_tube.png", "Geiger Counter tube holder (render)"))
+        <br />
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            These models were designed using <a href="http://brlcad.org/">BRL-CAD</a>, which gave me a scripting
+            interface to create the models along with a graphical output view. With this design:
+            <ul>
+                <li>The geiger counter base separates the battery storage from the electronics compartment</li>
+                <li>The geiger counter lid u-pipe holds the geiger counter tube as a snap-in item</li>
+                <li>The geiger counter tube holder has several holes, permitting charged particles to pass through</li>
+            </ul>
+        @Html.Partial("Common/ParagraphEnd.cshtml")
+        <br />
+        @Html.Partial("Common/ParagraphStart.cshtml")
+            There's certainly several enhancements I'd make if I were recreating this design 
+            or printing this design in bulk, but overall the entire design works as expected.
+        @Html.Partial("Common/ParagraphEnd.cshtml")
     </div>
 </div>

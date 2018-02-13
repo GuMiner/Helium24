@@ -223,7 +223,6 @@
     <Content Include="Views\Projects\Pcb\MillBoardElectronics.cshtml" />
     <Content Include="Views\Projects\Simulation\FluxSim.cshtml" />
     <Content Include="Views\Projects\LaserCut\FilamentHolder.cshtml" />
-    <Content Include="Views\Projects\Unprocessed\NotableScreenshots.cshtml" />
     <Content Include="Views\Projects\Unprocessed\PrintingIntro.cshtml" />
     <Content Include="Views\Projects\Simulation\Simulator.cshtml" />
     <Content Include="Views\Projects\Mobile\SpecialistsCalculator.cshtml" />
@@ -259,6 +258,7 @@
     <Content Include="Views\Projects\CourseDegreeTracker.cshtml" />
     <Content Include="Views\Projects\Simulation\BeamFlow.cshtml" />
     <Content Include="Views\Projects\Mobile\PdaParticleCollider.cshtml" />
+    <Content Include="Views\Projects\3DPrinting\PrintrbotAbout.cshtml" />
     <None Include="Views\Secure\Register.cshtml" />
     <None Include="Views\Secure\Login.cshtml" />
     <None Include="Views\Secure.cshtml" />
