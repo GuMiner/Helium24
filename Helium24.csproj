@@ -223,7 +223,6 @@
     <Content Include="Views\Projects\Pcb\MillBoardElectronics.cshtml" />
     <Content Include="Views\Projects\Simulation\FluxSim.cshtml" />
     <Content Include="Views\Projects\LaserCut\FilamentHolder.cshtml" />
-    <Content Include="Views\Projects\Unprocessed\PrintingIntro.cshtml" />
     <Content Include="Views\Projects\Simulation\Simulator.cshtml" />
     <Content Include="Views\Projects\Mobile\SpecialistsCalculator.cshtml" />
     <None Include="Properties\app.manifest" />
