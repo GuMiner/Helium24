@@ -11,18 +11,18 @@
 @section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("../Common/CardHeader.cshtml", Model)
+    @Html.Partial("Projects/Common/CardHeader.cshtml", Model)
     <div class="card-body">
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/3DPrinting/Cases/Pi/rpi_case.jpg", "Raspberry Pi Model B+ Case"))
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
         This case stores my raspberry pi, which I use as a local interface between the router and other IoT devices.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/3DPrinting/Cases/Pi/rpi_lid.jpg", "Raspberry Pi Model B+ Lid"))
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
         The lid is mostly for aesthetics -- it doesn't tightly attach to the case.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
     </div>
 </div>

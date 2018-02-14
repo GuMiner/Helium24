@@ -11,29 +11,29 @@
 @section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("../Common/CardHeader.cshtml", Model)
+    @Html.Partial("Projects/Common/CardHeader.cshtml", Model)
     <div class="card-body">
         <h3 class="text-muted">Hardware</h3>
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/3DPrinting/PrintrbotAbout/printer_then.jpg", "The original assembled Printrbot JR 3D printer."))
         <br />
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
             For experimentation purposes, I bought a Printrbot JR 3D printer when the wooden model was still being sold (v1).
             <br />
             Since then, I've been able to fine-tune the printer to reliably print with 0.3 mm layer heights and sometimes print at 0.1 mm.
             <br />
             Over the past years I've performed minor updates, mainly replacing the printbed (first to acrylic (which melted), then to 4130 steel), and updating the firmware.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
             I have since upgraded to a newer printer, but even with this older printer I was able to reliably print with it due to knowing the limitations and strengths of this design.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/3DPrinting/PrintrbotAbout/printer_now.jpg", "The assembled Printrbot JR 3D printer, with modifications."))
         <br />
         <h3 class="text-muted">Software</h3>
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
             To reliably print with this printer, I have used the following settings:
             <table border="1">
                 <tr> <th>Parameter</th> <th>Setting </th> <th>Units </th> </tr>
@@ -46,20 +46,20 @@
                 <tr> <td>Gap Speed </td> <td>30 </td> <td>mm/s </td> </tr>
                 <tr> <td>Travel Speed </td> <td>130 </td> <td>mm/s </td> </tr>
             </table>
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
             However, those settings are only applicable when using either <a href="http://www.repetier.com/documentation/repetier-host/">Repetier-Host</a> 
             or <a href="http://www.mattercontrol.com/">Matter Control</a> to load up the STL file, <a href="http://slic3r.org/">Slic3r</a> to slice the file
             into layers, and either program to send the slices to the 3D printer for printing. 
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
         To actually design the models to 3D print, I either use an existing model on <a href="https://www.thingiverse.com/">Thingiverse</a> or design my own.
         Designing a 3D model can be done with a variety of software:
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
         <ul>
             <li>
                 <a href="http://www.autodesk.com/products/inventor/overview">Autodesk Inventor</a>:
@@ -88,15 +88,15 @@
                 I have used this tool sparingly.
             </li>
         </ul>
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
             At the end of the day, the software isn't what makes a good design. A good design comes from a good idea and the commitment of time to implement it, along
             with the tooling to express the design effectively. One great example of this is the Printrbot's laser-cut parts -- there are many parts, but 
             they all work together to allow you to make more parts of your own design.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/3DPrinting/PrintrbotAbout/3dp_parts.jpg", "The wooden parts making up the Printrbot JR 3D printer"))
     </div>
 </div>

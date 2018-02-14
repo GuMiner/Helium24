@@ -11,20 +11,20 @@
 @section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("../Common/CardHeader.cshtml", Model)
+    @Html.Partial("Projects/Common/CardHeader.cshtml", Model)
     <div class="card-body">
         @Html.Partial("Common/ParagraphStart.cshtml")
             I wrote <b>@Model.Title</b> to properly track all the courses I needed to take in college with
             the dependencies each course required. With this program, I was able to saturate my course load and finish college efficiently.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/CourseDegreeTracker/CourseDegreeTracker1.png", "The course graph generated (with manual layout) from CourseDegreeTracker."))
         <br />
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/CourseDegreeTracker/CourseDegreeTracker2.png", "A 3D view of the course load. This was implemented to better sort dependencies, but wasn't effective"))
         <br />
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/CourseDegreeTracker/CourseDegreeTracker3.png", "A list view of all courses, completed and non-completed."))
     </div>
 </div>

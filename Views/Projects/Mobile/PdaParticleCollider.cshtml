@@ -11,34 +11,34 @@
 @section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("../Common/CardHeader.cshtml", Model)
+    @Html.Partial("Projects/Common/CardHeader.cshtml", Model)
     <div class="card-body">
         <h3 class="text-muted">About</h3>
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
         <b>@Model.Title</b> was a small mobile application to describe, demonstrate, and visualize algorithms.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/Mobile/aa1.png", "A screenshot of the O(n²)<br /> Gnome sort algorithm."))
         <br />
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
         You can download this mobile application -- if you have a Windows Phone -- from the
         <a href="http://www.windowsphone.com/en-us/store/app/algorithm-assistant/67ae99ed-c534-4a48-b3ec-6c274b40db9a">Windows Phone store</a>
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
         The main focus of the demo program was on searching and sorting algorithms, with a few miscellaneous physics and math-based algorithms added
         for additional visualization.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/Mobile/aa2.png", "A visualization of the Julia Set fractal."))
         <br />
         <h3 class="text-muted">Unique Aspects</h3>
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
         This phone application is structured so that once a visualization type is defined, it's very easy to create new algorithms that use the visualization
         type. For example, most of the <b>Sorting</b> visualizations feature a bar-graph sort view. I also tried to polish this to be an 'official' phone application,
         so this application includes support for landscape orientation, includes transition animations, and is partly-localized to additional languages.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
     </div>
 </div>

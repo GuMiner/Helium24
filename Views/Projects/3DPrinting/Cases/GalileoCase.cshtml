@@ -11,24 +11,24 @@
 @section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("../Common/CardHeader.cshtml", Model)
+    @Html.Partial("Projects/Common/CardHeader.cshtml", Model)
     <div class="card-body">
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/3DPrinting/Cases/Galileo/galileo_case.jpg", "Intel Galileo Gen 2 Upper Case"))
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
             I used to use this as an interface layer between the internet and 
             devices on my local network, but have decommissioned it in favor of newer devices.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
         <br />
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/3DPrinting/Cases/Galileo/galileo_base.jpg", "Intel Galileo Gen 2 Lower Base"))
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
             I designed this case the opposite of most cases -- the base is very thin instead of the lid.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
             This design makes it very easy to access the SSD connected to the Galileo,
             <br />
             while the slots on the top still allow you to plug in devices and other accessories.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
     </div>
 </div>

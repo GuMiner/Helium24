@@ -1,5 +1,6 @@
 ﻿using Helium24.Models;
 using Nancy;
+using System.Linq;
 
 namespace Helium24.Modules
 {
@@ -9,17 +10,16 @@ namespace Helium24.Modules
     public class ProjectsModule : NancyModule
     {
         public ProjectsModule()
-            : base("/Projects")
         {
             foreach (Project project in Global.Projects)
             {
-                AddStaticRoute(project.ProjectUri.Replace("/Projects", string.Empty), project);
+                AddStaticRoute(project.ProjectUri, project);
             }
         }
         
         private void AddStaticRoute(string routeName, Project project)
         {
-            Get[routeName] = parameters => View[routeName, project];
+            Get[routeName] = parameters => View[routeName.Replace("/Projects/", string.Empty), project];
         }
     }
 }

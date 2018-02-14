@@ -11,11 +11,11 @@
 @section Title {@Model.Title}
 
 <div class="card">
-    @Html.Partial("../Common/CardHeader.cshtml", Model)
+    @Html.Partial("Projects/Common/CardHeader.cshtml", Model)
     <div class="card-body">
-        @Html.Partial("../Common/ImageCard.cshtml",
+        @Html.Partial("Projects/Common/ImageCard.cshtml",
             new Image("/Blobs/Projects/3DPrinting/Cases/Nano/nano_case.jpg", "Arduino Nano slide-on case"))
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
             This nifty little case slides on tightly, with:
         <ul>
             <li>A recessed slot for the USB interface on the back</li>
@@ -23,9 +23,9 @@
             <li>A slot to see the status LEDs</li>
             <li>A cutout for the programming pins.</li>
         </ul>
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
-        @Html.Partial("../Common/ParagraphStart.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphStart.cshtml")
             The Arduino Nano is currently being used to run <a href="https://github.com/gnea/grbl">GRBL</a> to control my CNC engraver / mini-mill.
-        @Html.Partial("../Common/ParagraphEnd.cshtml")
+        @Html.Partial("Projects/Common/ParagraphEnd.cshtml")
     </div>
 </div>

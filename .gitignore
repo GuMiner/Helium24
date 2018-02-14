@@ -5,6 +5,10 @@ Deployment/
 # Ignore our binary blob folder (images, PDFS, etc)
 Blobs/
 
+# Ignore deployment output again as building with Mono is harder than it seems
+drop/
+drop.zip
+
 # User-specific files
 *.suo
 *.user
