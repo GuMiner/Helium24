@@ -47,6 +47,12 @@
 		"date": "2012-12-01",
 		"tags": ["Software"]
 	}, {
+		"thumbnailUri": "/Blobs/ProjectThumbnails/3DPrinting/PrintrbotAbout.png",
+		"projectUri": "/Projects/3DPrinting/PrintrbotAbout",
+		"title": "About the Printrbot Jr",
+		"date": "2013-07-01",
+		"tags": ["Hardware", "Printer", "Electronics"]
+	}, {
 		"thumbnailUri": "/Blobs/ProjectThumbnails/GeigerCounter.png",
 		"projectUri": "/Projects/GeigerCounter",
 		"title": "Geiger Counter",
