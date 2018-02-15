@@ -34,17 +34,35 @@
     <!-- Given a markdown page, dynamically render it! -->
     <script type="text/javascript">
 
+        function GetImageLink(link)
+        {
+            link = link.substring(1);
+            var baseUri = "@Model.ProjectUri";
+            baseUri = baseUri.substring(0, baseUri.lastIndexOf('/'))
+            return baseUri + link;
+        }
+
         function ReplaceLinks(line)
         {
             var linkIndex = line.indexOf("](");
             while (linkIndex != -1)
             {
+                var isHtmlLink = true;
                 var startIndex = line.lastIndexOf("[", linkIndex);
+                if (startIndex != 0 && line[startIndex - 1] == '!') {
+                    // It is an image!
+                    isHtmlLink = false;
+                }
+
                 var endIndex = line.indexOf(")", linkIndex);
 
                 var htmlLink = line.substring(linkIndex + 2, endIndex);
                 var linkText = line.substring(startIndex + 1, linkIndex);
-                line = line.substring(0, startIndex) + '<a href="' + htmlLink + '">' + linkText + '</a>' + line.substring(endIndex + 1);
+                var formattedLink = isHtmlLink ?
+                    ('<a href="' + htmlLink + '">' + linkText + '</a>') :
+                    ('<img src="' + GetImageLink(htmlLink) + '" alt="' + linkText + '"/>');
+
+                line = line.substring(0, startIndex + (isHtmlLink ? 0 : -1)) + formattedLink + line.substring(endIndex + 1);
 
                 linkIndex = line.indexOf("](");
             }
