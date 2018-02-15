@@ -41,11 +41,11 @@
             {
                 var startIndex = line.lastIndexOf("[", linkIndex);
                 var endIndex = line.indexOf(")", linkIndex);
-                
+
                 var htmlLink = line.substring(linkIndex + 2, endIndex);
                 var linkText = line.substring(startIndex + 1, linkIndex);
                 line = line.substring(0, startIndex) + '<a href="' + htmlLink + '">' + linkText + '</a>' + line.substring(endIndex + 1);
-            
+
                 linkIndex = line.indexOf("](");
             }
 
@@ -54,7 +54,40 @@
 
         function IsListItem(line)
         {
-            return line.startsWith("*");
+            return line.startsWith("* ");
+        }
+
+        // TODO: Deduplicate with the function call below
+        function ApplyItalics(line) {
+            var firstIndex = line.indexOf("***");
+            while (firstIndex != -1) {
+                var secondIndex = line.indexOf("***", firstIndex + 3);
+                if (secondIndex != -1) {
+                    line = line.substring(0, firstIndex) + '<i>' + line.substring(firstIndex + 3, secondIndex) + '</i>' + line.substring(secondIndex + 3);
+                    firstIndex = line.indexOf("***", secondIndex + 3);
+                } else {
+                    firstIndex = -1;
+                }
+            }
+
+            return line;
+        }
+
+        function ApplyBold(line)
+        {
+            var firstIndex = line.indexOf("**");
+            while (firstIndex != -1)
+            {
+                var secondIndex = line.indexOf("**", firstIndex + 2);
+                if (secondIndex != -1) {
+                    line = line.substring(0, firstIndex) + '<b>' + line.substring(firstIndex + 2, secondIndex) + '</b>' + line.substring(secondIndex + 2);
+                    firstIndex = line.indexOf("**", secondIndex + 2);
+                } else {
+                    firstIndex = -1;
+                }
+            }
+
+            return line;
         }
 
         $(document).ready(function () {
@@ -72,18 +105,30 @@
                     var markdown = new Array();
                     var currentLine = "";
                     var inList = false;
+                    var inCode = false;
 
                     for (var i = 0; i < data.length; i++)
                     {
                         switch(data[i])
                         {
                             case '\n':
+                                // Headers, footers, and code
                                 if (currentLine.startsWith("==") && currentLine.endsWith("==")) {
                                     markdown[markdown.length - 1] = "<h2 class=\"text-muted\">" + markdown[markdown.length - 1] + "</h2>";
                                 } else if (currentLine.startsWith("--") && currentLine.endsWith("--")) {
                                     markdown[markdown.length - 1] = "<h3 class=\"text-muted\">" + markdown[markdown.length - 1] + "</h3>";
+                                } else if (currentLine.startsWith("```")) {
+                                    if (inCode) {
+                                        markdown.push("</div></div>");
+                                        inCode = false;
+                                    } else {
+                                        markdown.push('<div class="card"><div class="card-body">');
+                                        inCode = true;
+                                    }
                                 } else {
                                     currentLine = ReplaceLinks(currentLine);
+                                    currentLine = ApplyItalics(currentLine);
+                                    currentLine = ApplyBold(currentLine);
 
                                     var isListItem = IsListItem(currentLine)
                                     if (inList && !isListItem) {
