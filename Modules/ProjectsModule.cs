@@ -13,13 +13,25 @@ namespace Helium24.Modules
         {
             foreach (Project project in Global.Projects)
             {
-                AddStaticRoute(project.ProjectUri, project);
+                AddStaticRoute(project);
             }
         }
         
-        private void AddStaticRoute(string routeName, Project project)
+        private void AddStaticRoute(Project project)
         {
-            Get[routeName] = parameters => View[routeName.Replace("/Projects/", string.Empty), project];
+            if (project.ProjectUri.StartsWith(Project.MarkdownSuffix))
+            {
+                // Route markdown pages all to the client-side renderer
+                string serverUri = project.GetServerSideUri();
+                
+                Get[serverUri] = parameters => View["MarkdownBasedProject", project.WithoutMarkdownPrefix()];
+            }
+            else
+            {
+                // Route realized pages to their actual pages here.
+                Get[project.ProjectUri] = 
+                    parameters => View[project.ProjectUri.Replace("/Projects/", string.Empty), project];
+            }
         }
     }
 }

@@ -71,7 +71,7 @@ namespace Helium24
             Global.MapsStore = dataStore;
 
             List<SerializedProject> serializedProjects =
-                JsonConvert.DeserializeObject<List<SerializedProject>>(File.ReadAllText("./Content/Projects.json"));
+                JsonConvert.DeserializeObject<List<SerializedProject>>(File.ReadAllText("./Projects.json"));
             Global.Projects = serializedProjects.Select(item => (Project)item).OrderByDescending(item => item.Date).ToList();
             
             // Turn off certificate validation, because it doesn't work with self-signed stuffs.
