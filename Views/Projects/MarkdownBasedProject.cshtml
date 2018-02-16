@@ -158,7 +158,16 @@
 
         function ReplaceWellKnownCSharpWords(line)
         {
-            var primaryWords = ["using ", "new ", "this.", "return ", "while", "true", "null", "string"];
+            var primaryWords = [
+                "await",
+                "new ",
+                "null",
+                "return ",
+                "string",
+                "this.",
+                "true",
+                "using ",
+                "while"];
             for (var i in primaryWords) {
                 line = ReplaceWord(line, primaryWords[i], "text-primary");
             }
@@ -214,11 +223,16 @@
                                     markdown.push(currentLine);
                                 }
                                 else {
+                                    var isListItem = IsListItem(currentLine)
+                                    if (isListItem && inList) {
+                                        currentLine = currentLine.substring(2);
+                                    }
+
                                     currentLine = ReplaceLinks(currentLine);
                                     currentLine = ApplyBoldAndItalics(currentLine);
                                     currentLine = ApplyHashtagHeaders(currentLine);
 
-                                    var isListItem = IsListItem(currentLine)
+                                    
                                     if (inList && !isListItem) {
                                         markdown.push("</ul>")
                                         inList = false
@@ -228,7 +242,7 @@
                                     }
 
                                     if (isListItem) {
-                                        currentLine = "<li>" + currentLine.substring(2) + "</li>";
+                                        currentLine = "<li>" + currentLine + "</li>";
                                     } else {
                                         currentLine += "<br />";
                                     }
