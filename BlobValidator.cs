@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Helium24
 {
@@ -17,6 +18,7 @@ namespace Helium24
                 string computedHash = Convert.ToBase64String(hashFunction.ComputeHash(conglomerateHashes));
 
                 Global.Log($"Computed blob hash {computedHash}");
+                Global.Log($"Provided blob hash {hash}");
                 return computedHash.Equals(hash);
             }
         }
