@@ -1,7 +1,3 @@
-Markdown:
-- Pretty-format code
-
-
 - Setup auto-CI environment instead of manually deploying.
 - Fix project pages to auto-wrap if multiple images are in a row.
 - Update the projects page to load dynamically and support sorting, searching, etc

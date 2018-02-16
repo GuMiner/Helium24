@@ -88,15 +88,20 @@
 
         function ApplyAsteriskFormatting(line, asterisks, tag)
         {
-            var firstIndex = line.indexOf(asterisks);
+            return ApplyRecursiveSubstringFormatting(line, asterisks, `<${tag}>`, `</${tag}>`);
+        }
+
+        function ApplyRecursiveSubstringFormatting(line, subpart, startTag, endTag)
+        {
+            var firstIndex = line.indexOf(subpart);
             while (firstIndex != -1) {
-                var secondIndex = line.indexOf(asterisks, firstIndex + asterisks.length);
+                var secondIndex = line.indexOf(subpart, firstIndex + subpart.length);
                 if (secondIndex != -1) {
                     line =
                         line.substring(0, firstIndex) +
-                        `<${tag}>` + line.substring(firstIndex + asterisks.length, secondIndex) + `</${tag}>` +
-                        line.substring(secondIndex + asterisks.length);
-                    firstIndex = line.indexOf(asterisks, secondIndex + asterisks.length);
+                        startTag + line.substring(firstIndex + subpart.length, secondIndex) + endTag +
+                        line.substring(secondIndex + subpart.length);
+                    firstIndex = line.indexOf(subpart, secondIndex + subpart.length);
                 } else {
                     firstIndex = -1;
                 }
@@ -126,6 +131,45 @@
             return line;
         }
 
+        function ApplyCodeFormatting(line, codeLang)
+        {
+            if (codeLang == "csharp") {
+                var spaceCount = 0;
+                while (spaceCount < line.length && (line[spaceCount] == ' ' || line[spaceCount] == '\t')) {
+                    ++spaceCount;
+                }
+
+                while (spaceCount > 0) {
+                    line = `&nbsp;&nbsp;&nbsp;${line}`
+                    --spaceCount;
+                }
+
+                line = ReplaceWellKnownCSharpWords(line);
+                line = ApplyRecursiveSubstringFormatting(line, '"', "<span class='text-danger'>''", '\'\'</span>');
+                
+                var commentIndex = line.indexOf("//");
+                if (commentIndex != -1) {
+                    line = `${line.substring(0, commentIndex)} <span class='text-success'>${line.substring(commentIndex)}</span>`
+                }
+            }
+
+            return line + "<br />";
+        }
+
+        function ReplaceWellKnownCSharpWords(line)
+        {
+            var primaryWords = ["using ", "new ", "this.", "return ", "while", "true", "null", "string"];
+            for (var i in primaryWords) {
+                line = ReplaceWord(line, primaryWords[i], "text-primary");
+            }
+            return line;
+        }
+
+        function ReplaceWord(line, word, color)
+        {
+            return line.replace(word, `<span class='${color}'>${word}</span>`)
+        }
+
         $(document).ready(function () {
 
             // Load POI types and populate the first listing of POI types
@@ -140,7 +184,9 @@
                     var markdown = new Array();
                     var currentLine = "";
                     var inList = false;
+
                     var inCode = false;
+                    var codeLang = "";
 
                     for (var i = 0; i < data.length; i++)
                     {
@@ -161,8 +207,13 @@
                                     } else {
                                         markdown.push('<div class="card"><div class="card-body">');
                                         inCode = true;
+                                        codeLang = currentLine.substring(3).trim();
                                     }
-                                } else {
+                                } else if (inCode) {
+                                    currentLine = ApplyCodeFormatting(currentLine, codeLang);
+                                    markdown.push(currentLine);
+                                }
+                                else {
                                     currentLine = ReplaceLinks(currentLine);
                                     currentLine = ApplyBoldAndItalics(currentLine);
                                     currentLine = ApplyHashtagHeaders(currentLine);
@@ -181,6 +232,7 @@
                                     } else {
                                         currentLine += "<br />";
                                     }
+
                                     markdown.push(currentLine);
                                 }
 
