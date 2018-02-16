@@ -44,9 +44,15 @@
 
         function ReplaceLinks(line)
         {
-            var linkIndex = line.indexOf("](");
-            while (linkIndex != -1)
-            {
+            line = ReplaceLinksWithSeparator(line, "](")
+            line = ReplaceLinksWithSeparator(line, "] (");
+            return line;
+        }
+
+        function ReplaceLinksWithSeparator(line, separator)
+        {
+            var linkIndex = line.indexOf(separator);
+            while (linkIndex != -1) {
                 var isHtmlLink = true;
                 var startIndex = line.lastIndexOf("[", linkIndex);
                 if (startIndex != 0 && line[startIndex - 1] == '!') {
@@ -56,7 +62,7 @@
 
                 var endIndex = line.indexOf(")", linkIndex);
 
-                var htmlLink = line.substring(linkIndex + 2, endIndex);
+                var htmlLink = line.substring(linkIndex + separator.length, endIndex);
                 var linkText = line.substring(startIndex + 1, linkIndex);
                 var formattedLink = isHtmlLink ?
                     ('<a href="' + htmlLink + '">' + linkText + '</a>') :
@@ -75,14 +81,22 @@
             return line.startsWith("* ");
         }
 
-        // TODO: Deduplicate with the function call below
-        function ApplyItalics(line) {
-            var firstIndex = line.indexOf("***");
+        function ApplyBoldAndItalics(line) {
+            line = ApplyAsteriskFormatting(line, "**", "b");
+            return ApplyAsteriskFormatting(line, "*", "i");
+        }
+
+        function ApplyAsteriskFormatting(line, asterisks, tag)
+        {
+            var firstIndex = line.indexOf(asterisks);
             while (firstIndex != -1) {
-                var secondIndex = line.indexOf("***", firstIndex + 3);
+                var secondIndex = line.indexOf(asterisks, firstIndex + asterisks.length);
                 if (secondIndex != -1) {
-                    line = line.substring(0, firstIndex) + '<i>' + line.substring(firstIndex + 3, secondIndex) + '</i>' + line.substring(secondIndex + 3);
-                    firstIndex = line.indexOf("***", secondIndex + 3);
+                    line =
+                        line.substring(0, firstIndex) +
+                        `<${tag}>` + line.substring(firstIndex + asterisks.length, secondIndex) + `</${tag}>` +
+                        line.substring(secondIndex + asterisks.length);
+                    firstIndex = line.indexOf(asterisks, secondIndex + asterisks.length);
                 } else {
                     firstIndex = -1;
                 }
@@ -91,18 +105,22 @@
             return line;
         }
 
-        function ApplyBold(line)
+        function ApplyHashtagHeaders(line)
         {
-            var firstIndex = line.indexOf("**");
-            while (firstIndex != -1)
-            {
-                var secondIndex = line.indexOf("**", firstIndex + 2);
-                if (secondIndex != -1) {
-                    line = line.substring(0, firstIndex) + '<b>' + line.substring(firstIndex + 2, secondIndex) + '</b>' + line.substring(secondIndex + 2);
-                    firstIndex = line.indexOf("**", secondIndex + 2);
-                } else {
-                    firstIndex = -1;
-                }
+            var header = "";
+            if (line.startsWith("# ")) {
+                line = line.substring(2);
+                header = "h2";
+            } else if (line.startsWith("## ")) {
+                line = line.substring(3);
+                header = "h3";
+            } else if (line.startsWith("### ")) {
+                line = line.substring(3);
+                header = "h4";
+            }
+
+            if (header != "") {
+                line = `<${header}>${line}</${header}>`;
             }
 
             return line;
@@ -119,7 +137,6 @@
                         return data;
                     })
 
-                    // Inefficient v1
                     var markdown = new Array();
                     var currentLine = "";
                     var inList = false;
@@ -129,6 +146,8 @@
                     {
                         switch(data[i])
                         {
+                            case '\r':
+                                break;
                             case '\n':
                                 // Headers, footers, and code
                                 if (currentLine.startsWith("==") && currentLine.endsWith("==")) {
@@ -145,8 +164,8 @@
                                     }
                                 } else {
                                     currentLine = ReplaceLinks(currentLine);
-                                    currentLine = ApplyItalics(currentLine);
-                                    currentLine = ApplyBold(currentLine);
+                                    currentLine = ApplyBoldAndItalics(currentLine);
+                                    currentLine = ApplyHashtagHeaders(currentLine);
 
                                     var isListItem = IsListItem(currentLine)
                                     if (inList && !isListItem) {
