@@ -148,6 +148,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlobValidator.cs" />
     <Compile Include="Definitions\Camera\EncapsulatedDateTime.cs" />
     <Compile Include="Definitions\Camera\DateTimeRange.cs" />
     <Compile Include="Definitions\Camera\CameraImage.cs" />

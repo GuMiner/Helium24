@@ -7,6 +7,7 @@ using Nancy.Json;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -59,6 +60,12 @@ namespace Helium24
 
         public static void Main(string[] args)
         {
+            if (!BlobValidator.ValidateHash(ConfigurationManager.AppSettings["BlobHash"]))
+            {
+                Log("Blob hashes do not match!");
+                return;
+            }
+
             // Setup the data stores
             // TODO: Use IoC built into our web framework.
             SqlDataStore dataStore = new SqlDataStore();
