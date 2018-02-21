@@ -260,6 +260,7 @@
     <Content Include="Views\Projects\Mobile\PdaParticleCollider.cshtml" />
     <Content Include="Views\Projects\3DPrinting\PrintrbotAbout.cshtml" />
     <Content Include="Views\Projects\MarkdownBasedProject.cshtml" />
+    <Content Include="Views\Apps.cshtml" />
     <None Include="Views\Secure\Register.cshtml" />
     <None Include="Views\Secure\Login.cshtml" />
     <None Include="Views\Secure.cshtml" />
