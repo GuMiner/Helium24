@@ -73,6 +73,14 @@ namespace Helium24
         }
 
         /// <summary>
+        /// Returns the base URI to use to communicate to camera two with.
+        /// </summary>
+        public string GetCameraTwoBaseUri()
+        {
+            return string.Format(ConfigurationManager.AppSettings["CameraTwoFormatString"], GetServerAddress());
+        }
+
+        /// <summary>
         /// Returns the base URI to use to communicate to camera three with.
         /// </summary>
         public string GetCameraThreeBaseUri()

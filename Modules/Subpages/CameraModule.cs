@@ -24,6 +24,22 @@ namespace Helium24.Modules
                 }, requireAdmin: true);
             };
 
+            Get["/Two"] = parameters =>
+            {
+                return this.Authenticate((user) =>
+                {
+                    return this.Response.AsJson(Convert.ToBase64String(GetCameraTwoImage()));
+                }, requireAdmin: true);
+            };
+
+            Get["/Three"] = parameters =>
+            {
+                return this.Authenticate((user) =>
+                {
+                    return this.Response.AsJson(Convert.ToBase64String(GetCameraThreeImage()));
+                }, requireAdmin: true);
+            };
+
             Get["/OneSensors"] = paramters =>
             {
                 return this.Authenticate((user) =>
@@ -35,11 +51,14 @@ namespace Helium24.Modules
                 }, requireAdmin: true);
             };
 
-            Get["/Three"] = parameters =>
+            Get["/TwoSensors"] = paramters =>
             {
                 return this.Authenticate((user) =>
                 {
-                    return this.Response.AsJson(Convert.ToBase64String(GetCameraThreeImage()));
+                    return this.Response.AsJson(this.AuthenticateAndGetAsString(
+                        ConfigurationManager.AppSettings["CameraTwoCredentials"],
+                        Global.UrlResolver.GetCameraTwoBaseUri(),
+                        Global.UrlResolver.GetCameraStatsAddendum()));
                 }, requireAdmin: true);
             };
 
@@ -85,6 +104,12 @@ namespace Helium24.Modules
         {
             return GetCameraImage(ConfigurationManager.AppSettings["CameraOneCredentials"],
                 Global.UrlResolver.GetCameraOneBaseUri() + Global.UrlResolver.GetCameraShotAddendum());
+        }
+
+        public static byte[] GetCameraTwoImage()
+        {
+            return GetCameraImage(ConfigurationManager.AppSettings["CameraTwoCredentials"],
+                Global.UrlResolver.GetCameraTwoBaseUri() + Global.UrlResolver.GetCameraShotAddendum());
         }
 
         public static byte[] GetCameraThreeImage()
