@@ -1,0 +1,400 @@
+﻿@{
+    Layout = "Layouts/RootLayout.cshtml";
+    string pageName = "Maps";
+
+    string accessCode = "accessCode";
+    string newPoiType = "newPoiType";
+    string newPoiButton = "newPoiButton";
+    string currentPoiTypeComboBox = "currentPoiTypeComboBox";
+    string loadAllButton = "loadAllButton";
+
+    string editModeCheckbox = "editModeCheckbox";
+    string lineModeCheckbox = "lineModeCheckbox";
+
+    string POITYPE = "POITYPE";
+    string LATLONG = "LATLONG";
+    string LATLONGONE = "LATLONGONE";
+    string LATLONGTWO = "LATLONGTWO";
+
+    string urlMapPoi = "/Maps/POI";
+    string urlMapData = "/Maps/Data";
+    string urlMapDataLines = "/Maps/DataLines";
+
+    string generalError = "generalError";
+}
+
+@section Title {@pageName}
+
+<div class="alert-warning" id="@generalError" role="alert"></div>
+<div class="card">
+    <div class="card-header">
+        Maps
+    </div>
+    <div class="card-body">
+        <div class="card">
+            <div class="card-header">
+                <div class="row justify-content-between">
+                    <div class="col-auto">
+                        <div class="row justify-content-start">
+                            <div class="col-auto align-self-center">
+                                <label for="@currentPoiTypeComboBox">Current POI type</label>
+                            </div>
+                            <div class="col-auto">
+                                <select id="@currentPoiTypeComboBox" class="form-control"></select>
+                            </div>
+                            <div class="col-auto">
+                                <button id="@loadAllButton" type="button" class="btn btn-primary">Load All POI Types</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-info" data-toggle="collapse" data-target="#collapsibleBody" aria-expanded="true" aria-controls="collapsibleBody">
+                            Edit
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="collapsibleBody" class="card-body collapse hide">
+                <div class="row justify-content-between">
+                    <div class="col-auto">
+                        <div class="row justify-content-start">
+                            <div class="col-auto align-self-center">
+                                <label for="@accessCode">Access Code</label>
+                            </div>
+                            <div class="col-auto">
+                                <input id="@accessCode" type="password" class="form-control" />
+                            </div>
+                            <div class="col-auto">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary">
+                                        <input id="@editModeCheckbox" type="checkbox" class="btn btn-primary" autocomplete="off" />
+                                        Write-Enable
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-primary">
+                                        <input id="@lineModeCheckbox" type="checkbox" class="btn btn-primary" autocomplete="off" />
+                                        Line Mode?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <div class="row justify-content-end">
+                            <div class="col-auto align-self-center">
+                                <label for="@newPoiType">New POI Type</label>
+                            </div>
+                            <div class="col-auto">
+                                <input id="@newPoiType" type="text" class="form-control" />
+                            </div>
+                            <div class="col-auto">
+                                <button id="@newPoiButton" type="button" class="btn btn-secondary">Add</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="map" style="width:100%; height: 700px;"></div>
+
+@section Scripts{
+    <script type="text/javascript" src="~/Content/es6-promise-auto-4.2/es6-promise.auto.min.js"></script>
+    <script type="text/javascript" src="~/Content/axios-0.17/axios.min.js"></script>
+
+    <script>
+        // Window with POI information when the user clicks on the map.
+        var detailString = "<h3>@POITYPE</h3> <small>Lat/Long: @LATLONG</small>";
+        var detailLineString = "<h3>@POITYPE</h3> <small>From: @LATLONGONE To: @LATLONGTWO</small>";
+        var detailWindow;
+        var map;
+        var poiLoadedMap = new Map();
+        var sampleLine;
+
+        var lastLatLng = null;
+        var currentLatLng = null;
+
+        function initMap() {
+            // Create the map
+            var usaCenter = { lat: 44.258, lng: -88.519 };
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: usaCenter,
+                mapTypeId: 'hybrid'
+            });
+
+            sampleLine = new google.maps.Polyline({
+                geodesic: true,
+                clickable: false,
+                map: map,
+                path: [new google.maps.LatLng(0, 0), new google.maps.LatLng(0, 0)],
+                strokeColor: '#33a1de',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+
+            // Create the overlay for POI details
+            detailWindow = new google.maps.InfoWindow({ content: detailString });
+
+            // Setup so that map clicks create new POI
+            map.addListener('click', function (mouseEvent) {
+                lastLatLng = currentLatLng;
+                currentLatLng = mouseEvent.latLng;
+
+                if ($("#@lineModeCheckbox")[0].checked) {
+                    if (lastLatLng != null) {
+                        // Add a line
+                        createPoiLine(lastLatLng, currentLatLng);
+                    }
+                } else {
+                    // Add a point
+                    createPoi(mouseEvent.latLng);
+                }
+            });
+
+            map.addListener("rightclick", function (mouseEvent) {
+                lastLatLng = null;
+                currentLatLng = null;
+            });
+
+            map.addListener("mousemove", function (mouseEvent) {
+                if ($("#@lineModeCheckbox")[0].checked && currentLatLng != null) {
+                    sampleLine.setVisible(true);
+                    sampleLine.getPath().setAt(0, mouseEvent.latLng);
+                    sampleLine.getPath().setAt(1, currentLatLng);
+                } else {
+                    sampleLine.setVisible(false);
+                }
+            });
+        }
+
+        function getCurrentPoiTypeId() {
+            return parseInt($("#@currentPoiTypeComboBox")[0][$("#@currentPoiTypeComboBox")[0].selectedIndex].value);
+        }
+
+        function getGivenPoiTypeText(id) {
+            return $("#@currentPoiTypeComboBox")[0][id].text;
+        }
+
+        function getCurrentPoiTypeText() {
+            return $("#@currentPoiTypeComboBox")[0][$("#@currentPoiTypeComboBox")[0].selectedIndex].text;
+        }
+
+        // Add the POI to the database
+        function createPoi(latLng) {
+            var addPoiData =
+            {
+                AccessCode: $("#@accessCode").val(),
+                TypeId: getCurrentPoiTypeId(),
+                LatLng: JSON.stringify(latLng.toJSON())
+            };
+
+            axios.post('@urlMapData', addPoiData)
+                .then(function (response) {
+                    var data = response.data;
+                    // Add the new POI to the screen.
+                    addNewPoi(latLng, getCurrentPoiTypeText(), data.typeId, data.poiId);
+                })
+                .catch(function (response) {
+                    $("#@generalError").text(response.message);
+                });
+        }
+
+        function createPoiLine(latLngOne, latLngTwo) {
+            var addPoiLineData =
+            {
+                AccessCode: $("#@accessCode").val(),
+                TypeId: getCurrentPoiTypeId(),
+                LatOne: latLngOne.lat(),
+                LngOne: latLngOne.lng(),
+                LatTwo: latLngTwo.lat(),
+                LngTwo: latLngTwo.lng()
+            };
+
+            axios.post('@urlMapDataLines', addPoiLineData)
+                .then(function (response) {
+                    var data = response.data;
+                    // Add the new POI to the screen.
+                    addNewPoiLine(latLngOne, latLngTwo, getCurrentPoiTypeText(), data.typeId, data.poiId);
+                })
+                .catch(function (response) {
+                    $("#@generalError").text(response.message);
+                });
+        }
+
+        function addNewPoi(latLng, fullLabel, typeId, poiId) {
+            // Add the POI to the map
+            var mk = new google.maps.Marker({
+                position: latLng,
+                map: map,
+                label: fullLabel.substring(0, 2)
+            });
+
+            // Setup details / removal functionality
+            mk.addListener('click', function () {
+                if ($("#@editModeCheckbox")[0].checked) {
+                    var poiData =
+                    {
+                        AccessCode: $("#@accessCode").val(),
+                        TypeId: typeId,
+                        PoiId: poiId
+                    };
+
+                    axios({ method: 'delete', url: '@urlMapData', data: poiData })
+                        .then(function (data) {
+                            mk.setMap(null);
+                            mk = null;
+                        })
+                        .catch(function (response) {
+                            $("#@generalError").text(response.message);
+                        });
+                }
+                else {
+                    // Load POI details
+                    var pos = mk.getPosition();
+                    detailWindow.setContent(detailString.replace("@POITYPE", fullLabel).replace("@LATLONG", pos.lat().toFixed(3) + ", " + pos.lng().toFixed(3)));
+                    detailWindow.setPosition(pos);
+                    detailWindow.open(map);
+                }
+            });
+        }
+
+        function addNewPoiLine(latLngOne, latLngTwo, fullLabel, typeId, poiId) {
+            // Add the line to the map
+            var polyline = new google.maps.Polyline({
+                geodesic: true,
+                map: map,
+                path: [latLngOne, latLngTwo],
+                strokeColor: '#FFA812',
+                strokeOpacity: 1.0,
+                strokeWeight: 2
+            });
+
+            // Setup details / removal functionality
+            polyline.addListener('click', function () {
+                if ($("#@editModeCheckbox")[0].checked) {
+                    var poiData =
+                    {
+                        AccessCode: $("#@accessCode").val(),
+                        TypeId: typeId,
+                        PoiId: poiId
+                    };
+
+                    axios({ method: 'delete', url: '@urlMapDataLines', data: poiData })
+                        .then(function (data) {
+                            polyline.setMap(null);
+                            polyline = null;
+                        })
+                        .catch(function (response) {
+                            $("#@generalError").text(response.message);
+                        });
+                }
+                else {
+                    // Load POI details
+                    var pos1 = polyline.getPath().getAt(0);
+                    var pos2 = polyline.getPath().getAt(1);
+                    detailWindow.setContent(detailLineString.replace("@POITYPE", fullLabel).replace("@LATLONGONE", pos1.lat().toFixed(3) + ", " + pos1.lng().toFixed(3)).replace("@LATLONGTWO", pos2.lat().toFixed(3) + ", " + pos2.lng().toFixed(3)));
+                    detailWindow.setPosition(pos1);
+                    detailWindow.open(map);
+                }
+            });
+        }
+
+        // Adds a new POI type that can be placed on the map.
+        $("#@newPoiButton").click(function () {
+            var poiData =
+            {
+                AccessCode: $("#@accessCode").val(),
+                Name: $("#@newPoiType").val()
+            };
+
+            axios.post('@urlMapPoi', poiData)
+                .then(function (response) {
+                    var data = response.data;
+                    $("#@currentPoiTypeComboBox").append("<option value=\"" + data.idx + "\">" + data.name + "</option>");
+                })
+                .catch(function (response) {
+                    $("#@generalError").text(response.message);
+                });
+        });
+
+        // Loads all POI and lines for the specified POI type
+        function loadPoiType(index) {
+            if (poiLoadedMap.get(index) != true) {
+                poiLoadedMap.set(index, true);
+
+                // Find the type id
+                var idx = 0;
+                for (var i = 0; i < $('#@currentPoiTypeComboBox option').length; i++) {
+                    if (parseInt($("#@currentPoiTypeComboBox")[0][i].value) == index) {
+                        idx = i;
+                        break;
+                    }
+                }
+
+                axios.get('@urlMapData' + '/' + index)
+                    .then(function (response) {
+                        var data = response.data;
+
+                        // Add the new POI to the screen.
+                        for (var i = 0; i < data.length; i++) {
+                            addNewPoi(JSON.parse(data[i].latLng), getGivenPoiTypeText(idx), data[i].typeId, data[i].poiId);
+                        }
+                    })
+                    .catch(function (response) {
+                        $("#@generalError").text(response.message);
+                    });
+
+                axios.get('@urlMapDataLines' + '/' + index)
+                    .then(function (response) {
+                        var data = response.data;
+
+                        // Add the new POI to the screen.
+                        for (var i = 0; i < data.length; i++) {
+                            addNewPoiLine(new google.maps.LatLng(data[i].latOne, data[i].lngOne), new google.maps.LatLng(data[i].latTwo, data[i].lngTwo), getGivenPoiTypeText(idx), data[i].typeId, data[i].poiId);
+                        }
+                    })
+                    .catch(function (response) {
+                        $("#@generalError").text(response.message);
+                    });
+            }
+        }
+
+        // Load all POI types if specifically requested.
+        $("#@loadAllButton").click(function () {
+            for (var i = 0; i < $('#@currentPoiTypeComboBox option').length; i++) {
+                loadPoiType(parseInt($("#@currentPoiTypeComboBox")[0][i].value));
+            }
+        })
+
+        // Ensure when we select a new POI type, we load all the existing POI for it.
+        $("#@currentPoiTypeComboBox").change(function () {
+            loadPoiType(getCurrentPoiTypeId());
+        });
+
+        $(document).ready(function () {
+
+            // Load POI types and populate the first listing of POI types
+            axios.get('@urlMapPoi')
+                .then(function (response) {
+                    var data = response.data;
+
+                    for (var i = 0; i < data.length; i++) {
+                        $("#@currentPoiTypeComboBox").append("<option value=\"" + data[i].idx + "\">" + data[i].name + "</option>");
+                    }
+
+                    $("#@currentPoiTypeComboBox")[0].selectedIndex = 0;
+                    loadPoiType(getCurrentPoiTypeId());
+                })
+                .catch(function (response) {
+                    $("#@generalError").text(response.message);
+                });
+        });
+    </script>
+    <!-- Restricted to helium24.net, so get your own key at https://developers.google.com/maps/documentation/javascript/get-api-key instead of copying this. -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=TODO&callback=initMap" type="text/javascript"></script>
+}

@@ -1,9 +1,11 @@
-# Ignore folders and files that may have sensitive data for now
-App.config
+# Ignore folders and files that may have sensitive data
+appsettings.json
+appsettings.Development.json
 Deployment/
 
 # Ignore our binary blob folder (images, PDFS, etc)
 Blobs/
+H24/wwwroot
 
 # Ignore deployment output again as building with Mono is harder than it seems
 drop/

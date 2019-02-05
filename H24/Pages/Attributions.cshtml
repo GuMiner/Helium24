@@ -1,0 +1,49 @@
+﻿@page
+@using H24.Models;
+@using System.Collections.Generic;
+@model AttributionsModel
+@{
+    ViewData["Title"] = "Error";
+}
+
+@{
+    List<Attribution> attributions = new List<Attribution>()
+    {
+        new Attribution("Ace", "1.2.9", "https://ace.c9.io/", "In-browser text editor"),
+        new Attribution("Axios", "0.17.0", "https://github.com/axios/axios", "Javascript REST API library"),
+        new Attribution("Bootstrap", "4.0.0", "https://getbootstrap.com/", "HTML frontend toolkit"),
+        new Attribution("Chartist", "0.11.0", "https://gionkunz.github.io/chartist-js/", "Javascript charting library"),
+        new Attribution("Chartist-Plugin-AxisTitle", "0.0.4", "https://github.com/alexstanbury/chartist-plugin-axistitle", "Chartist plugin for axis titles"),
+        new Attribution("ES6-Promise", "4.2.0", "https://github.com/stefanpenner/es6-promise", "Polyfill for ES6 promites"),
+        new Attribution("JQuery (Slim)", "3.0.0", "http://jquery.com/", "Javascript DOM and event library"),
+        new Attribution("Katex", "0.9.0", "https://khan.github.io/KaTeX/", "Javascript math typesetting"),
+        new Attribution("ASP.NET Core", "2.2", "https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-2.2", "Core website infrastructur"),
+        new Attribution("Newtonsoft.Json", "12.0.1", "https://www.newtonsoft.com/json", "C# JSON serialization / deserialization"),
+        new Attribution("Npgsql", "3.2.1", "http://www.npgsql.org/", "ADO.NET data provider for PostgreSQL"),
+        new Attribution("Popper", "1.12.0", "https://popper.js.org/", "Javascript tooltip and popup library"),
+        new Attribution("SHA256", "1.0", "http://www.movable-type.co.uk/scripts/sha256.html", "SHA256 Javascript implementation")
+    };
+}
+
+<div class="container">
+    <div class="row justify-content-md-center">
+        <div class="col-auto">
+            <h3>Attributions</h3>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-auto">
+            As with any modern software project, several existing components were used to build this website:
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-auto py-2">
+            <ul>
+                @foreach (Attribution attrib in attributions)
+                {
+                    <li><a href="@attrib.Uri">@attrib.Name @attrib.Version</a> — @attrib.Usage</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

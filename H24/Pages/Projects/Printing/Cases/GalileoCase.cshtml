@@ -1,0 +1,30 @@
+﻿@page
+@using H24.Models;
+@model H24.Pages.Printing.Cases.GalileoCaseModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="card">
+    <partial name="../../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <partial name="../../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/3DPrinting/Cases/Galileo/galileo_case.jpg", "Intel Galileo Gen 2 Upper Case")' />
+        <partial name="../../Common/ParagraphStart.cshtml" />
+        I used to use this as an interface layer between the internet and
+        devices on my local network, but have decommissioned it in favor of newer devices.
+        <partial name="../../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../../Common/ImageCard.cshtml" ,
+                 model='new Image("/Blobs/Projects/3DPrinting/Cases/Galileo/galileo_base.jpg", "Intel Galileo Gen 2 Lower Base")' />
+        <partial name="../../Common/ParagraphStart.cshtml" />
+        I designed this case the opposite of most cases -- the base is very thin instead of the lid.
+        <partial name="../../Common/ParagraphEnd.cshtml" />
+        <partial name="../../Common/ParagraphStart.cshtml" />
+        This design makes it very easy to access the SSD connected to the Galileo,
+        <br />
+        while the slots on the top still allow you to plug in devices and other accessories.
+        <partial name="../../Common/ParagraphEnd.cshtml" />
+    </div>
+</div>

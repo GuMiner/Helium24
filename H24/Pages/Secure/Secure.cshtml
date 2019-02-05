@@ -1,0 +1,71 @@
+﻿@page
+@model SecureModel
+
+@{
+    bool isAdmin = false;
+    bool isAuthenticated = false;
+
+    if (this.HttpContext.User != null && this.HttpContext.User.Claims.Any())
+    {
+        isAdmin = this.HttpContext.User.IsInRole("Admin");
+        isAuthenticated = true;
+    }
+
+    ViewData["Title"] = "Secure";
+}
+
+<div class="container-fluid">
+    <!-- Show all the features if you are authorized -->
+    @if (isAuthenticated)
+    {
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" data-toggle="collapse" href="#notesCollapse" aria-expanded="false" aria-controls="notesCollapse">
+                    Notes
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" data-toggle="collapse" href="#stocksCollapse" aria-expanded="false" aria-controls="stocksCollapse">
+                    Stocks
+                </a>
+            </li>
+            @if (isAdmin)
+            {
+                <li class="page-item">
+                    <a class="page-link" data-toggle="collapse" href="#camerasCollapse" aria-expanded="false" aria-controls="camerasCollapse">
+                        Cameras
+                    </a>
+                </li>
+            }
+        </ul>
+
+        <div class="collapse" id="notesCollapse">
+            <partial name="Subpages/_NotesSubpage.cshtml" />
+        </div>
+
+        <div class="collapse" id="stocksCollapse">
+            <partial name="Subpages/_StocksSubpage.cshtml" />
+        </div>
+
+        @if (isAdmin)
+        {
+            <div class="collapse" id="camerasCollapse">
+                <partial name="Subpages/_CameraSubpage.cshtml" />
+            </div>
+        }
+    }
+
+    <!-- Show an unauthorized area if you are unauthorized. -->
+    @if (!isAuthenticated)
+    {
+        <div class="jumbotron">
+            <h2>Nothing to display here...</h2>
+            <p class="lead">
+                You currently are not logged in, so we cannot show you any secure data.
+            </p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" href="/Secure/Login">Login</a>
+            </p>
+        </div>
+    }
+</div>

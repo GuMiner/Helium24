@@ -1,0 +1,55 @@
+﻿@page
+@using H24.Models;
+@model H24.Pages.Mobile.PdaFractalViewerModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="card">
+    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <partial name="../Common/ParagraphStart.cshtml" />
+        I wrote this program to display and manipulate <a href="https://en.wikipedia.org/wiki/Julia_set">Julia</a> fractals, using direct write access to the graphics memory buffer.
+        <br />
+        This was the last Windows Mobile application I wrote, because I significantly damaged
+        the PDA on a trip to <a href="https://www.asme.org/events/competitions/human-powered-vehicle-challenge-(hpvc)">HPVC 2014</a>.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer1.png", "Julia fractal view #1")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer2.png", "Julia fractal view #2")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer3.png", "Julia fractal view #3")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer4.png", "Julia fractal view #4")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer5.png", "Julia fractal view #5")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer6.png", "Julia fractal view #6")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer7.png", "Julia fractal view #7")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer8.png", "Julia fractal view #8")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer9.png", "Julia fractal view #9")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer10.png", "Julia fractal view #10")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer11.png", "Julia fractal view #11")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Mobile/PdaFractalViewer/fractalviewer12.png", "Julia fractal view #12")' />
+    </div>
+</div>

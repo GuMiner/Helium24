@@ -1,0 +1,30 @@
+﻿@page
+@using H24.Models;
+@model H24.Pages.Printing.N64LogoModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="card">
+    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/3DPrinting/N64Logo/n64.jpg", "A Nintendo 64 Logo, in plastic.")' />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        Available from <a href="http://www.thingiverse.com/thing:14519">Thingiverse</a>, this print was a size and thin-walled part test.
+        <br />
+        Print time was 180 minutes.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/3DPrinting/N64Logo/n64_innards.jpg", "The broken leg of the N64 logo.")' />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        This print was performed with 5% infill, and with a very thin wall, leaving an extremely hollow interior.
+        <br />
+        Unfortunately, this infill was too little, leading to one of the legs to partially break, revealing the innards.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+    </div>
+</div>

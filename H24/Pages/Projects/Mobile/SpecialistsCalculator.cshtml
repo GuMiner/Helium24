@@ -1,0 +1,48 @@
+﻿@page
+@using H24.Models;
+@model H24.Pages.Mobile.SpecialistsCalculatorModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="card">
+    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <h3 class="text-muted">About</h3>
+        <partial name="../Common/ParagraphStart.cshtml" />
+        <b>@Model.Title</b> was a scientific calculator with unit analysis functionality, designed for users heavily using unit analysis.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/Mobile/SpecialistsCalculator/sc1.png", "A demo of unit analysis-based computations.")' />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        You can download this mobile application -- if you have a Windows Phone -- from the
+        <a href="http://www.windowsphone.com/en-us/store/app/specialist-calculator/82c2fc19-93a6-46fd-9386-1c07bf4790e8">Windows Phone store</a>
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        As a basic scientific calculator, this application supports:
+        <ul>
+            <li>Trigonometric & inverse trigonometric functions</li>
+            <li>Multiple base systems</li>
+            <li>Logarithmic functions</li>
+            <li>Variable storage and retrieval</li>
+            <li>... etc ...</li>
+        </ul>
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/Mobile/SpecialistsCalculator/sc2.png", "Variable storage and retrieval demo.")' />
+        <br />
+        <h3 class="text-muted">Unique Aspects</h3>
+        <partial name="../Common/ParagraphStart.cshtml" />
+        This is my only phone application incorporating advertisements, and was designed to be more useful (and polished) than
+        <a href="http://www.windowsphone.com/en-us/store/app/numerian/fa9feca9-4c6e-41ab-9d3b-719b310bef18">Numerian</a>
+        (my first Windows Phone application).
+        Surprisingly, incorporating advertisements was the easy part -- but due to the negligible user base,
+        I'll never make any income from this application.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+    </div>
+</div>

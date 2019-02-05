@@ -1,0 +1,24 @@
+﻿@page
+@using H24.Models;
+@model H24.Pages.Printing.Cases.PiCaseModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="card">
+    <partial name="../../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <partial name="../../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/3DPrinting/Cases/Pi/rpi_case.jpg", "Raspberry Pi Model B+ Case")' />
+        <partial name="../../Common/ParagraphStart.cshtml" />
+        This case stores my raspberry pi, which I use as a local interface between the router and other IoT devices.
+        <partial name="../../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/3DPrinting/Cases/Pi/rpi_lid.jpg", "Raspberry Pi Model B+ Lid")' />
+        <partial name="../../Common/ParagraphStart.cshtml" />
+        The lid is mostly for aesthetics -- it doesn't tightly attach to the case.
+        <partial name="../../Common/ParagraphEnd.cshtml" />
+    </div>
+</div>

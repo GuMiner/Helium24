@@ -1,0 +1,27 @@
+﻿@page
+@using H24.Models;
+@model H24.Pages.Printing.Cases.NanoCaseModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="card">
+    <partial name="../../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <partial name="../../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/3DPrinting/Cases/Nano/nano_case.jpg", "Arduino Nano slide-on case")' />
+        <partial name="../../Common/ParagraphStart.cshtml" />
+        This nifty little case slides on tightly, with:
+        <ul>
+            <li>A recessed slot for the USB interface on the back</li>
+            <li>A slot to access the interface pins (lower-right)</li>
+            <li>A slot to see the status LEDs</li>
+            <li>A cutout for the programming pins.</li>
+        </ul>
+        <partial name="../../Common/ParagraphEnd.cshtml" />
+        <partial name="../../Common/ParagraphStart.cshtml" />
+        The Arduino Nano is currently being used to run <a href="https://github.com/gnea/grbl">GRBL</a> to control my CNC engraver / mini-mill.
+        <partial name="../../Common/ParagraphEnd.cshtml" />
+    </div>
+</div>

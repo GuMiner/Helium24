@@ -1,0 +1,98 @@
+﻿@page
+@using H24.Models;
+@model H24.Pages.Printing.PrintrbotAboutModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="card">
+    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <h3 class="text-muted">Hardware</h3>
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/3DPrinting/PrintrbotAbout/printer_then.jpg", "The original assembled Printrbot JR 3D printer.")' />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        For experimentation purposes, I bought a Printrbot JR 3D printer when the wooden model was still being sold (v1).
+        <br />
+        Since then, I've been able to fine-tune the printer to reliably print with 0.3 mm layer heights and sometimes print at 0.1 mm.
+        <br />
+        Over the past years I've performed minor updates, mainly replacing the printbed (first to acrylic (which melted), then to 4130 steel), and updating the firmware.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        I have since upgraded to a newer printer, but even with this older printer I was able to reliably print with it due to knowing the limitations and strengths of this design.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/3DPrinting/PrintrbotAbout/printer_now.jpg", "The assembled Printrbot JR 3D printer, with modifications.")' />
+        <br />
+        <h3 class="text-muted">Software</h3>
+        <partial name="../Common/ParagraphStart.cshtml" />
+        To reliably print with this printer, I have used the following settings:
+        <table border="1">
+            <tr> <th>Parameter</th> <th>Setting </th> <th>Units </th> </tr>
+            <tr> <td>Heater Temp</td> <td>196-200</td> <td><sup>O</sup>C</td> </tr>
+            <tr> <td>Perimeter Speed </td> <td>60 </td> <td>mm/s </td> </tr>
+            <tr> <td>Small Perimeter Speed </td> <td>60 </td> <td>mm/s </td> </tr>
+            <tr> <td>Infill Speed </td> <td>80 </td> <td>mm/s </td> </tr>
+            <tr> <td>Support Speed</td> <td>90 </td> <td>mm/s </td> </tr>
+            <tr> <td>Bridges Speed </td> <td>90 </td> <td>mm/s </td> </tr>
+            <tr> <td>Gap Speed </td> <td>30 </td> <td>mm/s </td> </tr>
+            <tr> <td>Travel Speed </td> <td>130 </td> <td>mm/s </td> </tr>
+        </table>
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        However, those settings are only applicable when using either <a href="http://www.repetier.com/documentation/repetier-host/">Repetier-Host</a>
+        or <a href="http://www.mattercontrol.com/">Matter Control</a> to load up the STL file, <a href="http://slic3r.org/">Slic3r</a> to slice the file
+        into layers, and either program to send the slices to the 3D printer for printing.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        To actually design the models to 3D print, I either use an existing model on <a href="https://www.thingiverse.com/">Thingiverse</a> or design my own.
+        Designing a 3D model can be done with a variety of software:
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        <ul>
+            <li>
+                <a href="http://www.autodesk.com/products/inventor/overview">Autodesk Inventor</a>:
+                Sketch-and-constraint based 3D modeling software. Expensive for both personal and professional use, but I used this software in high-school design courses.
+            </li>
+            <li>
+                <a href="http://www.blender.org/">Blender</a>:
+                Subdivision freeform modeling tool. Has an immense learning curve and is very focused towards the arts, making it harder to design objects to dimentions.
+            </li>
+            <li>
+                <a href="http://brlcad.org/">BRL-CAD</a>:
+                A <a href="https://en.wikipedia.org/wiki/Constructive_solid_geometry">CSG</a>-based modeling tool, with extensive functionality. I used this for a few
+                models before moving onto other software.
+            </li>
+            <li>
+                <a href="http://www.openscad.org/">OpenSCAD</a>: A CSG modeling tool designed heavily for programmers and those who need to script objects.
+                It is slow but useful enough that I've used this for a good number of my 3D printing projects.
+            </li>
+            <li>
+                <a href="http://www.solidworks.com/">Solidworks</a>:
+                Sketch-and-constraint based 3D modeling software. Expensive for both personal and professional use, but I used this software throughout university.
+            </li>
+            <li>
+                <a href="http://www.wings3d.com">Wings3D</a>:
+                A subdivision modeling tool like Blender, but with a much easier to use UI. However, just like Blender, it is not focused for engineering designs.
+                I have used this tool sparingly.
+            </li>
+        </ul>
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        At the end of the day, the software isn't what makes a good design. A good design comes from a good idea and the commitment of time to implement it, along
+        with the tooling to express the design effectively. One great example of this is the Printrbot's laser-cut parts -- there are many parts, but
+        they all work together to allow you to make more parts of your own design.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/3DPrinting/PrintrbotAbout/3dp_parts.jpg", "The wooden parts making up the Printrbot JR 3D printer")' />
+    </div>
+</div>

@@ -1,0 +1,63 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+
+    string nameField = "UserName";
+    string passwordHash = "PasswordHash";
+
+    string generalError = "generalError";
+    string loginErrorMessage = "";
+    @if (Model.MissingUser)
+    {
+        loginErrorMessage =
+"The specified user does not exist. Please see the ";
+    }
+    else if (Model.BadPassword)
+    {
+        loginErrorMessage =
+"Invalid password specified. Please try again.";
+    }
+    else if (Model.BadEmail)
+    {
+        loginErrorMessage =
+"Your email was not recognized as a valid email.";
+    }
+    else if (Model.MissingField)
+    {
+        loginErrorMessage =
+"Login requires all fields to be filled in before continuing.";
+    }
+}
+
+<div class="container">
+    <h1>Login</h1>
+    <div class="alert-warning" id="@generalError">@loginErrorMessage</div>
+    <form method="POST" name="loginForm" role="form">
+        <div class="form-group">
+            <label for="@nameField">Email</label>
+            <input id="@nameField" class="form-control" type="text" name="@nameField" placeholder="Enter your name" />
+        </div>
+        <div class="form-group">
+            <label for="@passwordHash">Password</label>
+            <input id="@passwordHash" class="form-control" type="password" name="@passwordHash" placeholder="Password" />
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" id="submit">Login</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts{
+    <script type="text/javascript" src="~/Lib/sha256-1.0/sha256.js"></script>
+    
+    <script>
+        $(document).ready(function (event) {
+            $("form[name=loginForm]").submit(function (e) {
+                // Hash the password so we aren't sending raw passwords over the network, secure or otherwise.
+                $('#@passwordHash').val(Sha256.hash($("#@passwordHash").val()));
+            });
+        });
+    </script>
+}

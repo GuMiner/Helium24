@@ -1,0 +1,39 @@
+﻿@page
+@using H24.Models;
+@model ProjectsModel
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="column">
+            <small><i>Disclaimer:</i> This listing of projects is currently out-of-date, as several of my recent projects have not been uploaded or are exclusively on <a href="https://github.com/GuMiner">GitHub</a>.</small>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        @foreach (IProjectWithUri project in ProjectsModel.Projects)
+        {
+            <div class="col-auto px-1 py-1">
+                <div class="card">
+                    <a href="@project.ProjectUri" style="position:absolute;top:0;left:0;height:100%;width:100%"></a>
+                    <img class="card-img-top img-fluid rounded" alt="Image in card" style="width:320px; height:320px" src="@project.ThumbnailUri" />
+                    <div class="card-footer">
+                        <div class="row justify-content-between">
+                            <div class="col-auto align-self-center px-1">
+                                <a href="@project.ProjectUri" class="text-muted">@project.Title</a>
+                            </div>
+                            <div class="col-auto align-self-center px-0">
+                                <!-- TODO: This should instead link to all projects done this month.-->
+                                <a href="@project.ProjectUri" class="text-muted"><partial name="Projects/Common/Base/FormattedDate.cshtml" model="@project.Date" /></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <partial name="Projects/Common/Base/TagButtons.cshtml" model="@project.Tags" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

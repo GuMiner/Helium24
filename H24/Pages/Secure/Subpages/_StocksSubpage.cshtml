@@ -1,0 +1,363 @@
+﻿@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+
+@{
+    Layout = "SubpageLayout.cshtml";
+
+    // Stock
+    string currentDate = "currentDate";
+
+    // Stock -- Status
+    string generalOperationalError = "generalOperationalError";
+
+    // Stock -- Active Stocks
+    string activeStocksTable = "activeStocksTable";
+    string activeStocksTableUpdateButton = "activeStocksTableUpdateButton";
+
+    string sellStockComboBox = "sellStockComboBox";
+    string sellAmount = "sellAmount";
+    string sellButton = "sellButton";
+
+    string buyTicker = "buyTicker";
+    string buyName = "buyName";
+    string buyAmount = "buyAmount";
+    string buyPurchasePrice = "buyPurchasePrice";
+    string buyButton = "buyButton";
+
+    // Stocks -- Settings
+    string sellStockFee = "sellStockFee";
+    string tradeCommission = "tradeCommission";
+    string saveSettingsButton = "saveSettingsButton";
+
+    // URLs
+    string urlActiveStocks = "/api/Stock/ActivePositions";
+    string urlStockPurchase = "/api/Stock/Purchase";
+    string urlStockSale = "/api/Stock/Sale";
+    string urlStockSettings = "/api/Stock/Settings";
+
+    string urlQuotesGroup = "/api/Quotes/Group";
+}
+
+@section Content{
+    <div class="card" style="width: 60rem;">
+        <div class="card-header">
+            <div class="row justify-content-between">
+                <div class="col-auto align-self-center">
+                    Stocks
+                </div>
+                <div class="col-auto">
+                    <button id="@activeStocksTableUpdateButton" type="button" class="btn btn-info">Refresh</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <table id="@activeStocksTable" class="table ">
+                        <tr>
+                            <th>Ticker</th>
+                            <th>Name</th>
+                            <th>Date AQ</th>
+                            <th>Purchase Amount</th>
+                            <th>Purchase $</th>
+                            <th>Current $</th>
+                            <th>Gain (%)</th>
+                            <th>Gain ($)</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row justify-content-between">
+                        <div class="col-auto">
+                            <button class="btn btn-info" data-toggle="collapse" data-target="#collapsibleBody" aria-expanded="true" aria-controls="collapsibleBody">
+                                Modify
+                            </button>
+                        </div>
+                        <div class="col-auto">
+                            <div class="row">
+                                <div class="col-auto align-self-center">
+                                    <label for="@currentDate">Operation Date</label>
+                                </div>
+                                <div class="col-auto">
+                                    <input id="@currentDate" type="date" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="collapsibleBody" class="card-body collapse hide">
+                    <div class="row py-2">
+                        <div class="col-auto align-self-center">
+                            <label for="@sellStockFee">Selling fee (¢/$1000)</label>
+                        </div>
+                        <div class="col-2">
+                            <input id="@sellStockFee" type="number" class="form-control" />
+                        </div>
+                        <div class="col-auto align-self-center">
+                            <label for="@tradeCommission">Commission ($/trade)</label>
+                        </div>
+                        <div class="col-2">
+                            <input id="@tradeCommission" type="number" class="form-control" />
+                        </div>
+                        <div class="col-auto">
+                            <button id="@saveSettingsButton" type="button" class="btn btn-secondary">Save</button>
+                        </div>
+                    </div>
+                    <div class="row py-2" style="background:lightblue">
+                        <div class="col-auto align-self-center py-1" style="background:lightgreen">
+                            <b>Sell</b>
+                        </div>
+                        <div class="col-auto align-self-center">
+                            <label for="@sellStockComboBox">Stock</label>
+                        </div>
+                        <div class="col-auto">
+                            <select id="@sellStockComboBox" class="form-control"></select>
+                        </div>
+                        <div class="col-auto align-self-center">
+                            <label for="@sellAmount">Amount</label>
+                        </div>
+                        <div class="col-2">
+                            <input id="@sellAmount" type="number" value="0.00" class="form-control" />
+                        </div>
+                        <div class="col-auto">
+                            <button id="@sellButton" type="button" class="btn btn-info">Sell</button>
+                        </div>
+                    </div>
+                    <div class="row py-2 alight-items-start" style="background:lightgreen">
+                        <div class="col-1 align-self-center py-1" style="background:lightblue">
+                            <b>Buy</b>
+                        </div>
+                        <div class="col-2 align-self-center">
+                            <label for="@buyTicker">Ticker</label>
+                        </div>
+                        <div class="col-2">
+                            <input id="@buyTicker" type="text" class="form-control" />
+                        </div>
+                        <div class="col-2 align-self-center">
+                            <label for="@buyName">Name</label>
+                        </div>
+                        <div class="col-3">
+                            <input id="@buyName" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row py-2 align-items-start" style="background:lightgreen">
+                        <div class="col-1 py-1">
+                            <!-- Spacer for alignment -->
+                        </div>
+                        <div class="col-2 align-self-center">
+                            <label for="@buyAmount">Amount</label>
+                        </div>
+                        <div class="col-2">
+                            <input id="@buyAmount" type="number" value="0" class="form-control" />
+                        </div>
+                        <div class="col-2 align-self-center">
+                            <label for="@buyPurchasePrice">Price ($)</label>
+                        </div>
+                        <div class="col-2">
+                            <input id="@buyPurchasePrice" type="number" value="0" class="form-control" />
+                        </div>
+                        <div class="col-auto">
+                            <button id="@buyButton" type="button" class="btn btn-primary">Buy</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script type="text/javascript">
+            // ---- Handle stock manipulations
+            var sellStockFee = 1;
+            var sellStockCommission = 0.01;
+
+            // Saves stock purchases
+            $("#@buyButton").click(function () {
+                var transactionData =
+                {
+                    Ticker: $("#@buyTicker").val(),
+                    Name: $("#@buyName").val(),
+                    DateAcquired: $("#@currentDate").val(),
+                    PurchaseAmount: $("#@buyAmount").val(),
+                    PurchasePrice: $("#@buyPurchasePrice").val(),
+                    __RequestVerificationToken: "@Xsrf.GetAndStoreTokens(this.Context).RequestToken"
+                };
+
+                axios.post('@urlStockPurchase', transactionData)
+                    .then(function (data) {
+                        loadActivePositions();
+                        loadStockStatus();
+                        loadStockAnalysis();
+                    })
+                    .catch(function (data) {
+                        $("#@generalOperationalError").text(data.responseText);
+                    });
+            });
+
+            // Sells stock purchases
+            $("#@sellButton").click(function () {
+                var sellData =
+                {
+                    SelectedIndex: $("#@sellStockComboBox")[0].selectedIndex,
+                    Date: $("#@currentDate").val(),
+                    Amount: $("#@sellAmount").val(),
+                    __RequestVerificationToken: "@Xsrf.GetAndStoreTokens(this.Context).RequestToken"
+                };
+
+                axios.post('@urlStockSale', sellData)
+                    .then(function (data) {
+                        loadActivePositions();
+                        loadStockStatus();
+                    })
+                    .catch(function (data) {
+                        $("#@generalOperationalError").text(data.responseText);
+                    });
+            });
+
+            $("#@activeStocksTableUpdateButton").click(function () {
+                loadActivePositions();
+            });
+
+            // Loads active stock purchases
+            function loadActivePositions() {
+                axios.get('@urlActiveStocks')
+                    .then(function (response) {
+                        var data = response.data;
+
+                        // Just perform the removal steps and exist if we have no data.
+                        if (data.length == 0) {
+                            // Remove all table rows greater than index 0 (leaving the header row)
+                            $("#@activeStocksTable").find("tr:gt(0)").remove();
+
+                            // Remove all the combo box options
+                            $("#@sellStockComboBox").find("option").remove();
+
+                            return;
+                        }
+
+                        // Perform another REST query to get the current quotes for all the tickers.
+                        var tickerString = "?";
+                        for (var i = 0; i < data.length; i++) {
+                            tickerString += data[i].ticker;
+                            if (i != data.length - 1) {
+                                tickerString += "&";
+                            }
+                        }
+
+                        // Ideally this would be async, so we render this once we get it...
+                        // ... but I'm not improving this as this is mostly for my personal use.
+                        axios.get('@urlQuotesGroup' + tickerString)
+                            .then(function (tickerResponse) {
+                                var tickerData = tickerResponse.data;
+
+                                // Remove all table rows greater than index 0 (leaving the header row)
+                                $("#@activeStocksTable").find("tr:gt(0)").remove();
+
+                                // Remove all the combo box options
+                                $("#@sellStockComboBox").find("option").remove();
+
+                                var prefix = "<td style=\"border-left: 1px dashed; border-top: 1px dashed;\" class=\"px-2 py-1 m-0\"><small>";
+                                var postfix = "</small></td>";
+                                var totalPurchaseCash = 0;
+                                var totalGain = 0;
+
+                                // Add all the rows retrieved from the data after the last header (tr) row.
+                                for (var i = 0; i < data.length; i++) {
+                                    var shortDate = data[i].dateAcquired.toString().substring(0, 10);
+
+                                    var ticker = prefix + data[i].ticker + postfix;
+                                    var name = prefix + data[i].name + postfix;
+                                    var date = prefix + shortDate + postfix;
+                                    var purchaseAmount = prefix + data[i].purchaseAmount + " ($" + data[i].purchasePrice.toFixed(2) + ")" + postfix;
+
+                                    // Ensure our digits are fixed-precision, but also have commas in the appropriate positioning.
+                                    totalPurchaseCash += data[i].purchaseAmount * data[i].purchasePrice;
+                                    var purchaseCash = prefix + (data[i].purchaseAmount * data[i].purchasePrice).toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + postfix;
+
+                                    // Current stock ticker price.
+                                    var cashValue = tickerData.tickerValues[data[i].ticker.toLowerCase()];
+                                    var currentCash = prefix + cashValue + postfix;
+
+                                    var rawCashGain = (cashValue - data[i].purchasePrice) * data[i].purchaseAmount;
+                                    var adjustedCashGain = rawCashGain - ((cashValue * data[i].purchaseAmount * sellStockFee) / 1000.0 + 2 * sellStockCommission);
+                                    totalGain += adjustedCashGain;
+
+                                    var adjustedCashGainString = prefix + adjustedCashGain.toFixed(2) + postfix;
+                                    var percentGain = 100 * (adjustedCashGain / (data[i].purchaseAmount * data[i].purchasePrice));
+
+                                    var percentGainString = prefix + percentGain.toFixed(2) + postfix;
+
+                                    $("#@activeStocksTable tr:last").after("<tr>" +
+                                        ticker + name + date + purchaseAmount + purchaseCash + currentCash + percentGainString + adjustedCashGainString + "</tr>");
+
+                                    $("#@sellStockComboBox").append("<option value=\"" + i + "\">" + data[i].ticker + " (" + data[i].purchaseAmount + " @@ " + shortDate + ")" + "</option>");
+                                }
+
+                                $("#@activeStocksTable tr:last").after("<tr>" +
+                                        prefix + "<b>Total</b>" + postfix +
+                                        prefix + "---------" + postfix +
+                                        prefix + "------" + postfix +
+                                        prefix + "----" + postfix +
+                                        prefix + "<b>" + totalPurchaseCash.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</b>" + postfix +
+                                        prefix + "----" + postfix +
+                                        prefix + "----" + postfix +
+                                        prefix + "<b>" + totalGain.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,") + "</b>" + postfix + "</tr>");
+                            })
+                            .catch(function (data) {
+                                $("#@generalOperationalError").text(data.responseText);
+                            });
+                    })
+                .catch(function (data) {
+                    $("#@generalOperationalError").text(data.responseText);
+                });
+            }
+
+            // Saves and loads stock settings.
+            $("#@saveSettingsButton").click(function () {
+                var settingsData =
+                {
+                    SellStockFee: $("#@sellStockFee").val(),
+                    TradeCommission: $("#@tradeCommission").val(),
+                    __RequestVerificationToken: "@Xsrf.GetAndStoreTokens(this.Context).RequestToken"
+                };
+
+                axios.post('@urlStockSettings', settingsData)
+                    .then(function (data) {
+                    })
+                    .catch(function (data) {
+                        $("#@generalOperationalError").text(data);
+                    });
+            });
+
+            function loadStockSettings() {
+                axios.get('@urlStockSettings', { headers: { 'Content-Type': 'application/json' }})
+                    .then(function (data) {
+                        sellStockFee = data.data.sellStockFee;
+                        sellStockCommission = data.data.tradeCommission;
+                        $("#@sellStockFee").val(sellStockFee);
+                        $("#@tradeCommission").val(sellStockCommission);
+                    })
+                    .catch(function (data) {
+                        $("#@generalOperationalError").text(data);
+                    });
+            }
+
+            // Setup global stock information.
+            $(document).ready(function () {
+                var jsDate = new Date();
+                var month = jsDate.getMonth() + 1;
+                var day = jsDate.getDate();
+
+                var currentDay = jsDate.getFullYear() + "-" + (month < 10 ? "0" + month : month) + "-" + (day < 10 ? "0" + day : day);
+                $("#@currentDate").val(currentDay);
+
+                // If we get invalid stock settings, we will have invalid gain settings, so this must be done first.
+                loadStockSettings();
+                loadActivePositions();
+            });
+    </script>
+}

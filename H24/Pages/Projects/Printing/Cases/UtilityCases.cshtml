@@ -1,0 +1,23 @@
+﻿@page
+@using H24.Models;
+@model H24.Pages.Printing.Cases.UtilityCasesModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="card">
+    <partial name="../../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <partial name="../../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/3DPrinting/Cases/Utility/charger.jpg", "Lithium-Polymer USB Battery Charger")' />'
+        <br />
+        <partial name="../../Common/ImageCard.cshtml" ,
+            model='@new Image("/Blobs/Projects/3DPrinting/Cases/Utility/programmer.jpg", "USB-ASP Atmel programmer")' />
+        <partial name="../../Common/ParagraphStart.cshtml" />
+        I had purchased a lithium-polymer USB battery charger and a USB-ASP Atmel programmer, both without cases.
+        <br />
+        Although I had to do a bit of sanding, making these two cases taught me how to more effectively design cases for other projects.
+        <partial name="../../Common/ParagraphEnd.cshtml" />
+    </div>
+</div>
