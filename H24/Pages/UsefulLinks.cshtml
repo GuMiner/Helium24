@@ -1,0 +1,84 @@
+﻿@page
+@using H24.Models;
+@using System.Collections.Generic;
+@model UsefulLinksModel
+@{
+    ViewData["Title"] = "Useful Links";
+}
+
+<div class="container-fluid">
+    <div class="row-auto">
+        <div class="col-auto" style="flex: unset;">
+            <h1>Useful Links</h1>
+        </div>
+    </div>
+    <div class="row-auto">
+        <div class="col-auto" style="flex: unset;">
+            <div style="background-color:#ffeee8;">
+                <h4>Miscellaneous</h4>
+                <ul>
+                    <li>Backcountry Topographic Mapping -- <a href="https://caltopo.com/map.html">https://caltopo.com/map.html</a></li>
+                    <li>Algorithmic Art -- <a href="http://www.algorithmic-worlds.net/blog/blog.php?Post=20110201">http://www.algorithmic-worlds.net/blog/blog.php?Post=20110201</a></li>
+                    <li>MagicaVoxel file format -- <a href="https://github.com/ephtracy/voxel-model/blob/master/MagicaVoxel-file-format-vox.txt">https://github.com/ephtracy/voxel-model/blob/master/MagicaVoxel-file-format-vox.txt</a></li>
+                    <li><i>Adam Milazzo's</i> Software Collection -- <a href="http://www.adammil.net/code.html">http://www.adammil.net/code.html</a></li>
+                </ul>
+                <h5>&nbsp;Radar &amp; HF imaging</h5>
+                <ul>
+                    <li>Microwave detector -- <a href="http://www.seattlerobotics.org/encoder/200601/Article4/index.php">http://www.seattlerobotics.org/encoder/200601/Article4/index.php</a></li>
+                    <li>DIY Radar System -- <a href="http://dangerousprototypes.com/blog/2011/11/14/defcon-19-build-your-own-radar-system/">http://dangerousprototypes.com/blog/2011/11/14/defcon-19-build-your-own-radar-system/</a></li>
+                    <li>MIT DIY Radar -- <a href="http://ocw.mit.edu/resources/res-ll-003-build-a-small-radar-system-capable-of-sensing-range-doppler-and-synthetic-aperture-radar-imaging-january-iap-2011/">http://ocw.mit.edu/resources/res-ll-003-build-a-small-radar-system-capable-of-sensing-range-doppler-and-synthetic-aperture-radar-imaging-january-iap-2011/</a></li>
+                </ul>
+            </div>
+            <div style="background-color:#fff7e8;">
+                <h4>Datasets</h4>
+                <ul>
+                    <li>ML Models -- <a href="https://github.com/onnx/models">https://github.com/onnx/models</a></li>
+                    <li>CIFAR-10 &amp; CIFAR-100 -- <a href="http://www.cs.toronto.edu/~kriz/cifar.html">http://www.cs.toronto.edu/~kriz/cifar.html</a></li>
+                    <li>King County GIS download -- <a href="https://kingcounty.gov/services/gis/GISData.aspx#download">https://kingcounty.gov/services/gis/GISData.aspx#download</a></li>
+                    <li>USGS National Map -- <a href="https://viewer.nationalmap.gov/basic/">https://viewer.nationalmap.gov/basic/</a></li>
+                </ul>
+            </div>
+            <div style="background-color:#faffe8;">
+                <h4>Machine Learning</h4>
+                <p>
+                    See <b>Datasets</b> for machine learning models and data.
+                </p>
+                <ul>
+                    <li>Windows ML -- <a href="https://docs.microsoft.com/en-us/windows/uwp/machine-learning/overview">https://docs.microsoft.com/en-us/windows/uwp/machine-learning/overview</a></li>
+                    <li>CNNs for Visual Recognition -- <a href="http://cs231n.github.io/neural-networks-3/">http://cs231n.github.io/neural-networks-3/</a></li>
+                    <li>OpenCL Caffe -- <a href="https://github.com/BVLC/caffe/tree/opencl">https://github.com/BVLC/caffe/tree/opencl</a></li>
+                    <li>Cuda Convnet -- <a href="https://code.google.com/archive/p/cuda-convnet/">https://code.google.com/archive/p/cuda-convnet/</a></li>
+                    <li>Model Renderer (shows Alexnet) -- <a href="http://ethereon.github.io/netscope/#/preset/alexnet">http://ethereon.github.io/netscope/#/preset/alexnet</a></li>
+                </ul>
+            </div>
+            <div style="background-color:#e8ffec;">
+                <h4>Game Development and Graphics</h4>
+                <ul>
+                    <li><i>Íñigo Quílez</i> Articles -- <a href="http://iquilezles.org/www/index.htm">http://iquilezles.org/www/index.htm</a></li>
+                    <li>Red Blob Games -- <a href="https://www.redblobgames.com/">https://www.redblobgames.com/</a></li>
+                    <li><i>Web Rarely</i> Roguelike Vision Algorithms -- <a href="http://www.adammil.net/blog/v125_Roguelike_Vision_Algorithms.html">http://www.adammil.net/blog/v125_Roguelike_Vision_Algorithms.html</a></li>
+                </ul>
+            </div>
+            <div style="background-color:#e8fffe;">
+                <h4>Software Libraries</h4>
+                <h5>C++</h5>
+                <ul>
+                    <li>JSON Parsing -- <a href="https://github.com/nlohmann/json">https://github.com/nlohmann/json</a></li>
+                    <li>UWP Texture Mapping -- <a href="https://docs.microsoft.com/en-us/windows/uwp/gaming/applying-textures-to-primitives">https://docs.microsoft.com/en-us/windows/uwp/gaming/applying-textures-to-primitives</a></li>
+                    <li>Linear Algebra -- <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">http://eigen.tuxfamily.org/index.php?title=Main_Page</a></li>
+                </ul>
+
+                <h5>Go</h5>
+                <ul>
+                    <li>OpenGL bindings -- <a href="https://github.com/go-gl/gl">https://github.com/go-gl/gl</a></li>
+                    <li>OpenSimplex random noise algorithm --<a href="https://github.com/ojrac/opensimplex-go">https://github.com/ojrac/opensimplex-go</a></li>
+                </ul>
+
+                <h5>Rust</h5>
+                <ul>
+                    <li>Kiss3D graphics library -- <a href="https://github.com/sebcrozet/kiss3d">https://github.com/sebcrozet/kiss3d</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
