@@ -3,13 +3,13 @@
 @using System.Collections.Generic;
 @model UsefulLinksModel
 @{
-    ViewData["Title"] = "Useful Links";
+    ViewData["Title"] = "Links & Tools";
 }
 
 <div class="container-fluid">
     <div class="row-auto">
         <div class="col-auto" style="flex: unset;">
-            <h1>Useful Links</h1>
+            <h1>Useful Links and Tools</h1>
         </div>
     </div>
     <div class="row-auto">
@@ -77,6 +77,120 @@
                 <h5>Rust</h5>
                 <ul>
                     <li>Kiss3D graphics library -- <a href="https://github.com/sebcrozet/kiss3d">https://github.com/sebcrozet/kiss3d</a></li>
+                </ul>
+            </div>
+            <div style="background-color:#f3e8ff;">
+                <h4>Tools</h4>
+
+                <h5>General</h5>
+                <ul>
+                    <li>7-Zip -- <a href="https://www.7-zip.org/">https://www.7-zip.org/</a></li>
+                    <li>Calibre -- <a href="https://calibre-ebook.com/">https://calibre-ebook.com/</a></li>
+                    <li>Garmin Express -- <a href="https://www.garmin.com/en-US/software/express/">https://www.garmin.com/en-US/software/express/</a></li>
+                    <li>Google Earth -- <a href="https://www.google.com/earth/">https://www.google.com/earth/</a></li>
+                    <li>MusicBee -- <a href="https://getmusicbee.com/">https://getmusicbee.com/</a></li>
+                    <li>NAPS2 (scanner utility) -- <a href="https://www.naps2.com/">https://www.naps2.com/</a></li>
+                    <li>Notepad++ -- <a href="https://notepad-plus-plus.org/">https://notepad-plus-plus.org/</a></li>
+                    <li>Office -- <a href="https://www.office.com/">https://www.office.com/</a></li>
+                    <li>
+                        rush (parallel command-line processing) -- <a href="https://github.com/shenwei356/rush">https://github.com/shenwei356/rush</a>
+                        <ul>
+                            <li><b>Recompress photos in-place:</b> <code>CMD> dir /s /b /a:-d | .\rush.exe "C:\...\jpeg-recompress.exe --no-copy --quality high \"{}\" \"{}\" </code></li>
+                            <li><b>Recompress photos to other directory:</b> <code>CMD>> dir /s /b /a:-d | .\rush.exe "C:\...\jpeg-recompress.exe --no-copy --quality high \"{}\" \"C:\...\otherdir\{%}\""</code></li>
+                            <li>
+                                <ul>
+                                    <li><i>Replace <code>C:\...</code> with the full path to the item in question.</i></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>Sumatra PDF -- <a href="https://www.sumatrapdfreader.org">https://www.sumatrapdfreader.org</a></li>
+                    <li>SwiftSearch -- <a href="https://sourceforge.net/projects/swiftsearch/files/">https://sourceforge.net/projects/swiftsearch/files/</a></li>
+                    <li>VLC -- <a href="https://www.videolan.org/vlc/">https://www.videolan.org/vlc/</a></li>
+                </ul>
+
+                <h5>Graphics</h5>
+                <h6>2D</h6>
+                <ul>
+                    <li>Aseprite -- <a href="https://www.aseprite.org/older-versions/">https://www.aseprite.org/older-versions/</a></li>
+                    <li>GIMP -- <a href="https://www.gimp.org/">https://www.gimp.org/</a></li>
+                    <li>Hugin -- <a href="http://hugin.sourceforge.net/">http://hugin.sourceforge.net/</a></li>
+                    <li>ImageMagick -- <a href="http://www.imagemagick.org/">http://www.imagemagick.org/</a></li>
+                    <li>Inkscape -- <a href="https://inkscape.org/">https://inkscape.org/</a></li>
+                    <li>IrfanView -- <a href="https://www.irfanview.com/">https://www.irfanview.com/</a></li>
+                    <li>Paint.net -- <a href="https://www.getpaint.net/index.html">https://www.getpaint.net/index.html</a></li>
+                </ul>
+                <h6>3D</h6>
+                <ul>
+                    <li>Blender -- <a href="https://www.blender.org/">https://www.blender.org/</a></li>
+                    <li>FreeCAD -- <a href="https://www.freecadweb.org/">https://www.freecadweb.org/</a></li>
+                    <li>Fusion 360 -- <a href="https://www.autodesk.com/products/fusion-360/overview">https://www.autodesk.com/products/fusion-360/overview</a></li>
+                    <li>MagicaVoxel -- <a href="https://ephtracy.github.io/">https://ephtracy.github.io/</a></li>
+                    <li>OpenSCAD -- <a href="http://www.openscad.org/">http://www.openscad.org/</a></li>
+                    <li>POV-Ray -- <a href="http://povray.org/">http://povray.org/</a></li>
+                    <li>Wings 3D -- <a href="http://www.wings3d.com/">http://www.wings3d.com/</a></li>
+                </ul>
+                <h6>Video / Other</h6>
+                <ul>
+                    <li>RenderDoc -- <a href="https://renderdoc.org/">https://renderdoc.org/</a></li>
+                    <li>Vegas Movie Studio -- <a href="https://www.vegascreativesoftware.com/us/vegas-movie-studio/">https://www.vegascreativesoftware.com/us/vegas-movie-studio/</a></li>
+                    <li>VirtualDub -- <a href="http://virtualdub.sourceforge.net/">http://virtualdub.sourceforge.net/</a></li>
+                </ul>
+
+                <h5>Mathematics</h5>
+                <ul>
+                    <li>MathStudio -- <a href="http://mathstud.io/">http://mathstud.io/</a></li>
+                    <li>Octave -- <a href="https://www.gnu.org/software/octave/">https://www.gnu.org/software/octave/</a></li>
+                    <li>ParaView -- <a href="https://www.paraview.org/">https://www.paraview.org/</a></li>
+                    <li>Scilab -- <a href="https://www.scilab.org/">https://www.scilab.org/</a></li>
+                    <li>wxMaxima -- <a href="https://wxmaxima-developers.github.io/wxmaxima/">https://wxmaxima-developers.github.io/wxmaxima/</a></li>
+                </ul>
+
+                <h5>Single Purpose</h5>
+                <h6>Astronomy</h6>
+                <ul>
+                    <li>Celestia -- <a href="https://celestia.space/">https://celestia.space/</a></li>
+                    <li>Stellarium -- <a href="http://stellarium.org/">http://stellarium.org/</a></li>
+                </ul>
+                <h6>Audio</h6>
+                <ul>
+                    <li>Audacity -- <a href="https://www.audacityteam.org/">https://www.audacityteam.org/</a></li>
+                    <li>SDR# -- <a href="https://airspy.com/download/">https://airspy.com/download/</a></li>
+                    <li>Unitrucker -- <a href="http://unitrunker.com/">http://unitrunker.com/</a></li>
+                </ul>
+                <h6>Electronics</h6>
+                <ul>
+                    <li>4nec2 -- <a href="https://www.qsl.net/4nec2/">https://www.qsl.net/4nec2/</a></li>
+                    <li>KiCad EDA -- <a href="http://kicad-pcb.org/">http://kicad-pcb.org/</a></li>
+                    <li>LTspice -- <a href="https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html">https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html</a></li>
+                </ul>
+
+                <h6>Other</h6>
+                <ul>
+                    <li>Dolphin -- <a href="https://dolphin-emu.org/">https://dolphin-emu.org/</a></li>
+                    <li>
+                        ExifTool -- <a href="https://www.sno.phy.queensu.ca/~phil/exiftool/">https://www.sno.phy.queensu.ca/~phil/exiftool/</a>
+                        <ul>
+                            <li><b>Find photos not compressed by <i>JPEG Archive</i>:</b> <code>PS> $compressed = [string]::join("", (&amp;.\exiftool.exe $fileName)).Contains("Compressed by jpeg-re")</code></li>
+                        </ul>
+                    </li>
+                    <li>GPS Track Editor -- <a href="http://www.gpstrackeditor.com">http://www.gpstrackeditor.com</a></li>
+                    <li>JPEG Archive -- <a href="https://github.com/danielgtaylor/jpeg-archive">https://github.com/danielgtaylor/jpeg-archive</a></li>
+                    <li>QGIS -- <a href="https://www.qgis.org">https://www.qgis.org</a></li>
+                </ul>
+
+                <h5>Software Development</h5>
+                <ul>
+                    <li>Bitvise SSH Client -- <a href="https://www.bitvise.com/ssh-client-download">https://www.bitvise.com/ssh-client-download</a></li>
+                    <li>Code::Blocks -- <a href="http://www.codeblocks.org/">http://www.codeblocks.org/</a></li>
+                    <li>Eclipse -- <a href="https://www.eclipse.org/">https://www.eclipse.org/</a></li>
+                    <li>git -- <a href="https://git-scm.com/">https://git-scm.com/</a></li>
+                    <li>NetBeans -- <a href="https://netbeans.org/">https://netbeans.org/</a></li>
+                    <li>PuTTY -- <a href="https://putty.org/">https://putty.org/</a></li>
+                    <li>Unity -- <a href="https://unity3d.com/">https://unity3d.com/</a></li>
+                    <li>Visual Studio -- <a href="https://visualstudio.microsoft.com/">https://visualstudio.microsoft.com/</a></li>
+                    <li>Visual Studio Code -- <a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></li>
+                    <li>WinMerge -- <a href="http://winmerge.org/">http://winmerge.org/</a></li>
                 </ul>
             </div>
         </div>

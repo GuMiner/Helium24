@@ -7,23 +7,23 @@
 }
 
 <div class="card">
-    <partial name="Common/CardHeader.cshtml" for="@Model" />
+    <partial name="../Common/CardHeader.cshtml" for="@Model" />
     <div class="card-body">
-        <partial name="Common/ParagraphStart.cshtml" />
+        <partial name="../Common/ParagraphStart.cshtml" />
         While experimenting with <a href="http://www.123dapp.com/make">Autodesk 123D Make</a>, I discovered simple support for slicing models to generate laser-cut plans.
         <br />
         This support makes it really, really easy to take a 3D model and generate plans for a physical realization of those plans.
-        <partial name="Common/ParagraphEnd.cshtml" />
+        <partial name="../Common/ParagraphEnd.cshtml" />
         <br />
-        <partial name="Common/ParagraphStart.cshtml" />
+        <partial name="../Common/ParagraphStart.cshtml" />
         With Autodesk 123D Make, I converted the
         <a href="http://nasa3d.arc.nasa.gov/detail/sts">Space Shuttle Model</a> from <a href="http://www.nasa.gov/">NASA</a> to a series of plans, which I then laser-cut.
-        <partial name="Common/ParagraphEnd.cshtml" />
+        <partial name="../Common/ParagraphEnd.cshtml" />
         <br />
-        <partial name="Common/ImageCard.cshtml" ,
+        <partial name="../Common/ImageCard.cshtml" ,
             model='@new Image("/Blobs/Projects/LaserCut/SpaceShuttleModel/laser_plans.png", "The plans for the Space Shuttle to be laser-cut, along with other plans.")' />
         <br />
-        <partial name="Common/ImageCard.cshtml" ,
+        <partial name="../Common/ImageCard.cshtml" ,
             model='@new Image("/Blobs/Projects/LaserCut/SpaceShuttleModel/space_shuttle.jpg", "The laser-cut Space Shuttle model")' />
     </div>
 </div>

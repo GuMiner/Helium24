@@ -7,14 +7,14 @@
 }
 
 <div class="card">
-    <partial name="Common/CardHeader.cshtml" for="@Model" />
+    <partial name="../Common/CardHeader.cshtml" for="@Model" />
     <div class="card-body">
-        <partial name="Common/ParagraphStart.cshtml" />
+        <partial name="../Common/ParagraphStart.cshtml" />
         Using <a href="http://www.123dapp.com/make">Autodesk 123D Make</a>, I converted the
         <a href="http://nasa3d.arc.nasa.gov/detail/saturnv-c">Saturn V Model</a> from <a href="http://www.nasa.gov/">NASA</a> to a physical model.
-        <partial name="Common/ParagraphEnd.cshtml" />
+        <partial name="../Common/ParagraphEnd.cshtml" />
         <br />
-        <partial name="Common/ImageCard.cshtml" ,
+        <partial name="../Common/ImageCard.cshtml" ,
             model='@new Image("/Blobs/Projects/LaserCut/SaturnVModel/saturn_v.jpg", "The laser-cut Saturn V model")' />
     </div>
 </div>
