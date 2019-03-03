@@ -1,0 +1,23 @@
+﻿@page
+@using H24.Models;
+@model SkiGpsModel
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="card">
+    <partial name="Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <partial name="Common/ParagraphStart.cshtml" />
+        This project covers how to acquire and render ski run data from downhill ski resorts.
+        I still am creating the writeup for this project. In the meantime, please enjoy the photos below:
+        <partial name="Common/ParagraphEnd.cshtml" />
+        <br /> 
+        <partial name="Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Design/SkiGps/GpsTrackEditorTraces.png", "Ski runs in the GPS Track Editor application")' />
+        <br />
+        <partial name="Common/ImageCard.cshtml" ,
+                 model='@new Image("/Blobs/Projects/Design/SkiGps/GoogleEarthTraces.png", "Ski runs overlaid on Google Earth")' />
+    </div>
+</div>

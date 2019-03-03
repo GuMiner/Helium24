@@ -18,42 +18,69 @@
         "projectUri": "md://Octocad/https://raw.githubusercontent.com/GuMiner/Octocad/master/README.md",
         "title": "Octocad",
         "date": "2016-11-01",
-        "tags": ["Software"]
-    }, {
+        "tags": [ "Software" ]
+    },
+    {
         "thumbnailUri": "/Blobs/ProjectThumbnails/Markdown/Github/Napack.png",
         "projectUri": "md://Napack/https://raw.githubusercontent.com/GuMiner/napack/master/README.md",
         "title": "Napack Package Framework",
         "date": "2017-02-01",
-        "tags": ["Software"]
-    }, {
+        "tags": [ "Software" ]
+    },
+    {
         "thumbnailUri": "/Blobs/ProjectThumbnails/Markdown/Github/Agow.png",
         "projectUri": "md://Agow/https://raw.githubusercontent.com/GuMiner/agow/master/README.md",
         "title": "agow",
         "date": "2017-03-01",
-        "tags": ["Software", "Games"]
-    }, {
+        "tags": [ "Software", "Games" ]
+    },
+    {
         "thumbnailUri": "/Blobs/ProjectThumbnails/Markdown/Github/AdventurePort.png",
         "projectUri": "md://AdventurePort/https://raw.githubusercontent.com/GuMiner/Adventure/master/README.md",
         "title": "C# Adventure API",
         "date": "2017-10-01",
-        "tags": ["Software"]
-    }, {
+        "tags": [ "Software" ]
+    },
+    {
         "thumbnailUri": "/Blobs/ProjectThumbnails/Markdown/Github/RainBot.png",
         "projectUri": "md://RainBot/https://raw.githubusercontent.com/GuMiner/RainBot/master/README.md",
         "title": "RainBot",
         "date": "2017-10-01",
-        "tags": ["Software"]
-    }, {
+        "tags": [ "Software" ]
+    },
+    {
         "thumbnailUri": "/Blobs/ProjectThumbnails/Markdown/Github/PieBot.png",
         "projectUri": "md://PieBot/https://raw.githubusercontent.com/GuMiner/PieBot/master/README.md",
         "title": "PieBot",
         "date": "2017-11-01",
-        "tags": ["Software"]
-    }, {
+        "tags": [ "Software" ]
+    },
+    {
         "thumbnailUri": "/Blobs/ProjectThumbnails/Markdown/Github/GeoWeather.png",
         "projectUri": "md://GeoWeather/https://raw.githubusercontent.com/GuMiner/GeoWeather/master/README.md",
         "title": "GeoWeather API",
         "date": "2018-01-01",
-        "tags": ["Software"]
+        "tags": [ "Software" ]
+    },
+    {
+        "thumbnailUri": "/Blobs/ProjectThumbnails/Markdown/Github/SimpleSensor.png",
+        "projectUri": "md://SimpleSensor/https://raw.githubusercontent.com/GuMiner/garmin-simple-sensor/master/README.md",
+        "title": "SimpleSensor",
+        "date": "2018-11-10",
+        "tags": [ "Software" ]
+    },
+    {
+        "thumbnailUri": "/Blobs/ProjectThumbnails/Markdown/Github/TopographicRasterizer.png",
+        "projectUri": "md://TopographicRasterizer/https://raw.githubusercontent.com/GuMiner/TopographicRasterizer/master/README.md",
+        "title": "Topography Rasterization",
+        "date": "2018-12-01",
+        "tags": [ "Design", "Printer", "Software" ]
+    },
+    {
+        "thumbnailUri": "/Blobs/ProjectThumbnails/Markdown/Github/SimpleClarity.png",
+        "projectUri": "md://SimpleClarity/https://raw.githubusercontent.com/GuMiner/garmin-simple-clarity/master/README.md",
+        "title": "SimpleClarity",
+        "date": "2019-01-01",
+        "tags": [ "Software" ]
     }
 ]

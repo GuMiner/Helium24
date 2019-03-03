@@ -13,6 +13,7 @@
         public static Tag Mobile = new Tag("Mobile", "slateblue");
         public static Tag Games = new Tag("Games", "lightgreen");
         public static Tag Simulation = new Tag("Simulation", "magenta");
+        public static Tag Design = new Tag("Design", "salmon");
 
         public Tag(string name, string htmlColor)
         {
@@ -28,6 +29,7 @@
         {
             switch(tagName)
             {
+                case nameof(Design): return Design;
                 case nameof(Hardware): return Hardware;
                 case nameof(LaserMill): return LaserMill;
                 case nameof(Printer): return Printer;

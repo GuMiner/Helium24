@@ -195,4 +195,8 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Blobs\Projects\Design\SkiGps\" />
+  </ItemGroup>
+
 </Project>
