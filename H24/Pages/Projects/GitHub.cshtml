@@ -28,25 +28,40 @@
     <!-- Given a markdown page, dynamically render it! -->
     <script type="text/javascript">
 
-        function GetImageLink(link)
-        {
+        // Finds and updates links ([]() or [] ()), returning the updated line
+        function ReplaceLinks(line) {
+            line = ReplaceLinksWithSeparator(line, "](")
+            line = ReplaceLinksWithSeparator(line, "] (");
+            return line;
+        }
+
+        // Converts relative links to links
+        function ConvertRelativeLinkToLink(link) {
+            if (link.startsWith(".")) {
+                // Relative link
+                // https://github.com/GuMiner/TopographicRasterizer/blob/master/Example/Example.md
+                // https://raw.githubusercontent.com/GuMiner/TopographicRasterizer/master/README.md
+                link = ConvertRelativeLinkToRawLink(link);
+                link = link.replace("master/", "blob/master/");
+                link = link.replace("raw.githubusercontent", "github");
+            }
+
+            return link;
+        }
+
+        // Converts relative links to GitHub raw direct links
+        function ConvertRelativeLinkToRawLink(link) {
             link = link.substring(1);
             var baseUri = "@Model.ProjectUri";
             baseUri = baseUri.substring(0, baseUri.lastIndexOf('/'))
             return baseUri + link;
         }
 
-        function ReplaceLinks(line)
-        {
-            line = ReplaceLinksWithSeparator(line, "](")
-            line = ReplaceLinksWithSeparator(line, "] (");
-            return line;
-        }
-
-        function ReplaceLinksWithSeparator(line, separator)
-        {
+        // More specific version of ReplaceLinks(...)
+        function ReplaceLinksWithSeparator(line, separator) {
             var linkIndex = line.indexOf(separator);
             while (linkIndex != -1) {
+                // We found something that looks like a link (the '](' in '[]()')
                 var isHtmlLink = true;
                 var startIndex = line.lastIndexOf("[", linkIndex);
                 if (startIndex != 0 && line[startIndex - 1] == '!') {
@@ -59,12 +74,12 @@
                 var htmlLink = line.substring(linkIndex + separator.length, endIndex);
                 var linkText = line.substring(startIndex + 1, linkIndex);
                 var formattedLink = isHtmlLink ?
-                    ('<a href="' + htmlLink + '">' + linkText + '</a>') :
-                    ('<img src="' + GetImageLink(htmlLink) + '" alt="' + linkText + '"/>');
+                    ('<a href="' + ConvertRelativeLinkToLink(htmlLink) + '">' + linkText + '</a>') :
+                    ('<img src="' + ConvertRelativeLinkToRawLink(htmlLink) + '" alt="' + linkText + '"/>');
 
                 line = line.substring(0, startIndex + (isHtmlLink ? 0 : -1)) + formattedLink + line.substring(endIndex + 1);
 
-                linkIndex = line.indexOf("](");
+                linkIndex = line.indexOf(separator);
             }
 
             return line;
@@ -76,11 +91,14 @@
         }
 
         function ApplyBoldAndItalics(line) {
-            line = ApplyAsteriskFormatting(line, "**", "b");
-            return ApplyAsteriskFormatting(line, "*", "i");
+            line = ApplyTagWrappedFormatting(line, "**", "b");
+            line = ApplyTagWrappedFormatting(line, "*", "i");
+            line = ApplyTagWrappedFormatting(line, "_", "i");
+            return line;
         }
 
-        function ApplyAsteriskFormatting(line, asterisks, tag)
+        // Applies any formatting of values wrapped with tags
+        function ApplyTagWrappedFormatting(line, asterisks, tag)
         {
             return ApplyRecursiveSubstringFormatting(line, asterisks, `<${tag}>`, `</${tag}>`);
         }
@@ -104,6 +122,7 @@
             return line;
         }
 
+        // Converts '#' to #### to h2-h5, returning the result.
         function ApplyHashtagHeaders(line)
         {
             var header = "";
@@ -114,8 +133,11 @@
                 line = line.substring(3);
                 header = "h3";
             } else if (line.startsWith("### ")) {
-                line = line.substring(3);
+                line = line.substring(4);
                 header = "h4";
+            } else if (line.startsWith("#### ")) {
+                line = line.substring(5);
+                header = "h5";
             }
 
             if (header != "") {
@@ -125,8 +147,7 @@
             return line;
         }
 
-        function ApplyCodeFormatting(line, codeLang)
-        {
+        function ApplyCodeFormatting(line, codeLang) {
             if (codeLang == "csharp") {
                 var spaceCount = 0;
                 while (spaceCount < line.length && (line[spaceCount] == ' ' || line[spaceCount] == '\t')) {
@@ -139,6 +160,7 @@
                 }
 
                 line = ReplaceWellKnownCSharpWords(line);
+                line = ReplaceNumbers(line);
                 line = ApplyRecursiveSubstringFormatting(line, '"', "<span class='text-danger'>''", '\'\'</span>');
                 
                 var commentIndex = line.indexOf("//");
@@ -150,8 +172,7 @@
             return line + "<br />";
         }
 
-        function ReplaceWellKnownCSharpWords(line)
-        {
+        function ReplaceWellKnownCSharpWords(line) {
             var primaryWords = [
                 "await",
                 "new ",
@@ -163,12 +184,26 @@
                 "using ",
                 "while"];
             for (var i in primaryWords) {
-                line = ReplaceWord(line, primaryWords[i], "text-primary");
+                line = ColorWord(line, primaryWords[i], "text-primary");
             }
             return line;
         }
 
-        function ReplaceWord(line, word, color)
+        function ReplaceNumbers(line) {
+            line = ColorWord(line, "9", "text-warning");
+            line = ColorWord(line, "8", "text-warning");
+            line = ColorWord(line, "7", "text-warning");
+            line = ColorWord(line, "6", "text-warning");
+            line = ColorWord(line, "5", "text-warning");
+            line = ColorWord(line, "4", "text-warning");
+            line = ColorWord(line, "3", "text-warning");
+            line = ColorWord(line, "2", "text-warning");
+            line = ColorWord(line, "1", "text-warning");
+            line = ColorWord(line, "0", "text-warning");
+            return line;
+        }
+
+        function ColorWord(line, word, color)
         {
             return line.replace(word, `<span class='${color}'>${word}</span>`)
         }
@@ -180,6 +215,7 @@
                 .then(function (response) {
                     var data = response.data;
 
+                    // Render what we got back first, in case we hit parsing errors
                     $("#@contentHolder").html(function (n) {
                         return data;
                     })
@@ -191,6 +227,7 @@
                     var inCode = false;
                     var codeLang = "";
 
+                    data += "\n"; // Throw in a newline to avoid end-of-line processing
                     for (var i = 0; i < data.length; i++)
                     {
                         switch(data[i])
@@ -218,7 +255,7 @@
                                 }
                                 else {
                                     var isListItem = IsListItem(currentLine)
-                                    if (isListItem && inList) {
+                                    if (isListItem) {
                                         currentLine = currentLine.substring(2);
                                     }
 
@@ -252,6 +289,7 @@
                         }
                     }
 
+                    // Render the final markdown result.
                     $("#@contentHolder").html(function (n) {
                         return markdown.join("\n");
                     })
