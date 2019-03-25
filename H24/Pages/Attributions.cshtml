@@ -25,25 +25,19 @@
     };
 }
 
-<div class="container">
-    <div class="row justify-content-md-center">
-        <div class="col-auto">
+<div class="container-fluid">
+    <div class="row-auto">
+        <div class="col-auto" style="flex: unset;">
             <h3>Attributions</h3>
         </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <div class="col-auto">
+        <p>
             As with any modern software project, several existing components were used to build this website:
-        </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <div class="col-auto py-2">
-            <ul>
-                @foreach (Attribution attrib in attributions)
-                {
-                    <li><a href="@attrib.Uri">@attrib.Name @attrib.Version</a> — @attrib.Usage</li>
-                }
-            </ul>
-        </div>
+        </p>
+        <ul>
+            @foreach (Attribution attrib in attributions)
+            {
+                <li><a href="@attrib.Uri">@attrib.Name @attrib.Version</a> — @attrib.Usage</li>
+            }
+        </ul>
     </div>
 </div>
