@@ -11,7 +11,6 @@ namespace H24
     public class Program
     {
         // TODO: Make this an IoC instead of a static data type
-        public static ICameraDataStore CameraStore { get; private set; }
         public static INotesDataStore NotesStore { get; private set; }
         public static ISystemStatsDataStore StatsStore { get; private set; }
         public static IUserDataStore UserStore { get; private set; }
@@ -32,7 +31,6 @@ namespace H24
             // Setup the data stores
             // TODO: Use IoC built into our web framework.
             SqlDataStore dataStore = new SqlDataStore(logger);
-            Program.CameraStore = dataStore;
             Program.NotesStore = dataStore;
             Program.StatsStore = dataStore;
             Program.UserStore = dataStore;

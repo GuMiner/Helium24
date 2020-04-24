@@ -12,65 +12,13 @@ using Microsoft.Extensions.Logging;
 namespace H24
 {
     class SqlDataStore 
-    : ICameraDataStore, IDocumentationDataStore, IMapsDataStore, INotesDataStore, 
+    :  IDocumentationDataStore, IMapsDataStore, INotesDataStore, 
       IStockDataStore, ISystemStatsDataStore, IUserDataStore
     {
         private readonly ILogger logger;
         public SqlDataStore(ILogger logger)
         {
             this.logger = logger;
-        }
-
-        public List<CameraImage> GetImages(DateTime minTime, DateTime maxTime)
-        {
-            return PerformQuery((conn) =>
-            {
-                List<CameraImage> images = new List<CameraImage>();
-
-                NpgsqlCommand command = new NpgsqlCommand(
-                    $"SELECT CaptureTime, CameraId, Image FROM CameraImages WHERE CaptureTime > '{minTime.ToString("o")}' AND CaptureTime < '{maxTime.ToString("o")}'", conn);
-                NpgsqlDataReader dataReader = command.ExecuteReader();
-                while (dataReader.Read())
-                {
-                    images.Add(new CameraImage()
-                    {
-                        CaptureTime = (DateTime)dataReader[0],
-                        CameraId = (int)dataReader[1],
-                        Image = (byte[])dataReader[2]
-                    });
-                }
-
-                return images;
-            },
-            (ex) => $"Could not read camera images from {minTime} to {maxTime}: {ex.Message}");
-        }
-
-        public int DeleteImage(DateTime captureTime)
-        {
-            return PerformQuery((conn) =>
-            {
-                List<CameraImage> images = new List<CameraImage>();
-
-                NpgsqlCommand command = new NpgsqlCommand(
-                    $"DELETE FROM CameraImages WHERE CaptureTime = '{captureTime.ToString("o")}'", conn);
-                return command.ExecuteNonQuery();
-            },
-            (ex) => $"Could not delete a camera images at {captureTime}: {ex.Message}");
-        }
-
-        public void SaveImage(CameraImage image)
-        {
-            PerformQuery((conn) =>
-            {
-                NpgsqlCommand command = FormInsertCommand(conn, "CameraImages", new List<Tuple<string, object>>
-                {
-                    Tuple.Create<string, object>("CaptureTime", image.CaptureTime),
-                    Tuple.Create<string, object>("CameraId", image.CameraId),
-                    Tuple.Create<string, object>("Image", image.Image),
-                });
-                command.ExecuteNonQuery();
-            },
-                (ex) => $"Could not save camera image from camera {image.CameraId}.");
         }
 
         public ActivePositions GetActivePositions(string userName)

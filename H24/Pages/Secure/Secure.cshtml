@@ -24,31 +24,11 @@
                     Notes
                 </a>
             </li>
-            <li class="page-item">
-                <a class="page-link" data-toggle="collapse" href="#stocksCollapse" aria-expanded="false" aria-controls="stocksCollapse">
-                    Stocks
-                </a>
-            </li>
-            @if (isAdmin)
-            {
-                <li class="page-item">
-                    <a class="page-link" data-toggle="collapse" href="#camerasCollapse" aria-expanded="false" aria-controls="camerasCollapse">
-                        Cameras
-                    </a>
-                </li>
-            }
         </ul>
 
         <div class="collapse" id="notesCollapse">
             <partial name="Subpages/_NotesSubpage.cshtml" />
         </div>
-
-        @if (isAdmin)
-        {
-            <div class="collapse" id="camerasCollapse">
-                <partial name="Subpages/_CameraSubpage.cshtml" />
-            </div>
-        }
     }
 
     <!-- Show an unauthorized area if you are unauthorized. -->

@@ -68,40 +68,6 @@ namespace H24
         }
 
         /// <summary>
-        /// Returns the base URI to use to communicate to camera one with.
-        /// </summary>
-        public string GetCameraOneBaseUri()
-        {
-            return string.Format(this.settings.CameraOneFormatString, this.GetServerAddress());
-        }
-
-        /// <summary>
-        /// Returns the base URI to use to communicate to camera two with.
-        /// </summary>
-        public string GetCameraTwoBaseUri()
-        {
-            return string.Format(this.settings.CameraTwoFormatString, this.GetServerAddress());
-        }
-
-        /// <summary>
-        /// Returns the base URI to use to communicate to camera three with.
-        /// </summary>
-        public string GetCameraThreeBaseUri()
-        {
-            return string.Format(this.settings.CameraThreeFormatString, this.GetServerAddress());
-        }
-
-        public string GetCameraShotAddendum()
-        {
-            return $"/shot.jpg?rnd={random.Next(1, 1000000)}";
-        }
-
-        public string GetCameraStatsAddendum()
-        {
-            return "/sensors.json?sense=battery_temp,battery_level,battery_voltage";
-        }
-
-        /// <summary>
         /// Gets the PostgreSQL DB connection string.
         /// </summary>
         public string GetSqlConnectionString()

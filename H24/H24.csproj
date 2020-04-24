@@ -6,16 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Pages\_old\DatabaseModule.cs.txt" />
-    <None Remove="Pages\_old\MapsModule.cs.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Pages\_old\DatabaseModule.cs.txt" />
-    <Content Include="Pages\_old\MapsModule.cs.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="AppContent\GitHubProjects.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using H24.Definitions;
 using H24.Extensions;
 using H24.Models;
@@ -10,9 +6,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -29,11 +24,6 @@ namespace H24
         /// Called periodically to save system stats to Elastic Search.
         /// </summary>
         private static System.Timers.Timer statisticsTimer;
-
-        /// <summary>
-        /// Called periodically to save images to the SQL db.
-        /// </summary>
-        private static System.Timers.Timer imageTimer;
 
         public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
@@ -65,10 +55,6 @@ namespace H24
             statisticsTimer = new System.Timers.Timer(1000 * 60 * 10); // Run every 10 minutes.
             statisticsTimer.Elapsed += new SystemStatisticsTask(this.logger).SaveSystemStats;
             statisticsTimer.Start();
-
-            imageTimer = new System.Timers.Timer(1000 * 60 * 20); // Run every 20 minutes (~3 GiB / yr).
-            imageTimer.Elapsed += new ImageStorageTask(this.logger, settings).SaveImageTask;
-            imageTimer.Start();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
