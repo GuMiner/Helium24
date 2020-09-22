@@ -253,27 +253,27 @@ namespace H24
             (ex) => $"Could not add a new system stat with ID {stat.Id}: {ex.Message}");
         }
 
-        public SystemStat GetSystemStat(string dateTime)
+        public ICollection<SystemStat> GetSystemStats(DateTime afterDate)
         {
-            return PerformQuery<SystemStat>((conn) =>
+            return PerformQuery<ICollection<SystemStat>>((conn) =>
             {
-                List<Poi> poi = new List<Poi>();
+                List<SystemStat> stats = new List<SystemStat>();
                 NpgsqlCommand command = new NpgsqlCommand(
-                    $"SELECT Id, UserProcessorPercent, DiskFreePercentage FROM SystemStats WHERE Id = '{dateTime}'", conn);
+                    $"SELECT Id, UserProcessorPercent, DiskFreePercentage FROM SystemStats WHERE Id > '{afterDate:yyyy-MM-dd-hh-mm}' ORDER BY Id ASC", conn);
                 NpgsqlDataReader dataReader = command.ExecuteReader();
                 while (dataReader.Read())
                 {
-                    return new SystemStat()
+                    stats.Add(new SystemStat()
                     {
                         Id = (String)dataReader[0],
                         UserProcessorPercent = (float)dataReader[1],
                         DiskFreePercentage = (float)dataReader[2]
-                    };
+                    });
                 }
 
-                return null;
+                return stats;
             },
-            (ex) => $"Could not read the system stat at {dateTime}: {ex.Message}");
+            (ex) => $"Could not read the system stats after at {afterDate}: {ex.Message}");
         }
 
         public string GetSqlDbStatus()

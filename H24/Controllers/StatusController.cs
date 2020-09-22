@@ -3,6 +3,7 @@ using H24.Time;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -28,36 +29,9 @@ namespace H24.Modules
 
         public IActionResult Server()
         {
-            string[] intervals = TimeUtils.GetLastDayInTenMinutes();
-            SystemStat[] stats = new SystemStat[intervals.Length];
-
-            validStatusElements = 0;
-            invalidStatusElements = 0;
-
-            ParallelOptions parallelOptions = new ParallelOptions();
-            parallelOptions.MaxDegreeOfParallelism = 10;
-            Random rand = new Random();
-            ParallelLoopResult parallelismResult = Parallel.For(0, intervals.Length, parallelOptions, (i) =>
-            {
-                stats[i] = Program.StatsStore.GetSystemStat(intervals[i]);
-                if (stats[i] != null)
-                {
-                    ++validStatusElements;
-                    this.logger.LogData("RetrivedStat", this.HttpContext.TraceIdentifier, new { Id = stats[i].Id, Position = i });
-                }
-                else
-                {
-                    ++invalidStatusElements;
-                    stats[i] = new SystemStat()
-                    {
-                        Id = intervals[i],
-                        DiskFreePercentage = (float)(10.0 + rand.NextDouble() * 1.0) / 100.0f,
-                        UserProcessorPercent = (float)(20.0 + rand.NextDouble() * 10.0) / 100.0f
-                    };
-
-                    this.logger.LogData("RetrivedStatError", this.HttpContext.TraceIdentifier, new { Position = i });
-                }
-            });
+            ICollection<SystemStat> stats = Program.StatsStore.GetSystemStats(
+                DateTime.UtcNow.Subtract(TimeSpan.FromDays(1)));
+            this.logger.LogInformation($"Retrieved {stats.Count} stats.");
 
             return this.Ok(
                 new
