@@ -49,7 +49,7 @@ namespace H24
             services.AddSingleton(this.resetter);
 
             // TODO use DI
-            Program.UrlResolver = new UrlResolver(this.logger, settings);
+            Program.UrlResolver = new UrlResolver(settings);
 
             // Startup our auto-tasks
             statisticsTimer = new System.Timers.Timer(1000 * 60 * 10); // Run every 10 minutes.

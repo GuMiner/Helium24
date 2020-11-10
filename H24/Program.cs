@@ -14,9 +14,6 @@ namespace H24
         public static INotesDataStore NotesStore { get; private set; }
         public static ISystemStatsDataStore StatsStore { get; private set; }
         public static IUserDataStore UserStore { get; private set; }
-        public static IStockDataStore StockStore { get; private set; }
-        public static IDocumentationDataStore DocsStore { get; private set; }
-        public static IMapsDataStore MapsStore { get; private set; }
 
         /// <summary>
         /// Used to resolve URLs to avoid pinging the DDNS too much.
@@ -34,9 +31,6 @@ namespace H24
             Program.NotesStore = dataStore;
             Program.StatsStore = dataStore;
             Program.UserStore = dataStore;
-            Program.StockStore = dataStore;
-            Program.DocsStore = dataStore;
-            Program.MapsStore = dataStore;
 
             logger.LogData("WebsiteStart", Guid.Empty.ToString(), new { SiteName = "Helium24" });
             webHost.Run();

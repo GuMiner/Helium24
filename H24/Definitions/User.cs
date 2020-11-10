@@ -28,18 +28,16 @@ namespace H24.Definitions
         public bool IsAdmin => UserName != null && UserName.Equals("gus.gran@gmail.com");
         
         // User stats-based items.
-        public DateTime RegistrationDate { get; set; }
         public DateTime LastLoginDate { get; set; }
         public int LoginCount { get; set; }
 
         /// <summary>
-        /// Updates this user (likely deserialized from the network) from the given user.(likely from our DB)
+        /// Updates this user (likely deserialized from the network) from the given user (likely from our DB)
         /// </summary>
         /// <param name="dbUser">The db user</param>
         internal void UpdateFromUser(User dbUser)
         {
             Name = dbUser.Name;
-            RegistrationDate = dbUser.RegistrationDate;
             LastLoginDate = dbUser.LastLoginDate;
             LoginCount = dbUser.LoginCount;
         }

@@ -5,7 +5,6 @@
     /// </summary>
     public class AppSettings
     {
-        public string DatabaseServer { get; set; }
         public string DatabaseConnectionFormatString { get; set; }
     }
 }
