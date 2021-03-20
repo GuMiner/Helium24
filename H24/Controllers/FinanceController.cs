@@ -1,14 +1,9 @@
-﻿using H24.Definitions;
-using H24.Models;
-using H24.Time;
+﻿using H24.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
@@ -119,8 +114,7 @@ namespace H24.Modules
                 {
                     allocations = ComputeAllocations(quotes),
                     performances = ComputePerformances(quotes),
-                    overalPerformance = ComputeOverallPerformance(quotes),
-                    date = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time")),
+                    overalPerformance = ComputeOverallPerformance(quotes)
                 });
         }
     }
