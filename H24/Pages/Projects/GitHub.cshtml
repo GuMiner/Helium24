@@ -97,6 +97,11 @@
             return line;
         }
 
+        function ApplyInlineCode(line) {
+            line = ApplyTagWrappedFormatting(line, "`", "code");
+            return line
+        }
+
         // Applies any formatting of values wrapped with tags
         function ApplyTagWrappedFormatting(line, asterisks, tag)
         {
@@ -262,7 +267,7 @@
                                     currentLine = ReplaceLinks(currentLine);
                                     currentLine = ApplyBoldAndItalics(currentLine);
                                     currentLine = ApplyHashtagHeaders(currentLine);
-
+                                    currentLine = ApplyInlineCode(currentLine);
                                     
                                     if (inList && !isListItem) {
                                         markdown.push("</ul>")
