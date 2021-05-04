@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 
 namespace H24.Definitions
 {
@@ -8,7 +8,7 @@ namespace H24.Definitions
         {
         }
 
-        public IApplicationLifetime Lifetime { get; set; }
+        public IHostApplicationLifetime Lifetime { get; set; }
 
         public void Reset()
         {

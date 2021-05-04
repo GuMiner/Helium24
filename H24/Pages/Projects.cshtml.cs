@@ -20,12 +20,12 @@ namespace H24.Pages
         /// </summary>
         public static Dictionary<string, IProjectWithUri> MarkdownProjects { get; private set; }
 
-        public ProjectsModel(IHostingEnvironment environment)
+        public ProjectsModel(IWebHostEnvironment environment)
         {
             ProjectsModel.InitializeProjectsThreadSafe(environment);
         }
 
-        public static void InitializeProjectsThreadSafe(IHostingEnvironment environment)
+        public static void InitializeProjectsThreadSafe(IWebHostEnvironment environment)
         {
             if (ProjectsModel.initializedProjects == 0)
             {
@@ -40,7 +40,7 @@ namespace H24.Pages
             }
         }
 
-        private static void InitializeProjects(IHostingEnvironment environment)
+        private static void InitializeProjects(IWebHostEnvironment environment)
         {
             // Load non-markdown projects
             IEnumerable<IProject> projectTypes = typeof(ProjectsModel).Assembly.GetTypes()

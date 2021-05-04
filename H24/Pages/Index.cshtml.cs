@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Hosting;
 
 namespace H24.Pages
 {
     public class IndexModel : PageModel
     {
-        private readonly IApplicationLifetime lifetime;
+        private readonly IHostApplicationLifetime lifetime;
 
-        public IndexModel(IApplicationLifetime lifetime)
+        public IndexModel(IHostApplicationLifetime lifetime)
         {
             this.lifetime = lifetime;
         }

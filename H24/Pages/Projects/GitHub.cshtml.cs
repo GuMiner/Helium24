@@ -8,7 +8,7 @@ namespace H24.Pages
 {
     public class GitHubModel : PageModel, IProjectWithUri
     {
-        public GitHubModel(IHostingEnvironment environment)
+        public GitHubModel(IWebHostEnvironment environment)
         {
             ProjectsModel.InitializeProjectsThreadSafe(environment);
         }
