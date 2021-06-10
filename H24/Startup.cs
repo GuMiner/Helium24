@@ -50,6 +50,13 @@ namespace H24
             // Website start / stop
             services.AddSingleton(this.resetter);
 
+            // HSTS preload
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+            });
+
             // TODO use DI
             Program.UrlResolver = new UrlResolver(settings);
 
