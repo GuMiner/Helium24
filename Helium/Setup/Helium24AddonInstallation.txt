@@ -1,0 +1,314 @@
+NEW SETUP INSTRUCTIONS, DEBIAN 11
+188.166.155.87
+
+wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+
+sudo apt-get update; \
+  sudo apt-get install -y apt-transport-https && \
+  sudo apt-get update && \
+  sudo apt-get install -y aspnetcore-runtime-6.0
+
+apt-get install unzip htop nginx
+
+adduser helium
+aNight4Swallows^
+
+su helium
+cd ~
+(Copy over drop and see what happens)
+
+== Mail Server ==
+https://www.rosehosting.com/blog/how-to-set-up-a-mail-server-with-postfixadmin-on-debian-11/
+sudo apt install apache2 mariadb-server php-{xml,pear,imap,intl,common,json,curl,mbstring,mysql,gd,imagick,zip,opcache,sqlite3} libapache2-mod-php
+
+$ sudo useradd -r -u 150 -g mail -d /var/vmail -s /sbin/nologin -c "Virtual Mail User" vmail
+$ sudo mkdir -p /var/vmail
+$ sudo chmod -R 770 /var/vmail
+$ sudo chown -R vmail:mail /var/vmail
+
+sudo mysql
+
+MariaDB [(none)]> CREATE DATABASE postfixadmin;
+GRANT ALL PRIVILEGES ON postfixadmin.* TO 'postfixadmin'@'localhost' IDENTIFIED BY 'aNight4Swallows^'
+MariaDB [(none)]> FLUSH PRIVILEGES;
+MariaDB [(none)]> \q
+
+sudo apt install postfix-mysql
+
+<Set user to helium24.net>
+sudo hostnamectl set-hostname helium-server.helium24.net
+
+sudo mkdir -p /etc/postfix/sql
+sudo nano /etc/postfix/sql/mysql_virtual_alias_maps.cf
+>>>
+user = postfixadmin
+password = aNight4Swallows^
+hosts = localhost
+dbname = postfixadmin
+query = SELECT goto FROM alias WHERE address='%s' AND active = '1'
+<<<
+
+
+sudo nano /etc/postfix/sql/mysql_virtual_domains_maps.cf
+>>>>
+user = postfixadmin
+password = aNight4Swallows^
+hosts = localhost
+dbname = postfixadmin
+query = SELECT domain FROM domain WHERE domain='%s' AND active = '1'
+<<<<
+
+sudo nano /etc/postfix/sql/mysql_virtual_mailbox_maps.cf
+>>>>
+user = postfixadmin
+password = aNight4Swallows^
+hosts = localhost
+dbname = postfixadmin
+query = SELECT maildir FROM mailbox WHERE username='%s' AND active = '1'
+<<<<
+
+sudo nano /etc/postfix/sql/mysql_virtual_alias_domain_maps.cf
+>>>>
+user = postfixadmin
+password = aNight4Swallows^
+hosts = localhost
+dbname = postfixadmin
+query = SELECT goto FROM alias,alias_domain WHERE alias_domain.alias_domain = '%d' and alias.address = CONCAT('%u', '@', alias_domain.target_domain) AND alias.active = 1 AND alias_domain.active='1'
+<<<< 
+
+$ sudo nano /etc/postfix/sql/mysql_virtual_alias_domain_mailbox_maps.cf
+>>>>
+user = postfixadmin
+password = aNight4Swallows^
+hosts = localhost
+dbname = postfixadmin
+query = SELECT maildir FROM mailbox,alias_domain WHERE alias_domain.alias_domain = '%d' and mailbox.username = CONCAT('%u', '@', alias_domain.target_domain) AND mailbox.active = 1 AND alias_domain.active='1'
+<<<<
+
+sudo nano /etc/postfix/sql/mysql_virtual_mailbox_limit_maps.cf
+>>>
+user = postfixadmin
+password = aNight4Swallows^
+hosts = localhost
+dbname = postfixadmin
+query = SELECT quota FROM mailbox WHERE username='%s' AND active = '1'
+<<<
+
+sudo nano /etc/postfix/sql/mysql_virtual_alias_domain_catchall_maps.cf
+>>>>
+user = postfixadmin
+password = aNight4Swallows^
+hosts = localhost
+dbname = postfixadmin
+query = SELECT goto FROM alias,alias_domain WHERE alias_domain.alias_domain = '%d' and alias.address = CONCAT('@', alias_domain.target_domain) AND alias.active = 1 AND alias_domain.active='1'
+<<<<
+
+
+sudo postconf -e "myhostname = helium24.net"
+sudo postconf -e "mydestination = localhost"
+sudo postconf -e "mynetworks = 127.0.0.0/8"
+sudo postconf -e "inet_protocols = ipv4"
+sudo postconf -e "inet_interfaces = all"
+sudo postconf -e "smtpd_tls_cert_file = /etc/ssl/certs/ssl-cert-snakeoil.pem"
+sudo postconf -e "smtpd_tls_key_file = /etc/ssl/private/ssl-cert-snakeoil.key"
+sudo postconf -e "smtpd_use_tls = yes"
+sudo postconf -e "smtpd_tls_auth_only = yes"
+sudo postconf -e "smtpd_sasl_type = dovecot"
+sudo postconf -e "smtpd_sasl_path = private/auth"
+sudo postconf -e "smtpd_sasl_auth_enable = yes"
+sudo postconf -e "smtpd_recipient_restrictions = permit_sasl_authenticated, permit_mynetworks, reject_unauth_destination"
+sudo postconf -e "virtual_transport = lmtp:unix:private/dovecot-lmtp"
+sudo postconf -e "virtual_mailbox_domains = proxy:mysql:/etc/postfix/sql/mysql_virtual_domains_maps.cf"
+sudo postconf -e "virtual_alias_maps = proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_maps.cf, proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_maps.cf, proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_catchall_maps.cf"
+sudo postconf -e "virtual_mailbox_maps = proxy:mysql:/etc/postfix/sql/mysql_virtual_mailbox_maps.cf, proxy:mysql:/etc/postfix/sql/mysql_virtual_alias_domain_mailbox_maps.cf"
+
+sudo nano /etc/postfix/master.cf
+
+smtp inet n - y - - smtpd
+#smtp inet n - y - 1 postscreen
+#smtpd pass - - y - - smtpd
+#dnsblog unix - - y - 0 dnsblog
+#tlsproxy unix - - y - 0 tlsproxy
+submission inet n - y - - smtpd
+  -o syslog_name=postfix/submission
+  -o smtpd_tls_security_level=encrypt
+  -o smtpd_sasl_auth_enable=yes
+# -o smtpd_reject_unlisted_recipient=no
+# -o smtpd_client_restrictions=$mua_client_restrictions
+# -o smtpd_helo_restrictions=$mua_helo_restrictions
+# -o smtpd_sender_restrictions=$mua_sender_restrictions
+# -o smtpd_recipient_restrictions=
+# -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
+  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+  -o milter_macro_daemon_name=ORIGINATING
+smtps inet n - y - - smtpd
+  -o syslog_name=postfix/smtps
+# -o smtpd_tls_wrappermode=yes
+  -o smtpd_sasl_auth_enable=yes
+# -o smtpd_reject_unlisted_recipient=no
+  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+# -o smtpd_client_restrictions=$mua_client_restrictions
+# -o smtpd_helo_restrictions=$mua_helo_restrictions
+# -o smtpd_sender_restrictions=$mua_sender_restrictions
+# -o smtpd_recipient_restrictions=
+# -o smtpd_relay_restrictions=permit_sasl_authenticated,reject
+  -o milter_macro_daemon_name=ORIGINATING
+  
+
+sudo apt install dovecot-mysql dovecot-imapd dovecot-pop3d dovecot-lmtpd
+
+$ sudo nano /etc/dovecot/conf.d/10-auth.conf
+auth_mechanisms = plain login
+#!include auth-system.conf.ext 
+!include auth-sql.conf.ext
+
+
+$ sudo nano /etc/dovecot/dovecot-sql.conf.ext
+
+driver = mysql
+connect = host=localhost dbname=postfixadmin user=postfixadmin password=aNight4Swallows^
+default_pass_scheme = MD5-CRYPT
+password_query = SELECT username as user, password, '/var/vmail/%d/%n' as userdb_home, 'maildir:/var/vmail/%d/%n' as userdb_mail, 150 as userdb_uid, 8 as userdb_gid FROM mailbox WHERE username = '%u' AND active = '1'
+user_query = SELECT '/var/vmail/%d/%u' as home, 'maildir:/var/vmail/%d/%u' as mail, 150 AS uid, 8 AS gid, concat('dirsize:storage=', quota) AS quota FROM mailbox WHERE username = '%u' AND active = '1'
+  
+
+sudo nano /etc/dovecot/conf.d/10-mail.conf
+
+mail_location = maildir:/var/vmail/%d/%n
+mail_uid = vmail
+mail_gid = mail
+mail_privileged_group = mail
+first_valid_uid = 150
+last_valid_uid = 150
+
+$ sudo nano /etc/dovecot/conf.d/10-master.conf
+
+service lmtp {
+     unix_listener /var/spool/postfix/private/dovecot-lmtp {
+     mode = 0600
+     user = postfix
+     group = postfix
+     }
+}
+
+...
+
+service auth {
+     unix_listener /var/spool/postfix/private/auth {
+     mode = 0666
+     user = postfix
+     group = postfix
+}
+
+unix_listener auth-userdb {
+     mode = 0600
+     user = vmail
+
+}
+user = dovecot
+}
+
+service auth-worker {
+     user = vmail
+}
+
+$ sudo chown -R vmail:dovecot /etc/dovecot
+$ sudo chmod -R o-rwx /etc/dovecot
+$ sudo systemctl restart postfix dovecot
+
+
+sudo apt install git
+cd /opt
+sudo git clone https://github.com/postfixadmin/postfixadmin.git
+cd /opt/postfixadmin
+(did chmod +x install.sh and then ran it instead)
+sudo chown -R www-data. /opt/postfixadmin
+
+
+sudo nano /etc/apache2/conf-enabled/postfixadmin.conf
+
+Alias /postfixadmin /opt/postfixadmin/public
+
+<Directory "/opt/postfixadmin/public">
+        AllowOverride All
+        Options +FollowSymLinks
+        Require all granted
+</Directory>
+
+sudo nano /opt/postfixadmin/config.local.php
+
+<?php
+$CONF['database_type'] = 'mysqli';
+$CONF['database_host'] = 'localhost';
+$CONF['database_user'] = 'postfixadmin';
+$CONF['database_password'] = 'aNight4Swallows^';
+$CONF['database_name'] = 'postfixadmin';
+$CONF['configured'] = true;
+
+?>
+
+Same setup password: aNight4Swallows2^
+gus.gran@helium24.net admin
+aNight4Swallows8! password
+
+sudo a2enmod ssl
+- Needed to add SSL cert to dovecot, postfix, postfixadmin
+- NEeded to change auth from MD5 to SHA512-CRYPT.
+
+------
+Lets Encrypt
+https://certbot.eff.org/instructions?ws=apache&os=debianbuster
+TODO Document this and snap installation
+
+apt-get install supervisor
+
+
+# Setup SupervisorCTL
+nano /etc/supervisor/conf.d/helium.conf
+-> Copy the following
+>>
+[program:helium]
+command=/usr/bin/dotnet ./Helium.dll
+user=helium
+stderr_logfile = /home/helium/logs/stderr.log
+stdout_logfile = /home/helium/logs/stdout.log
+directory = /home/helium/Helium/
+>>
+supervisorctl reread
+supervisorctl update
+supervisorctl start helium
+
+# Setup NGINX for HTTPS
+nano /etc/nginx/sites-available/helium24-psr.net
+>>
+server {
+    root /home/helium24/psrdrop/;
+
+    index index.html index.htm index.nginx-debian.html;
+    server_name helium24.net mail.helium24.net;
+
+    location / {
+        proxy_pass http://127.0.0.1:8641;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+    listen [::]:8642 ssl ipv6only=on;
+    listen 8642 ssl;
+    error_page 497 https://$host:8642$request_uri;
+    ssl_certificate /etc/letsencrypt/live/helium24.net/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/helium24.net/privkey.pem;
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+}
+<<
+ln -s /etc/nginx/sites-available/helium24-psr.net /etc/nginx/sites-enabled/helium24-psr.net
+systemctl restart nginx
+
+https://certbot.eff.org/instructions?ws=nginx&os=debianbuster
+POSTFIX ADMIN PAGE
+
+http://188.166.155.87:8080/postfixadmin/main.php

@@ -1,16 +1,3 @@
-# Ignore folders and files that may have sensitive data
-appsettings.json
-appsettings.Development.json
-Deployment/
-
-# Ignore our binary blob folder (images, PDFS, etc)
-Blobs/
-H24/wwwroot
-
-# Ignore deployment output again as building with Mono is harder than it seems
-drop/
-drop.zip
-
 # User-specific files
 *.suo
 *.user

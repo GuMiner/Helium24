@@ -1,0 +1,26 @@
+﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" style="background-color:rgb(211, 254, 213);">
+    <div class="container">
+        <a class="navbar-brand text-nowrap" asp-area="" asp-page="/Wedding">WedSite</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+            <ul class="navbar-nav flex-grow-1">
+                @foreach((string pageName, string title) in (new[]{
+                            Tuple.Create("Invitation", "Invitation"),
+                            Tuple.Create("Schedule", "Schedule & Venue"),
+                            Tuple.Create("VisitingWa", "Visiting WA"),
+                            Tuple.Create("Registry", "Registry"),
+                            Tuple.Create("WeddingParty", "Wedding Party"),
+                            Tuple.Create("FAQs", "FAQs"),
+                }))
+                {
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="/Wedding/@pageName">@title</a>
+                </li>
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

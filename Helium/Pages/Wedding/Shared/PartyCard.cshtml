@@ -1,0 +1,13 @@
+﻿@using Helium.Pages
+@model Helium.Pages.Wedding.PartyCardModel
+
+<div class="col-auto px-1 py-1">
+    <div class="card">
+        <a href="~/img/wedding/weddingparty/@Model?.Image"><img src="~/img/wedding/weddingparty/@Model?.Image" alt="@Model?.Name portrait" class="card-img-top img-fluid rounded" style="width:@((Model?.ExtraWide ?? true) ? 1000 : 500)px" /></a>
+        <div class="card-footer">
+            <div class="row justify-content-around">
+                <h3>@Model?.Name</h3>
+            </div>
+        </div>
+    </div>
+</div>

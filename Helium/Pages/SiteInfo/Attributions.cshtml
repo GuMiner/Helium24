@@ -1,0 +1,45 @@
+﻿@page
+@model AttributionsModel
+@{
+    ViewData["Title"] = "Attributions";
+}
+
+@{
+    List<Attribution> attributions = new List<Attribution>()
+    {
+        // new Attribution("Ace", "https://ace.c9.io/", "In-browser text editor"),
+        new Attribution("Axios",  "https://github.com/axios/axios", "Javascript REST API library"),
+        new Attribution("Bootstrap", "https://getbootstrap.com/", "HTML frontend toolkit"),
+        // new Attribution("Chartist", "https://gionkunz.github.io/chartist-js/", "Javascript charting library"),
+        // new Attribution("Chartist-Plugin-AxisTitle", "https://github.com/alexstanbury/chartist-plugin-axistitle", "Chartist plugin for axis titles"),
+        // new Attribution("ES6-Promise", "https://github.com/stefanpenner/es6-promise", "Polyfill for ES6 promites"),
+        new Attribution("JQuery", "http://jquery.com/", "JavaScript DOM and event library"),
+        new Attribution("Knockout", "", " "),
+
+        // new Attribution("Katex", "https://khan.github.io/KaTeX/", "Javascript math typesetting"),
+        // new Attribution("ASP.NET Core", "https://docs.microsoft.com/en-us/aspnet/core/?view=aspnetcore-2.2", "Core website infrastructur"),
+        // new Attribution("Newtonsoft.Json",  "https://www.newtonsoft.com/json", "C# JSON serialization / deserialization"),
+        // new Attribution("Npgsql", "http://www.npgsql.org/", "ADO.NET data provider for PostgreSQL"),
+        new Attribution("Popper", "https://popper.js.org/", "Javascript tooltip and popup library"),
+        new Attribution("RequireJS", "", " "),
+
+        // new Attribution("SHA256", "http://www.movable-type.co.uk/scripts/sha256.html", "SHA256 Javascript implementation")
+    };
+}
+
+<div class="container-fluid">
+    <div class="row-auto">
+        <div class="col-auto" style="flex: unset;">
+            <h3>Attributions</h3>
+        </div>
+        <p>
+            <i>Helium24.net</i> was written with the help of several existing software packages:
+        </p>
+        <ul>
+            @foreach (Attribution attrib in attributions)
+            {
+                <li><a href="@attrib.Uri">@attrib.Name</a> — @attrib.Usage</li>
+            }
+        </ul>
+    </div>
+</div>

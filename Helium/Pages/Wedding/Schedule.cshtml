@@ -1,0 +1,65 @@
+﻿@page
+@model ScheduleModel
+@{
+    ViewData["Title"] = "Schedule & Venue";
+}
+
+<partial name="Shared/WeddingHeader.cshtml"/>
+
+<div class="container text-center">
+    <h1 class="display-4">Schedule</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col">
+                    <h4>Ceremony</h4>
+                    <div class="well">
+                        <b><i>Saturday, September 25<sup>th</sup>, 2021</i></b>
+                        <br />
+                        <i>5:00 PM</i>
+                    </div>
+                </div>
+            </div>
+
+            <hr />
+            <div class="row">
+                <div class="col">
+                    <h4>Reception to follow</h4>
+                    <div class="well">
+                        <i>Dinner, drinks, and dancing</i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7 col-md-offset-2">
+            <div class="row">
+                <div class="col">
+                    <a href="~/img/wedding/mansion/view1.jpg"><img class="img-fluid img-thumbnail" src="~/img/wedding/mansion/view1.jpg" alt="Olson Mansion picture 1" /></a>
+                </div>
+                <div class="col">
+                    <a href="~/img/wedding/mansion/view2.jpg"><img class="img-fluid img-thumbnail" src="~/img/wedding/mansion/view2.jpg" alt="Olson Mansion picture 2" /></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <h1 class="display-4">Venue</h1>
+    <hr />
+    <p>
+        Olson Mansion is located 30 minutes from the SeaTac International Airport, east of south Seattle. There is plenty of parking at the venue.
+    </p>
+    <div class="row">
+        <div class="col">
+            <p>
+                <a href="https://olsonmansionrentals.com/">The Olson Mansion</a>
+                <br />
+                21401 244th Ave SE
+                <br />
+                Maple Valley, WA 98038
+            </p>
+        </div>
+    </div>
+    <img class="img-fluid rounded" src="~/img/wedding/TravelMap.jpg" alt="Travel map" />
+</div>

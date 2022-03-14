@@ -1,0 +1,8 @@
+﻿@model System.Collections.Generic.IEnumerable<Tag>
+
+@foreach (Tag tag in Model ?? Enumerable.Empty<Tag>())
+{
+    <div class="col-auto px-1 py-0">
+        <button class="btn btn-sm disabled" style="background:@tag.Color">@tag.Name</button>
+    </div>
+}
