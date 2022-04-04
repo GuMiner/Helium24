@@ -12,7 +12,7 @@ builder.Services.AddDbContext<PuzzleDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("PuzzleDb")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddRazorPages();

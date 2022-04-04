@@ -1,3 +1,12 @@
+SQLLite db notes
+DB Browser for SQLLite
+For identities:
+- Install identity packages:
+dotnet ef migrations add CreateIdentities --context ApplicationDbContext
+dotnet ef database update --context AppilcationDbContext
+
+MAy need to put Node on the path, search for it in VS 2022.
+
 NEW SETUP INSTRUCTIONS, DEBIAN 11
 188.166.155.87
 
