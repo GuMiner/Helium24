@@ -1,5 +1,6 @@
 using Helium.Data;
 using Helium.Data.Identity;
+using Helium.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,11 +11,15 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("IdentitiesDb")));
 builder.Services.AddDbContext<PuzzleDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("PuzzleDb")));
+builder.Services.AddDbContextFactory<SystemDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("SystemDb")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
+builder.Services.AddHostedService<SystemStatusTask>();
 builder.Services.AddRazorPages();
 
 /*builder.WebHost.ConfigureKestrel(options =>

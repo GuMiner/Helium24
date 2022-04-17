@@ -1,9 +1,10 @@
-﻿using Helium.Pages.Shared;
+﻿using Helium.Pages.Projects.Shared;
 
 namespace Helium.Pages
 {
     public class Card
     {
+        public string Area { get; set; }
         public string Link { get; set; }
         public string Image { get; set; }
         public string Title { get; set; }
@@ -11,8 +12,9 @@ namespace Helium.Pages
 
         public List<Tag> Tags { get; set; }
 
-        public Card(string title, string link, string image, DateTime date, IEnumerable<Tag> tags)
+        public Card(string area, string title, string link, string image, DateTime date, IEnumerable<Tag> tags)
         {
+            Area = area;
             Title = title;
             Link = link;
             Image = image;

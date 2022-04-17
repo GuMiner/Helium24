@@ -1,0 +1,17 @@
+﻿@model ICard
+
+<div class="card-header">
+    <div class="row justify-content-between">
+        <div class="col-auto align-self-center">
+            <a class="text-muted" href="/Projects/@Model.Card.Area">@Model.Card.Area</a> - @Model.Card.Title
+        </div>
+        <div class="col-auto" style="flex: unset;">
+            <div class="row">
+                <partial name="TagButtons.cshtml" model="@Model.Card.Tags" />
+                <div class="col-auto align-self-center">
+                    <span class="text-muted"><partial name="FormattedDate.cshtml" model="@Model.Card.Date" /></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

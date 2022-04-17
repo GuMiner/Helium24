@@ -1,0 +1,45 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model IoTProjectsModel
+@{
+    ViewData["Title"] = "IoT Projects";
+}
+
+<partial name="Shared/ProjectsHeader.cshtml"/>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        @foreach (Card card in @IoTProjectsModel.Cards)
+        {
+            <div class="col-auto px-1 py-1">
+                <div class="card">
+                    <a href="@card.Link" style="position:absolute;top:0;left:0;height:100%;width:100%"></a>
+                    <img class="card-img-top img-fluid rounded" alt="Image in card" style="width:320px; height:320px" src="@card.Image" />
+
+                    @* Extra overlay for GitHub-hosted project details *@
+                    @if (card.Link.Contains("github.com"))
+                    {
+                        <a href="@card.Link" style="position:absolute;top:0;left:0;height:100%;width:100%">
+                            <img class="card-img-top card-img-overlay img-fluid" alt="OnGitHub overlay" src="/img/OnGitHubOverlay.png" 
+                                 style="width:320px; height:320px; padding:0px; opacity:0.7"/>
+                        </a>
+                    }
+
+                    <div class="card-footer">
+                        <div class="row justify-content-between">
+                            <div class="col-auto align-self-center px-1">
+                                <a href="@card.Link" class="text-muted">@card.Title</a>
+                            </div>
+                            <div class="col-auto align-self-center px-0 text-muted">
+                                <partial name="Shared/FormattedDate.cshtml" model="@card.Date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <partial name="Shared/TagButtons.cshtml" model="card.Tags" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
