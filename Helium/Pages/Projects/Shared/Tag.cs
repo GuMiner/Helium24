@@ -34,7 +34,7 @@
                 case nameof(Games): return Games;
                 case nameof(Simulation): return Simulation;
                 default:
-                    return null;
+                    throw new Exception($"Unexpected tag name {tagName}");
             }
         }
     }

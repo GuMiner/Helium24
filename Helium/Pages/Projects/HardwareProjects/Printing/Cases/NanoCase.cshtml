@@ -1,0 +1,34 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model NanoCaseModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="container-fluid">
+    <partial name="../../../Shared/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <div class="row">
+            <div class="col-auto">
+                <partial name="../../../Shared/ImageCard.cshtml" ,
+                    model='@new Image("/img/hardware-projects/printing/cases/Nano/nano_case.jpg", "Arduino Nano slide-on case")' />
+            </div>
+            <div class="col-auto">
+                This nifty little case slides on tightly, with:
+                <ul>
+                    <li>A recessed slot for the USB interface on the back</li>
+                    <li>A slot to access the interface pins (lower-right)</li>
+                    <li>A slot to see the status LEDs</li>
+                    <li>A cutout for the programming pins.</li>
+                </ul>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-auto">
+            The Arduino Nano was previously used to run <a href="https://github.com/gnea/grbl">GRBL</a> to control a CNC engraver / mini-mill.
+            </div>
+        </div>
+    </div>
+</div>

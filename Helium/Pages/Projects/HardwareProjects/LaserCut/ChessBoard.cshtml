@@ -7,7 +7,7 @@
 
 
 <div class="container-fluid">
-    <partial name="../Shared/CardHeader.cshtml" for="@Model" />
+    <partial name="../../Shared/CardHeader.cshtml" for="@Model" />
     <div class="card-body">
         <h3 class="text-muted">About</h3>
         <div class="row justify-content-center">
@@ -19,8 +19,8 @@
                 laser, you can make your own chess board.
             </div>
             <div class="col-auto">
-                <partial name="../Shared/ImageCard.cshtml" ,
-                         model='@new Image("/img/hardware-projects/chess-board/board.jpg", "Laser-engraved chess board with marbled squares.")' />
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/hardware-projects/laser-cut/chess-board/board.jpg", "Laser-engraved chess board with marbled squares.")' />
             </div>
         </div>
         <br />
@@ -38,8 +38,8 @@
                 the chess set was made complete.
             </div>
             <div class="col-md-6">
-                <partial name="../Shared/ImageCard.cshtml" ,
-            model='@new Image("/img/hardware-projects/chess-board/boardWithPieces.jpg", "Laser-engraved chess board with pieces")' />
+                <partial name="../../Shared/ImageCard.cshtml" ,
+            model='@new Image("/img/hardware-projects/laser-cut/chess-board/boardWithPieces.jpg", "Laser-engraved chess board with pieces")' />
             </div>
         </div>
     </div>

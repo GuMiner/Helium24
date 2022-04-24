@@ -1,0 +1,28 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model Printing.Cases.UtilityCasesModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="container-fluid">
+<partial name="../../../Shared/CardHeader.cshtml" for="@Model" />
+<div class="card-body">
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <partial name="../../../Shared/ImageCard.cshtml" ,
+                        model='@new Image("/img/hardware-projects/printing/cases/Utility/charger.jpg", "Lithium-Polymer USB Battery Charger")' />'
+        </div>
+        <div class="col-auto">
+            <partial name="../../../Shared/ImageCard.cshtml" ,
+                        model='@new Image("/img/hardware-projects/printing/cases/Utility/programmer.jpg", "USB-ASP Atmel programmer")' />
+        </div>
+        <div class="col-auto">
+            I had purchased a lithium-polymer USB battery charger and a USB-ASP Atmel programmer, both without cases.
+            <br />
+            Although I had to do a bit of sanding, making these two cases taught me how to more effectively design cases for other projects.
+        </div>
+    </div>
+</div>
+</div>

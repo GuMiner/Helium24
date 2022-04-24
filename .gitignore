@@ -1,4 +1,5 @@
 identities.db
+system-data.db
 
 # User-specific files
 *.suo

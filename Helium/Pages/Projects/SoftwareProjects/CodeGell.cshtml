@@ -1,0 +1,51 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model CodeGellModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="card">
+    <partial name="Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <h3 class="text-muted">About</h3>
+        <partial name="Common/ParagraphStart.cshtml" />
+        <b>@Model.Card.Title</b> project tests if real-time CSG generation with volumetric texture map creation is feasible for use
+        within a computer game. Overall, while performance was acceptable rendering one object,
+        the resulting application would not be scalable for use within a production computer game.
+        <partial name="Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/-projects/CodeGell/checkerboard volumetric texture shaded.png", "A volumetrically-rendered checkerboard")' />
+        <br />
+        <partial name="Common/ParagraphStart.cshtml" />
+        <b>@Model.Card.Title</b> uses a <a href="https://github.com/GuMiner/Surface-Netgen-Fork">modified version</a> of the
+        <a href="http://sourceforge.net/projects/netgen-mesher/">Netgen library</a>, which I had stripped-down
+        to only generate triangles, surface meshes, and overall improve performance and usability for realtime operations.
+        <partial name="Common/ParagraphEnd.cshtml" />
+        <partial name="Common/ParagraphStart.cshtml" />
+        When <b>@Model.Card.Title</b> is given a description of an object, it will send it through my Netgen variant to determine the
+        triangles forming the object' s mesh, put the triangles on a texture image, and fill the texture using an appropriate volumetric
+                 voxel texture. With this process, <b>@Model.Card.Title</b> renders in real-time object <i>cuts</i> and <i>holes</i> instead of the <i>object itself</i> in
+        a traditional computer game rendering engine.
+        <partial name="Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="Common/ImageCard.cshtml" ,
+            model='@new Image("/img/-projects/CodeGell/Triangle ID texture shaded.png", "CSG from Netgen, without volumetric textures.")' />
+        <h3 class="text-muted">Software</h3>
+        <partial name="Common/ParagraphStart.cshtml" />
+        <b>@Model.Card.Title</b> uses modern OpenGL 4.0 rendering, along with <a href="http://glew.sourceforge.net/">GLEW</a>,
+        <a href="https://github.com/GuMiner/Surface-Netgen-Fork">Surface-Netgen-Fork</a>, and <a href="http://www.glfw.org/index.html">GLFW3</a>.
+        <partial name="Common/ParagraphEnd.cshtml" />
+        <partial name="Common/ParagraphStart.cshtml" />
+        For more information, see the source code on <a href="https://github.com/GuMiner/Volumetric-CSG-Texture-Mapping">GitHub</a>.
+        <partial name="Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="Common/ImageCard.cshtml" ,
+            model='@new Image("/img/-projects/CodeGell/Watermelon volumetric texture shaded.png", "\"Watermellon\" volumetric texture shaded object.")' />
+        <br />
+        <partial name="Common/ImageCard.cshtml" ,
+            model='@new Image("/img/-projects/CodeGell/High-Res fragment shaded.png", "Volumetric fragment-shared object.")' />
+    </div>
+</div>

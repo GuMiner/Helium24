@@ -1,0 +1,32 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model FilamentHolderModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="container-fluid">
+    <partial name="../../Shared/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                I decided to use a laser cutter to generate a filament holder for a 3D printer
+                <br />
+                Unfortunately, due to the positioning of plastic feed input to the 3D printer, friction in the holder,
+                and lack of structural stability, I was not able to use the 3D printer plastic holder.
+            </div>
+        </div>
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/hardware-projects/laser-cut/filament-holder/laser_plans.png", "The plans for the filament holder to be laser-cut, along with other plans.")' />
+            </div>
+            <div class="col-auto">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/hardware-projects/laser-cut/filament-holder/filamentholder.jpg", "The laser-cut filament holder.")' />
+            </div>
+        </div>
+    </div>
+</div>

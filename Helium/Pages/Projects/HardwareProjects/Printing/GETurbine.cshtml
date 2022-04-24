@@ -7,7 +7,7 @@
 
 
 <div class="container-fluid">
-    <partial name="../Shared/CardHeader.cshtml" for="@Model" />
+    <partial name="../../Shared/CardHeader.cshtml" for="@Model" />
     <div class="card-body">
         <h3 class="text-muted">About</h3>
         <div class="row justify-content-center">
@@ -17,19 +17,19 @@
                 bearings attached to the frame.
             </div>
             <div class="col-auto">
-                <partial name="../Shared/ImageCard.cshtml" ,
-                    model='@new Image("/img/hardware-projects/ge-turbine/turbine.jpg", "GE Turbine Model, assembled.")' />
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                    model='@new Image("/img/hardware-projects/printing/ge-turbine/turbine.jpg", "GE Turbine Model, assembled.")' />
             </div>
         </div>
         <br />
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <partial name="../Shared/ImageCard.cshtml" ,
-                    model='@new Image("/img/hardware-projects/ge-turbine/turbine_gears.jpg", "Gearing closeup, perpendicular")' />
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                    model='@new Image("/img/hardware-projects/printing/ge-turbine/turbine_gears.jpg", "Gearing closeup, perpendicular")' />
             </div>
             <div class="col-md-6">
-                <partial name="../Shared/ImageCard.cshtml" ,
-                    model='@new Image("/img/hardware-projects/ge-turbine/turbine_gears2.jpg", "Gearing closeup, inline")' />
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                    model='@new Image("/img/hardware-projects/printing/ge-turbine/turbine_gears2.jpg", "Gearing closeup, inline")' />
                 
             </div>
         </div>
@@ -49,8 +49,8 @@
                 and reduce the model quality such that the 3d printer wouldn't attempt to print at a quality greater than it could possibly achieve.
             </div>
             <div class="col-md-6">
-                <partial name="../Shared/ImageCard.cshtml" ,
-                    model='@new Image("/img/hardware-projects/ge-turbine/turbine_main_gear.jpg", "Main turbine cutaway")' />
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                    model='@new Image("/img/hardware-projects/printing/ge-turbine/turbine_main_gear.jpg", "Main turbine cutaway")' />
             </div>
         </div>
     </div>

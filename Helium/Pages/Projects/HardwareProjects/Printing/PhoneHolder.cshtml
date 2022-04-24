@@ -1,0 +1,40 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model PhoneHolderModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="card">
+    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/hardware-projects/printing/PhoneHolder/phone_holder_with_phone.jpg", "The printed phone holder, holding a phone")' />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        Designed to hold Samsung Galaxy Centura phones perpendicular to the table, these holders
+        are both artistic and functional
+        <br />
+        Key components -- the USB connector and camera -- are unimpeded by the design of the holder.
+        <br />
+        <br />
+        Print time is 90 minutes.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/hardware-projects/printing/PhoneHolder/phone_holder.jpg", "The printed phone holder")' />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        Key features:
+        <ul>
+            <li>The arcs at the top are shallow enough to print without overhang and trace around the micro USB power input.</li>
+            <li>The cross-bars in the middle hold the halfs together, while also resting the phone at the same height as the base layer.</li>
+            <li>All arcs are filled-in on the outside, to more easily print the holder.</li>
+        </ul>
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/hardware-projects/printing/PhoneHolder/phone_holder_corner.jpg", "The filled-in arcs at the base.")' />
+    </div>
+</div>

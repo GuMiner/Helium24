@@ -1,0 +1,30 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model DraftingProgramModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="card">
+    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <partial name="../Common/ParagraphStart.cshtml" />
+        This simple application takes the top and front view of drafting lines to construct
+        a 3D wireframe view of the lines.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/img/-projects/Mobile/PdaDraftingProgram/perspectiveDrafting1.png", "An empty drafting pane")' />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        I wrote this program to simplify drafting homework, to verify proper 3D perspection of 2D lines.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/img/-projects/Mobile/PdaDraftingProgram/perspectiveDrafting2.png", "Drawing / adding lines in the drafting program")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/img/-projects/Mobile/PdaDraftingProgram/perspectiveDrafting3.png", "3D view of a drafted tetrahedron")' />
+    </div>
+</div>

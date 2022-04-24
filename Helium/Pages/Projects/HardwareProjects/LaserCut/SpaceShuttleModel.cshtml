@@ -1,0 +1,34 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model SpaceShuttleModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="container-fluid">
+    <partial name="../../Shared/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                While experimenting with <a href="http://www.123dapp.com/make">Autodesk 123D Make</a>, I discovered simple support for slicing models to generate laser-cut plans.
+                This functionality makes it really, really easy to take a 3D model and generate plans for a physical realization of those plans.
+                <br />
+                With this program, I converted the
+                <a href="http://nasa3d.arc.nasa.gov/detail/sts">Space Shuttle Model</a> from
+                <a href="http://www.nasa.gov/">NASA</a> to a series of plans, which I then laser-cut.
+            </div>
+            <div class="col-md-6">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                    model='@new Image("/img/hardware-projects/laser-cut/space-shuttle-model/laser_plans.png", "The plans for the Space Shuttle to be laser-cut, along with other plans.")' />               
+            </div>
+        </div>
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                 <partial name="../../Shared/ImageCard.cshtml" ,
+                    model='@new Image("/img/hardware-projects/laser-cut/space-shuttle-model/space_shuttle.jpg", "The laser-cut Space Shuttle model")' />
+            </div>
+        </div>
+    </div>
+</div>

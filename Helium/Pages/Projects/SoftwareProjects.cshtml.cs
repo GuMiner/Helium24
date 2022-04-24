@@ -24,6 +24,17 @@ namespace Helium.Pages.Projects
                 new DateTime(2018, 12, 1), new[] { Tag.Design, Tag.Printer, Tag.Software }),
         };
 
+
+        public static Card CodeGellModelCard = new Card(
+            Area, "CodeGell", "SoftwareProjects/CodeGell", "/img/software-projects/CodeGell.png",
+            new DateTime(2014, 6, 1), new[] { Tag.Games, Tag.Software });
+        public static Card CourseDegreeTrackerModelCard = new Card(
+            Area, "Course Degree Tracker", "SoftwareProjects/CourseDegreeTracker", "/img/software-projects/CourseDegreeTracker.png",
+            new DateTime(2012, 2, 1), new[] { Tag.Software });
+        public static Card QuantumComputingModelCard = new Card(
+            Area, "Quantum Computing", "SoftwareProjects/QuantumComputing", "/img/software-projects/QuantumComputing.png",
+            new DateTime(2018, 2, 1), new[] { Tag.Software, Tag.Simulation });
+
         public static List<Card> Cards = typeof(SoftwareProjectsModel).GetFields(BindingFlags.Static | BindingFlags.Public)
             .Where(field => field.FieldType == typeof(Card)).Select(field => field.GetValue(null) as Card).Select(card => card!)
             .Where(card => card.Area.Equals(Area))

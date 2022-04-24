@@ -1,0 +1,30 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model WaveGenerator
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="container-fluid">
+    <partial name="../../Shared/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                I spent some time in <a href="http://products.office.com/en-us/visio/flowchart-software">Visio</a> to generate a wave generator board from wooden scrap material, so that I could
+                experiment with Microsoft Garage's <a href="https://www.epiloglaser.com/products/legend-laser-series.htm">Epilog Helix</a> laser cutter.
+            </div>
+        </div>
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                This board was designed to recreate the <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/Waves/standw.html">standing wave</a>
+                experiment with a linear actuator being driven with a <a href="http://www.mathworks.com/help/matlab/math/discrete-fourier-transform-dft.html">Fourier Transform</a>-generated waveform.
+            </div>
+            <div class="col-md-7">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/hardware-projects/laser-cut/wave-generator/waveholder.jpg", "The laser-cut wave generator board. A linear actuator on one end vibrates the string, generating standing waves.")' />
+            </div>
+        </div>
+    </div>
+</div>

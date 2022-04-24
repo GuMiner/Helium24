@@ -1,0 +1,30 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model VectorFlowModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="card">
+    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <partial name="../Common/ParagraphStart.cshtml" />
+        <b>@Model.Card.Title</b> simulates non-interacting particles with particle traces, as a Java load and visualization experiment.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/-projects/Simulation/VectorFlow/vectorFlow1.png", "Particle simulation with mirrors, absorbers, counters, and attenuators")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/-projects/Simulation/VectorFlow/vectorFlow2.png", "Paricle simulation with collisions, non-euclidean space, and different colors")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/-projects/Simulation/VectorFlow/vectorFlow3.png", "Particle simulation with non-euclidean space")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/-projects/Simulation/VectorFlow/vectorFlow4.png", "Particle simulation with collisions and gravity")' />
+        <br />
+        <partial name="../Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/-projects/Simulation/VectorFlow/vectorFlow5.png", "White 2D box containing particles; <br /> Blue 2D box counting particles going in and out")' />
+    </div>
+</div>

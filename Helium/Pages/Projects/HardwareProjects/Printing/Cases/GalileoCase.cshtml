@@ -1,0 +1,34 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model GalileoCaseModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="container-fluid">
+    <partial name="../../../Shared/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <partial name="../../../Shared/ImageCard.cshtml" ,
+                     model='@new Image("/img/hardware-projects/printing/cases/Galileo/galileo_case.jpg", "Intel Galileo Gen 2 Upper Case")' />
+            </div>
+            <div class="col-md-6">
+                I used to use the Intel Galileo as an interface layer between the internet and
+                devices on my local network, but have decommissioned this device in favor of newer devices.
+            </div>
+        </div>
+        <br />
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <partial name="../../../Shared/ImageCard.cshtml" ,
+                    model='new Image("/img/hardware-projects/printing/cases/Galileo/galileo_base.jpg", "Intel Galileo Gen 2 Lower Base")' />
+            </div>
+            <div class="col-md-6">
+                I designed this case the opposite of most cases -- the base is very thin instead of the lid.
+                This design makes it very easy to access the SSD connected to the Galileo, while the slots on the top still allow you to plug in devices and other accessories.
+            </div>
+        </div>
+    </div>
+</div>

@@ -25,15 +25,19 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @foreach((string pageName, string title) in (new[]{
-                            Tuple.Create("Index", "Home"),
-                            Tuple.Create("Wedding", "Wedding"),
-                            Tuple.Create("Media", "Photos & Videos"),
-                            Tuple.Create("PuzzleTooling", "Puzzling"),
                             Tuple.Create("Projects", "Projects"),
+                            Tuple.Create("PuzzleTooling", "Puzzle Tools"),
+                            Tuple.Create("Apps", "Interactive Apps"),
+                            Tuple.Create("Index", ""),
+                            Tuple.Create("Media", "Photos & Videos"),
+                            Tuple.Create("Wedding", "Wedding"),
+                            Tuple.Create("Index", ""),
+                            Tuple.Create("References", "References"),
+                            Tuple.Create("Restricted", "Restricted 🔐"),
                         }))
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/@pageName">@title</a>
+                            <li class="nav-item @(string.IsNullOrWhiteSpace(title) ? "": "border")">
+                                <a class="nav-link text-dark" href="/@pageName">@title</a>
                         </li>
                         }
                     </ul>

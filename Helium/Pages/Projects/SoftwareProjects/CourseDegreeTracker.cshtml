@@ -1,0 +1,26 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model CourseDegreeTrackerModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="card">
+    <partial name="Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <partial name="Common/ParagraphStart.cshtml" />
+        I wrote <b>@Model.Card.Title</b> to properly track all the courses I needed to take in college with
+        the dependencies each course required. With this program, I was able to saturate my course load and finish college efficiently.
+        <partial name="Common/ParagraphEnd.cshtml" />
+        <br />
+        <partial name="Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/-projects/CourseDegreeTracker/CourseDegreeTracker1.png", "The course graph generated (with manual layout) from CourseDegreeTracker.")' />
+        <br />
+        <partial name="Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/-projects/CourseDegreeTracker/CourseDegreeTracker2.png", "A 3D view of the course load. This was implemented to better sort dependencies, but was not effective")' />
+        <br />
+        <partial name="Common/ImageCard.cshtml" ,
+                 model='@new Image("/img/-projects/CourseDegreeTracker/CourseDegreeTracker3.png", "A list view of all courses, completed and non-completed.")' />
+    </div>
+</div>

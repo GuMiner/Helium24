@@ -1,0 +1,21 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model SaturnVModelModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="container-fluid">
+    <partial name="../../Shared/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                Using <a href="http://www.123dapp.com/make">Autodesk 123D Make</a>, I converted the
+                <a href="http://nasa3d.arc.nasa.gov/detail/saturnv-c">Saturn V Model</a> from <a href="http://www.nasa.gov/">NASA</a> to a physical model.
+            </div>
+            <div class="col-auto">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                    model='@new Image("/img/hardware-projects/laser-cut/saturn-v-model/saturn_v.jpg", "The laser-cut Saturn V model")' />
+    </div>
+</div>

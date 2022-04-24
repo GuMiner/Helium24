@@ -1,0 +1,75 @@
+﻿@page
+@using Helium.Pages.Projects.Shared
+@model FluxSimModel
+
+@{
+    ViewData["Title"] = @Model.Card.Title;
+}
+
+<div class="card">
+    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+    <div class="card-body">
+        <h3 class="text-muted">About</h3>
+        <partial name="../Common/ParagraphStart.cshtml" />
+        <b>@Model.Card.Title</b> is thermal simulation program I wrote to test
+        the <a href="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen</a> matrix math library and
+        the <a href="http://www.sfml-dev.org/">SFML</a> graphics library.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/img/-projects/Simulation/FluxSim/FluxSim1.png", "Partially-equalized random thermal distribution.")' />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        The thermal dynamics are performed by iteratively solving a large spare matrix linking each neighboring cell
+        (image pixel)<br /> to each other cell and locally equalizing the temperatures, simulating heat flow.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/img/-projects/Simulation/FluxSim/FluxSim2.png", "Substantially-equalized thermal distribution.")' />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        The physics and mathematical infrastructure for this program were derived from
+        <a href="https://books.google.com/books/about/Nuclear_heat_transport.html?id=97UjAAAAMAAJ">Nuclear Heat Transport</a>
+        by <span class="text-muted">M. M. El-Wakil</span>
+        <partial name="../Common/ParagraphEnd.cshtml" />
+
+        <br />
+        <h3 class="text-muted">Capabilities</h3>
+        <partial name="../Common/ParagraphStart.cshtml" />
+        This application accurately simulates the thermal transport over time within a piece of aluminum, <br /> although other
+        materials can be added with material files which specify the material heat capacity at different temperatures.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/img/-projects/Simulation/FluxSim/FluxSim3.png", "Heat flow from a cold aluminum rectangle to hot walls.")' />
+        <br />
+        <partial name="../Common/ParagraphStart.cshtml" />
+        Because this application simply simulates a massive 2D grid as a matrix, it was easy to add support for insulated points and fixed-temperature points.
+        <br />
+        Simulating additional geometry, while certainly possible, has not been experimented with.
+        <partial name="../Common/ParagraphEnd.cshtml" />
+        <partial name="../Common/ImageCard.cshtml" ,
+            model='@new Image("/img/-projects/Simulation/FluxSim/FluxSim4.png", "Fixed-temperature points, evenly distributed throughout the simulation grid.")' />
+
+        <br />
+        <h3 class="text-muted">Software</h3>
+        <partial name="../Common/ParagraphStart.cshtml" />
+        This program is written in platform-independent C++ code, but you'll have to source the libraries yourself and I have not tested Unix/OS X compilation.
+        <br />
+        The Windows executable can be downloaded <a href="/img/-projects/Simulation/FluxSim/FluxSim_WinExecutable.zip">here</a> -- you'll also need the
+        Visual Studio 2012 (32-bit) <a href="http://www.microsoft.com/en-us/download/details.aspx?id=30679">C++ redistributable</a>.
+        <br />
+        The source code and assets can be downloaded <a href="/img/-projects/Simulation/FluxSim/FluxSim_SourcesAssets.zip">here</a>
+        <partial name="../Common/ParagraphEnd.cshtml" />
+
+        <div class="row justify-content-md-center">
+            <div class="col-auto">
+                <div class="card">
+                    <video class="card-img-top img-fluid rounded" controls alt="Video in card">
+                        <source src="/img/-projects/Simulation/FluxSim/demo.mp4" type="video/mp4">
+                        Your browser does not support the video tag. Sorry.
+                    </video>
+                    <div class="card-footer">
+                        FluxSim in action, simulating heat flow.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
