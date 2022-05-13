@@ -6,26 +6,33 @@
     ViewData["Title"] = @Model.Card.Title;
 }
 
-<div class="card">
-    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+<div class="container-fluid">
+    <partial name="../../Shared/CardHeader.cshtml" for="@Model" />
     <div class="card-body">
-        <partial name="../Common/ParagraphStart.cshtml" />
-        This application was a small mobile application to test bitmap fonts and
-        draw Lissajous curves on an older Windows Mobile PDA.
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Mobile/PdaLissajousCurves/LissajousCurves1.png", "Simple Lissajous curves, with the text overlay")' />
-        <br />
-        <partial name="../Common/ParagraphStart.cshtml" />
-        This application was a partial success -- drawing bitmap fonts is fast on a low-power
-        device, but does not look very good.
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Mobile/PdaLissajousCurves/LissajousCurves2.png", "Simple Lissajous curves, without the text overlay")' />
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Mobile/PdaLissajousCurves/LissajousCurves3.png", "Bitmap text demonstration, in the about page")' />
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                This application was a small mobile application to test bitmap fonts and
+                draw Lissajous curves on an older Windows Mobile PDA.
+                <br />
+                <br />
+                This application was a partial success -- drawing bitmap fonts is fast on a low-power
+                device, but does not look very good.
+            </div>
+            <div class="col-auto">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/iot-projects/pda/lissajous-curves/LissajousCurves1.png", "Simple Lissajous curves, with the text overlay")' />
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/iot-projects/pda/lissajous-curves/LissajousCurves2.png", "Simple Lissajous curves, without the text overlay")' />
+            </div>
+            <div class="col-md-6">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/iot-projects/pda/lissajous-curves/LissajousCurves3.png", "Bitmap text demonstration, in the about page")' />
+            </div>
+        </div>
+
     </div>
 </div>

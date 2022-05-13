@@ -6,67 +6,68 @@
     ViewData["Title"] = @Model.Card.Title;
 }
 
-<div class="card">
-    <partial name="Common/CardHeader.cshtml" for="@Model" />
+<div class="container-fluid">
+    <partial name="../Shared/CardHeader.cshtml" for="@Model" />
     <div class="card-body">
         <h3 class="text-muted">Hardware</h3>
-        <partial name="Common/ParagraphStart.cshtml" />
-        After experimentation with my own CNC milling hardware, I decided to instead purchase a 3020-aluminum based CNC <i>engraver.</i>
-        This relatively-inexpensive device was sufficiently sturdy to repurpose as a <i>mill</i>, for low-hardness materials.
-        <partial name="Common/ParagraphEnd.cshtml" />
+        <div class="col-auto">
+            After experimentation with my own CNC milling hardware, I decided to instead purchase a 3020-aluminum based CNC engraver.
+            This relatively-inexpensive device was sufficiently sturdy to repurpose as a low-end mill, for soft materials.
+        </div>
         <br />
-        <partial name="Common/ImageCard.cshtml" ,
-                 model='@new Image("/img/-projects/CncMillSoftware/Mill.jpg", "Pro CNC 3020 4-axis mill")' />
+        <partial name="../Shared/ImageCard.cshtml" ,
+                 model='@new Image("/img/iot-projects/cnc-mill-software/Mill.jpg", "Pro CNC 3020 4-axis mill")' />
         <br />
-        <partial name="Common/ParagraphStart.cshtml" />
-        I found the hardware overall to be fairly sturdy, with stepper motors driving lead screws to move the x, y, and z axis.
-        Each stepper motor micro-step moves each axis 0.00254 mm (2.54 µm) -- which probably means this device was designed around Imperial standards,
-        because that nicely translates to 0.1 mils (1000 mils = 1 inch) per micro-step. By default, each stepper motor runs at 16x micro stepping,
-        with 1600 steps per axis revolution.
-        <partial name="Common/ParagraphEnd.cshtml" />
-        <partial name="Common/ParagraphStart.cshtml" />
-        In practice, this device isn't nearly that accurate, but it's nice to see the limitation is not in the control hardware.
-        <partial name="Common/ParagraphEnd.cshtml" />
+        <div class="col-auto">
+            I found the hardware overall to be fairly sturdy, with stepper motors driving lead screws to move the x, y, and z axis.
+            Each stepper motor micro-step moves each axis 0.00254 mm (2.54 µm) -- which probably means this device was designed around Imperial standards,
+            because that nicely translates to 0.1 mils (1000 mils = 1 inch) per micro-step. By default, each stepper motor runs at 16x micro stepping,
+            with 1600 steps per axis revolution.
+        </div>
+        <div class="col-auto">
+            In practice, this device isn't nearly that accurate, but it's nice to see the limitation is not in the control hardware.
+        </div>
         <br />
         <h3 class="text-muted">Software</h3>
-        <partial name="Common/ParagraphStart.cshtml" />
-        The software that came with the device required both Windows XP and a Parallel port.
-        Having neither, I decided to write my own using the microcontrollers I had on hand.
-        <partial name="Common/ParagraphEnd.cshtml" />
+        <div class="col-auto">
+            The software that came with the device required both Windows XP and a Parallel port.
+            Having neither, I decided to write my own using the microcontrollers I had on hand.
+        </div>
         <br />
-        <partial name="Common/ImageCard.cshtml" ,
-                 model='@new Image("/img/-projects/CncMillSoftware/MillMisspelling.jpg", "I did not have a parakkel port either.")' />
-        <partial name="Common/ParagraphStart.cshtml" />
-        With those microcontrollers, I wrote the following:
-        <partial name="Common/ParagraphEnd.cshtml" />
-        <partial name="Common/ImageCard.cshtml" ,
-                 model='@new Image("/img/-projects/CncMillSoftware/V1Results.jpg", "Netduino (C#)")' />
-        <partial name="Common/ParagraphStart.cshtml" />
-        <b>Version 1:</b> This initial software verified that I could drive the mill, at a pitifully slow speed.
-        <partial name="Common/ParagraphEnd.cshtml" />
+        <partial name="../Shared/ImageCard.cshtml" ,
+                 model='@new Image("/img/iot-projects/cnc-mill-software/MillMisspelling.jpg", "I did not have a parakkel port either.")' />
         <br />
-        <partial name="Common/ImageCard.cshtml" ,
-                 model='@new Image("/img/-projects/CncMillSoftware/V2Results.jpg", "Raspberry PI (C)")' />
-        <partial name="Common/ParagraphStart.cshtml" />
-        <b>Version 2:</b> This software worked excellently -- until the Raspberry PI had software interrupts which caused stuttering.
-        <partial name="Common/ParagraphEnd.cshtml" />
+        <div class="col-auto">
+            With those microcontrollers, I wrote the following:
+        </div>
+        <partial name="../Shared/ImageCard.cshtml" ,
+                 model='@new Image("/img/iot-projects/cnc-mill-software/V1Results.jpg", "Netduino (C#)")' />
+        <div class="col-auto">
+            <b>Version 1:</b> This initial software verified that I could drive the mill, at a pitifully slow speed.
+        </div>
         <br />
-        <partial name="Common/ParagraphStart.cshtml" />
-        <b>Version 3:</b> I tried writing code for the Parallax Propeller, which was even <i>slower</i> than the Netduino -- too slow to be usable.
-        <partial name="Common/ParagraphEnd.cshtml" />
+        <partial name="../Shared/ImageCard.cshtml" ,
+                 model='@new Image("/img/iot-projects/cnc-mill-software/V2Results.jpg", "Raspberry PI (C)")' />
+        <div class="col-auto">
+            <b>Version 2:</b> This software worked excellently -- until the Raspberry PI had software interrupts which caused stuttering.
+        </div>
         <br />
-        <partial name="Common/ImageCard.cshtml" ,
-                 model='@new Image("/img/-projects/CncMillSoftware/V4Results.jpg", "Arduino Nano (GRBL)")' />
-        <partial name="Common/ParagraphStart.cshtml" />
-        <b>Version 4:</b> I stopped trying to reinvent the wheel and bought an Arduino Nano and installed <a href="https://github.com/grbl/grbl/wiki">GRBL</a> on it.
-        <partial name="Common/ParagraphEnd.cshtml" />
+        <div class="col-auto">
+            <b>Version 3:</b> I tried writing code for the Parallax Propeller, which was even <i>slower</i> than the Netduino -- too slow to be usable.
+        </div>
         <br />
-        <partial name="Common/ParagraphStart.cshtml" />
-        Unfortunately, the Arduino Nano is significantly more sensitive to voltage transients when running the
-        mill spindle. I have to run the mill at a slow feedrate and spindle rate to avoid resetting the device.
-        <partial name="Common/ParagraphEnd.cshtml" />
-        <partial name="Common/ParagraphStart.cshtml" />
-        However, I'm able to run at a reasonable rate, unlike the Netduinio, Parallax Propeller, or Raspberry PI.
-        <partial name="Common/ParagraphEnd.cshtml" />
+        <partial name="../Shared/ImageCard.cshtml" ,
+                 model='@new Image("/img/iot-projects/cnc-mill-software/V4Results.jpg", "Arduino Nano (GRBL)")' />
+        <div class="col-auto">
+            <b>Version 4:</b> I stopped trying to reinvent the wheel and bought an Arduino Nano and installed <a href="https://github.com/grbl/grbl/wiki">GRBL</a> on it.
+        </div>
+        <br />
+        <div class="col-auto">
+            Unfortunately, the Arduino Nano is significantly more sensitive to voltage transients when running the
+            mill spindle. I have to run the mill at a slow feedrate and spindle rate to avoid resetting the device.
+        </div>
+        <div class="col-auto">
+            However, I'm able to run at a reasonable rate, unlike the Netduinio, Parallax Propeller, or Raspberry PI.
+        </div>
     </div>
 </div>
