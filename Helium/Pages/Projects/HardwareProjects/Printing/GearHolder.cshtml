@@ -6,27 +6,33 @@
     ViewData["Title"] = @Model.Card.Title;
 }
 
-<div class="card">
-    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+<div class="container-fluid">
+    <partial name="../../Shared/CardHeader.cshtml" for="@Model" />
     <div class="card-body">
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/hardware-projects/printing/GearHolder/gear_holder.jpg", "Completed Gear Holder 3D print")' />
-        <br />
-        <partial name="../Common/ParagraphStart.cshtml" />
-        Available from <a href="http://www.thingiverse.com/thing:11071">Thingiverse</a>, this model cannot be produced
-        with traditional manufacturing techniques. The gears (spares for the printer) cannot physically fit through the holes in the model.
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <partial name="../Common/ParagraphStart.cshtml" />
-        This print was performed at thie highest resolution my printer can handle, 0.1 mm.
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <partial name="../Common/ParagraphStart.cshtml" />
-        Print time was 3 hours.
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/hardware-projects/printing/GearHolder/bad_holder_corner.jpg", "The underside of the wireframe solid, showing bad streamers")' />'
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/hardware-projects/printing/GearHolder/good_holder_corner.jpg", "The upperside of the wireframe solid, with good layering")' />
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/hardware-projects/printing/gear-holder/gear_holder.jpg", "Completed Gear Holder 3D print")' />
+            </div>
+            <div class="col-auto">
+                Available from <a href="http://www.thingiverse.com/thing:11071">Thingiverse</a>, this model cannot be produced
+                with traditional manufacturing techniques. The gears (spares for the printer) cannot physically fit through the holes in the model.
+                <br />
+                <br />
+                This print was performed at thie highest resolution my printer can handle, 0.1 mm.
+                <br />
+                <br />
+                Print time was 3 hours.
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/hardware-projects/printing/gear-holder/bad_holder_corner.jpg", "The underside of the wireframe solid, showing bad streamers")' />'
+            </div>
+            <div class="col-auto">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/hardware-projects/printing/gear-holder/good_holder_corner.jpg", "The upperside of the wireframe solid, with good layering")' />
+            </div>
+        </div>
     </div>
-</div>

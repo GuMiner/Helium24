@@ -1,7 +1,6 @@
 ﻿@model Image
 
-
-<div class="card">
+<div class="card" style="width:fit-content;">
     <img class="card-img-top img-fluid rounded" alt="Image in card" src="@Model?.Uri" />
     <div class="card-footer">
         @Html.Raw(@Model?.Title)

@@ -6,25 +6,33 @@
     ViewData["Title"] = @Model.Card.Title;
 }
 
-<div class="card">
-    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+<div class="container-fluid">
+    <partial name="../../Shared/CardHeader.cshtml" for="@Model" />
     <div class="card-body">
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/hardware-projects/printing/N64Logo/n64.jpg", "A Nintendo 64 Logo, in plastic.")' />
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/hardware-projects/printing/n64-logo/n64.jpg", "A Nintendo 64 Logo, in plastic.")' />
+            </div>
+            <div class="col-md-6">
+                Available from <a href="http://www.thingiverse.com/thing:14519">Thingiverse</a>, this print was a size and thin-walled part test.
+                <br />
+                <br />
+                Print time was 180 minutes.
+            </div>
+        </div>
         <br />
-        <partial name="../Common/ParagraphStart.cshtml" />
-        Available from <a href="http://www.thingiverse.com/thing:14519">Thingiverse</a>, this print was a size and thin-walled part test.
-        <br />
-        Print time was 180 minutes.
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/hardware-projects/printing/N64Logo/n64_innards.jpg", "The broken leg of the N64 logo.")' />
-        <br />
-        <partial name="../Common/ParagraphStart.cshtml" />
-        This print was performed with 5% infill, and with a very thin wall, leaving an extremely hollow interior.
-        <br />
-        Unfortunately, this infill was too little, leading to one of the legs to partially break, revealing the innards.
-        <partial name="../Common/ParagraphEnd.cshtml" />
+        <div class="row justify-content-center">
+            <div class="col-auto">
+                <partial name="../../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/hardware-projects/printing/n64-logo/n64_innards.jpg", "The broken leg of the N64 logo.")' />
+
+            </div>
+            <div class="col-md-6">
+                This print was performed with 5% infill, and with a very thin wall, leaving an extremely hollow interior.
+                <br />
+                Unfortunately, this infill ratio was insufficient, leading to one of the legs to partially break, revealing the innards.
+            </div>
+        </div>
     </div>
 </div>

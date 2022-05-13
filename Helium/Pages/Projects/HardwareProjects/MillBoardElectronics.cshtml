@@ -6,23 +6,23 @@
     ViewData["Title"] = @Model.Card.Title;
 }
 
-<div class="card">
-    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+<div class="container-fluid">
+    <partial name="../Shared/CardHeader.cshtml" for="@Model" />
     <div class="card-body">
         <h4>Conceptual Design</h4>
-        <partial name="../Common/ParagraphStart.cshtml" />
+        <div class="col-auto">
         This project was initially to create a low-cost, custom electronics board capable of driving six stepper motors.
         Because my mill design was unusual in requiring six stepper motors, currently-available boards such as the <a href="https://ultimachine.com/ramps">RAMPS board</a>
         and <a href="http://reprap.org/wiki/Comparison_of_Electronics">other electronics</a> were not be capable of driving my mill.
-        <partial name="../Common/ParagraphEnd.cshtml" />
+        </div>
         <br />
-        <partial name="../Common/ParagraphStart.cshtml" />
+        <div class="col-auto">
         To construct the electronics board, I prototyped a PCB with <a href="http://kicad-pcb.org/">KiCad</a> and send the design out for
         manufacturing to <a href="https://oshpark.com/">OSH Park</a>. Because OSH Park charges for the amount of surface area used, I attempted to collapse
         a 12-pin keypad, a 128x64 LCD display, six stepper motor drives and an <a href="http://www.atmel.com/devices/ATMEGA328P.aspx">ATmega328P-PU microcontroller</a> all on the single board.
         To support all of these devices, I also used a few <a href="http://www.nxp.com/documents/data_sheet/74HC_HCT595.pdf">serial-to-parallel</a> chips to increase the total number of I/O pins available.
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <partial name="../Common/ParagraphStart.cshtml" />
+        </div>
+        <div class="col-auto">
         <b>Pins required:</b>
         <ul>
             <li>Six <a href="https://www.pololu.com/product/1182">stepper motor drivers</a>: 1 (reset) + 6*2 (direction + step) = 13 (output)</li>
@@ -35,8 +35,8 @@
             <li>Status LEDs: 2</li>
             <li><b>Total:</b> 33</li>
         </ul>
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <partial name="../Common/ParagraphStart.cshtml" />
+        </div>
+        <div class="col-auto">
         Finally, to complete the design I ensured that:
         <ul>
             <li>Each stepper motor driver has two headers -- one to swap out the motor, the other to swap out the driver. </li>
@@ -44,53 +44,53 @@
             <li>The ATmega has additional passive components to reduce the noise on the analog reference 5 V line.</li>
             <li>The keypad uses a resistor network to uniquely idenfity each key (which creates a short on two of its pins), to significantly reduce the pin count to 1.</li>
         </ul>
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <partial name="../Common/ImageCard.cshtml" ,
-                 model='@new Image("/img/-projects/Pcb/MillBoardElectronics/Schematicv3.png", "The final KiCad schematic, after adding in all the design elements I desired in this board.")' />
+        </div>
+        <partial name="../Shared/ImageCard.cshtml" ,
+                 model='@new Image("/img/hardware-projects/mill-board-electronics/Schematicv3.png", "The final KiCad schematic, after adding in all the design elements I desired in this board.")' />
         <br />
         <h4>PCB Design</h4>
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Pcb/MillBoardElectronics/BoardV1.png", "<b>Version 1:</b> Functionally correct, but not space efficient.<br /> Used for KiCad experimentation only.")' />
+        <partial name="../Shared/ImageCard.cshtml" ,
+            model='@new Image("/img/hardware-projects/mill-board-electronics/BoardV1.png", "<b>Version 1:</b> Functionally correct, but not space efficient.<br /> Used for KiCad experimentation only.")' />
         <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-                 model='@new Image("/img/-projects/Pcb/MillBoardElectronics/BoardV2.png", "<b>Version 2:</b> More space efficent, but with room for improvement.<br /> This layout also puts the keypad and display at unusual right angles to each other.")' />
+        <partial name="../Shared/ImageCard.cshtml" ,
+                 model='@new Image("/img/hardware-projects/mill-board-electronics/BoardV2.png", "<b>Version 2:</b> More space efficent, but with room for improvement.<br /> This layout also puts the keypad and display at unusual right angles to each other.")' />
         <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-                 model='@new Image("/img/-projects/Pcb/MillBoardElectronics/BoardV3NoGround.png", "<b>Version 3:</b> Very efficient, but still messy (lots of long traces, several vias, etc).<br /> By using smaller traces, I was able to route wires through the space between pins.")' />
+        <partial name="../Shared/ImageCard.cshtml" ,
+                 model='@new Image("/img/hardware-projects/mill-board-electronics/BoardV3NoGround.png", "<b>Version 3:</b> Very efficient, but still messy (lots of long traces, several vias, etc).<br /> By using smaller traces, I was able to route wires through the space between pins.")' />
         <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Pcb/MillBoardElectronics/FinalBoard.png", "<b>Version 4:</b> The final result.<br /> I added a ground pane and selected this design for shipping. This only cost $50 for three of these 2-layer ENIG boards.")' />
+        <partial name="../Shared/ImageCard.cshtml" ,
+            model='@new Image("/img/hardware-projects/mill-board-electronics/FinalBoard.png", "<b>Version 4:</b> The final result.<br /> I added a ground pane and selected this design for shipping. This only cost $50 for three of these 2-layer ENIG boards.")' />
         <br />
         <h4>Final Results</h4>
-        <partial name="../Common/ParagraphStart.cshtml" />
+        <div class="col-auto">
         After about a month of lead time, I received the order I had submitted.
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Pcb/MillBoardElectronics/BoardFront.jpg", "The front of the manufactured prototype PCB.")' />
+        </div>
+        <partial name="../Shared/ImageCard.cshtml" ,
+            model='@new Image("/img/hardware-projects/mill-board-electronics/BoardFront.jpg", "The front of the manufactured prototype PCB.")' />
         <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Pcb/MillBoardElectronics/BoardRear.jpg", "The rear of the manufactured prototype PCB.")' />
+        <partial name="../Shared/ImageCard.cshtml" ,
+            model='@new Image("/img/hardware-projects/mill-board-electronics/BoardRear.jpg", "The rear of the manufactured prototype PCB.")' />
         <br />
         <h4>Testing</h4>
-        <partial name="../Common/ParagraphStart.cshtml" />
+        <div class="col-auto">
         I went through two main phases testing these boards -- mechanical and electrical -- to verify the results.
-        <partial name="../Common/ParagraphEnd.cshtml" />
+        </div>
         <br />
         <h5>Mechanical Design Errors</h5>
-        <partial name="../Common/ParagraphStart.cshtml" />
+        <div class="col-auto">
         <ul>
             <li><b>Major:</b> The stepper-motor sockets were all 1-pin spaced too far apart (oops). Pins fit when bent.</li>
             <li><i>Minor:</i> The capacitor pads were too small, so all the capacitors were placed sideways.</li>
             <li><i>Minor:</i> The LCD covers the backlight pads -- which was OK, because I wasn't planning on using the backlight.</li>
             <li><i>Minor:</i> I used the wrong sized-pads for the keypad, so it only accepts smaller pin sizes -- such as the pin sizes the keypad has.</li>
         </ul>
-        <partial name="../Common/ParagraphEnd.cshtml" />
+        </div>
         <h5>Electrical Design Errors</h5>
-        <partial name="../Common/ParagraphStart.cshtml" />
+        <div class="col-auto">
         None found so far!
-        <partial name="../Common/ParagraphEnd.cshtml" />
+        </div>
         <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Pcb/MillBoardElectronics/FinalBoardInPlace.jpg", "The prototype PCB board in my electrical testing rig.")' />
+        <partial name="../Shared/ImageCard.cshtml" ,
+            model='@new Image("/img/hardware-projects/mill-board-electronics/FinalBoardInPlace.jpg", "The prototype PCB board in my electrical testing rig.")' />
     </div>
 </div>

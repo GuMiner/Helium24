@@ -1,18 +1,70 @@
 ﻿@page
+@using Helium.Pages.Projects
+
 @model ProjectsModel
 @{
     ViewData["Title"] = "Projects";
+
+    var latestCards = new Tuple<Card, string>[] {
+        Tuple.Create<Card, string>(GameProjectsModel.Cards[0], "Game"),
+        Tuple.Create<Card, string>(HardwareProjectsModel.Cards[0], "Hardware"),
+        Tuple.Create<Card, string>(IoTProjectsModel.Cards[0], "IoT"),
+        Tuple.Create<Card, string>(SimulationProjectsModel.Cards[0], "Simulation"),
+        Tuple.Create<Card, string>(SoftwareProjectsModel.Cards[0], "Software"),
+    };
 }
 
-<partial name="Projects/Shared/ProjectsHeader.cshtml"/>
+<partial name="Projects/Shared/ProjectsHeader.cshtml" />
 
-<div class="container">
+<div class="container-fluid">
     <div class="row-auto">
         <div class="col-auto">
             <div class="text-center">
-                <h3 style="background-color:#ffffff7a">Something goes here</h3>
+                <h3 style="background-color:#ffffff7a">Latest Projects</h3>
             </div>
         </div>
+    </div>
+    <div class="row justify-content-center">
+        @foreach (Tuple<Card, string> cardWithString in latestCards)
+        {
+            var card = cardWithString.Item1;
+            var sectionTitle = cardWithString.Item2;
+
+            <div class="col-auto px-1 py-1">
+                <div class="card">
+                    <div class="card-header justify-content-center">
+                        <b>@sectionTitle</b>
+                    </div>
+                    <a href="Projects/@card.Link" style="position:absolute;top:0;left:0;height:100%;width:100%"></a>
+                    <div>
+                        <img class="card-img-top img-fluid rounded" alt="Image in card" style="width:320px; height:320px" src="@card.Image" />
+
+                        @* Extra overlay for GitHub-hosted project details *@
+                        @if (card.Link.Contains("github.com"))
+                        {
+                            <a href="@card.Link" style="position:absolute;top:41px;left:0;height:100%;width:100%">
+                                <img class="card-img-top card-img-overlay img-fluid" alt="OnGitHub overlay" src="/img/OnGitHubOverlay.png"
+                             style="width:320px; height:320px; padding:0px; opacity:0.7" />
+                            </a>
+                        }
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="row justify-content-between">
+                            <div class="col-auto align-self-center px-1">
+                                <a href="Projects/@card.Link" class="text-muted">@card.Title</a>
+                            </div>
+                            <div class="col-auto align-self-center px-0 text-muted">
+                                <partial name="Projects/Shared/FormattedDate.cshtml" model="@card.Date" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <partial name="Projects/Shared/TagButtons.cshtml" model="card.Tags" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
 
