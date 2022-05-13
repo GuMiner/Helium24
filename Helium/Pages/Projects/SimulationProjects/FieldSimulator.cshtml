@@ -6,37 +6,50 @@
     ViewData["Title"] = @Model.Card.Title;
 }
 
-<div class="card">
-    <partial name="../Common/CardHeader.cshtml" for="@Model" />
+<div class="container-fluid">
+    <partial name="../Shared/CardHeader.cshtml" for="@Model" />
     <div class="card-body">
-        <partial name="../Common/ParagraphStart.cshtml" />
-        <b>@Model.Card.Title</b> simulates simple static electric and gravitational fields, graphing the results in 2D and 3D.
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Simulation/FieldSimulator/fieldSimulator1.png", "Three-particle 2D electric field diagram")' />
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Simulation/FieldSimulator/fieldSimulator2.png", "Three-particle 3D electric field diagram")' />
-        <br />
-        <partial name="../Common/ParagraphStart.cshtml" />
-        This program was initially written to simplify rote calculations for physics homework.
-        <br />
-        Visualizations were later added for debugging, validation, and experimentation.
-        <partial name="../Common/ParagraphEnd.cshtml" />
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Simulation/FieldSimulator/fieldSimulator3.png", "Three-particle 2D contour diagram of an electric field")' />
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Simulation/FieldSimulator/fieldSimulator5.png", "Three-particle 2D electric field diagram using numbers instead of colors")' />
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Simulation/FieldSimulator/fieldSimulator6.png", "Three-particle 2D electric field diagram using moving points")' />
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Simulation/FieldSimulator/fieldSimulator7.png", "Three-particle 2D electric field diagram with a consistent gradient")' />
-        <br />
-        <partial name="../Common/ImageCard.cshtml" ,
-            model='@new Image("/img/-projects/Simulation/FieldSimulator/fieldSimulator4.png", "Three-particle 3D electric field diagram using numbers and colors to indicate strength")' />
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <b>@Model.Card.Title</b> simulates simple static electric and gravitational fields, graphing the results in 2D and 3D.
+            </div>
+            <div class="col-auto">
+                <partial name="../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/simulation-projects/field-sim/fieldSimulator1.png", "Three-particle 2D electric field diagram")' />
+                <br />
+                <partial name="../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/simulation-projects/field-sim/fieldSimulator2.png", "Three-particle 3D electric field diagram")' />
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                This program was initially written to simplify rote calculations for physics homework.
+                <br />
+                <br />
+                Visualizations were later added for debugging, validation, and experimentation.
+            </div>
+            <div class="col-md-4">
+                <partial name="../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/simulation-projects/field-sim/fieldSimulator3.png", "Three-particle 2D contour diagram of an electric field")' />
+            </div>
+            <div class="col-md-4">
+                <partial name="../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/simulation-projects/field-sim/fieldSimulator5.png", "Three-particle 2D electric field diagram using numbers instead of colors")' />
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <partial name="../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/simulation-projects/field-sim/fieldSimulator6.png", "Three-particle 2D electric field diagram using moving points")' />
+            </div>
+            <div class="col-md-4">
+                <partial name="../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/simulation-projects/field-sim/fieldSimulator7.png", "Three-particle 2D electric field diagram with a consistent gradient")' />
+            </div>
+            <div class="col-md-4">
+                <partial name="../Shared/ImageCard.cshtml" ,
+                         model='@new Image("/img/simulation-projects/field-sim/fieldSimulator4.png", "Three-particle 3D electric field diagram using numbers and colors to indicate strength")' />
+            </div>
+        </div>
     </div>
 </div>
