@@ -7,62 +7,23 @@
 
     var references = new List<Reference>()
     {
-        new Reference("Hiking and Backpacking", new List<ReferenceEntry>()
-        {
-            new ReferenceEntry("Maps (Caltopo)", "https://caltopo.com/map.html"),
-            new ReferenceEntry("GPX Editor (GPS Track Editor)", "http://www.gpstrackeditor.com"),
-        }),
-        new Reference("3D Printing", new List<ReferenceEntry>()
-        {
-            new ReferenceEntry("Models (MyMiniFactory)", "https://www.myminifactory.com"),
-            new ReferenceEntry("More Models (Thingiverse)", "https://www.thingiverse.com"),
-            new ReferenceEntry("Image to 3D Converter", "http://clonerbox.com/image_3D_converter.php"),
-        }),
-        new Reference("Machine Learning", new List<ReferenceEntry>()
-        {
-            new ReferenceEntry("Models (ONNX)", "https://github.com/onnx/models"),
-            new ReferenceEntry("Windows ML", "https://docs.microsoft.com/en-us/windows/uwp/machine-learning/overview"),
-            new ReferenceEntry("OpenCL Caffe", "https://github.com/BVLC/caffe/tree/opencl"),
-            new ReferenceEntry("Model Renderer (shows Alexnet)", "http://ethereon.github.io/netscope/#/preset/alexnet"),
-        }),
         new Reference("Geography / GIS", new List<ReferenceEntry>()
         {
             new ReferenceEntry("King County GIS download", "https://kingcounty.gov/services/gis/GISData.aspx"),
             new ReferenceEntry("USGS National Map", "https://viewer.nationalmap.gov"),
             new ReferenceEntry("GIS Editor (QGIS)", "https://www.qgis.org"),
         }),
-        new Reference("C++ Libraries", new List<ReferenceEntry>()
+        new Reference("Hiking and Backpacking", new List<ReferenceEntry>()
         {
-            new ReferenceEntry("Image / Font Libraries (STB)", "https://github.com/nothings/stb"),
-            new ReferenceEntry("JSON Parsing (nlohmann JSON)", "https://github.com/nlohmann/json"),
-            new ReferenceEntry("Linear Algebra (Eigen)", "http://eigen.tuxfamily.org/index.php?title=Main_Page"),
+            new ReferenceEntry("Maps (Caltopo)", "https://caltopo.com/map.html"),
+            new ReferenceEntry("GPX Editor (GPS Track Editor)", "http://www.gpstrackeditor.com"),
+        }, true),
+        new Reference("Astronomy", new List<ReferenceEntry>()
+        {
+            new ReferenceEntry("Visualization (Celestia)", "https://celestia.space/"),
+            new ReferenceEntry("Planetarium (Stellarium)", "http://stellarium.org/"),
         }),
-        new Reference("Go Libraries", new List<ReferenceEntry>()
-        {
-            new ReferenceEntry("OpenGL bindings", "https://github.com/go-gl/gl"),
-            new ReferenceEntry("OpenSimplex random noise algorithm", "https://github.com/ojrac/opensimplex-go"),
-        }),
-        new Reference("Rust Libraries", new List<ReferenceEntry>()
-        {
-            new ReferenceEntry("Kiss3D graphics library", "https://github.com/sebcrozet/kiss3d"),
-        }),  
-        new Reference("Image Manipulation", new List<ReferenceEntry>()
-        {
-            new ReferenceEntry("Editing (GIMP)", "https://www.gimp.org/"),
-            new ReferenceEntry("Panoramas (Hugin)", "http://hugin.sourceforge.net/"),
-            new ReferenceEntry("Photo conversion (ImageMagick)", "http://www.imagemagick.org/"),
-            new ReferenceEntry("More Editing (Paint.net)", "https://www.getpaint.net/index.html"),
-            new ReferenceEntry("Image Compression (jpeg-recompress)", "https://github.com/danielgtaylor/jpeg-archive#jpeg-recompress"),
-        }),
-        new Reference("3D Modeling", new List<ReferenceEntry>()
-        {
-            new ReferenceEntry("Artistic Modeling (Blender)", "https://www.blender.org/"),
-            new ReferenceEntry("CAD (FreeCAD)", "https://www.freecadweb.org/"),
-            new ReferenceEntry("Voxel Art (MagicaVoxel)", "https://ephtracy.github.io/"),
-            new ReferenceEntry("CAD for Programmers (OpenSCAD)", "http://www.openscad.org/"),
-            new ReferenceEntry("Ray Tracing (POV-Ray)", "http://povray.org/"),
-            new ReferenceEntry("More Art Modeling (Wings 3D)", "http://www.wings3d.com/"),
-        }),
+        
         new Reference("Software Development", new List<ReferenceEntry>()
         {
             new ReferenceEntry("Bitvise SSH Client", "https://www.bitvise.com/ssh-client-download"),
@@ -76,6 +37,14 @@
             new ReferenceEntry("Code Management (git)", "https://git-scm.com/"),
             new ReferenceEntry("GPU Render Analysis (RenderDoc)", "https://renderdoc.org/"),
         }),
+        new Reference("Machine Learning", new List<ReferenceEntry>()
+        {
+            new ReferenceEntry("Models (ONNX)", "https://github.com/onnx/models"),
+            new ReferenceEntry("Windows ML", "https://docs.microsoft.com/en-us/windows/uwp/machine-learning/overview"),
+            new ReferenceEntry("OpenCL Caffe", "https://github.com/BVLC/caffe/tree/opencl"),
+            new ReferenceEntry("Model Renderer (shows Alexnet)", "http://ethereon.github.io/netscope/#/preset/alexnet"),
+        }, true),
+        
         new Reference("Mathematics", new List<ReferenceEntry>()
         {
             new ReferenceEntry("Online Math (MathStudio)", "http://mathstud.io/"),
@@ -83,35 +52,71 @@
             new ReferenceEntry("Visualizations (ParaView)", "https://www.paraview.org/"),
             new ReferenceEntry("Like MATLAB (Scilab)", "https://www.scilab.org/"),
             new ReferenceEntry("Algebra (wxMaxima)", "https://wxmaxima-developers.github.io/wxmaxima/"),
-        }),
-        new Reference("Astronomy", new List<ReferenceEntry>()
-        {
-            new ReferenceEntry("Visualization (Celestia)", "https://celestia.space/"),
-            new ReferenceEntry("Planetarium (Stellarium)", "http://stellarium.org/"),
-        }),
-        new Reference("Audio", new List<ReferenceEntry>()
-        {
-            new ReferenceEntry("Audio processing (Audacity)", "https://www.audacityteam.org/"),
-            new ReferenceEntry("Software Defined Radio Receiver (SDR#)", "https://airspy.com/download/"),
-            new ReferenceEntry("SDR to parse trucked transmissions (Unitrucker)", "http://unitrunker.com/"),
-        }),
+        }, true),
         new Reference("Electronics", new List<ReferenceEntry>()
         {
             new ReferenceEntry("Antenna Design (4nec2)", "https://www.qsl.net/4nec2/"),
             new ReferenceEntry("PCB Design (KiCad)", "http://kicad-pcb.org/"),
             new ReferenceEntry("Simulation (LTspice)", "https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html"),
         }),
+
+        new Reference("C++ Libraries", new List<ReferenceEntry>()
+        {
+            new ReferenceEntry("Image / Font Libraries (STB)", "https://github.com/nothings/stb"),
+            new ReferenceEntry("JSON Parsing (nlohmann JSON)", "https://github.com/nlohmann/json"),
+            new ReferenceEntry("Linear Algebra (Eigen)", "http://eigen.tuxfamily.org/index.php?title=Main_Page"),
+        }, true),
+        new Reference("Go Libraries", new List<ReferenceEntry>()
+        {
+            new ReferenceEntry("OpenGL bindings", "https://github.com/go-gl/gl"),
+            new ReferenceEntry("OpenSimplex random noise algorithm", "https://github.com/ojrac/opensimplex-go"),
+        }),
+        new Reference("Rust Libraries", new List<ReferenceEntry>()
+        {
+            new ReferenceEntry("Kiss3D graphics library", "https://github.com/sebcrozet/kiss3d"),
+        }, true),
+
+        new Reference("3D Modeling", new List<ReferenceEntry>()
+        {
+            new ReferenceEntry("Artistic Modeling (Blender)", "https://www.blender.org/"),
+            new ReferenceEntry("CAD (FreeCAD)", "https://www.freecadweb.org/"),
+            new ReferenceEntry("Voxel Art (MagicaVoxel)", "https://ephtracy.github.io/"),
+            new ReferenceEntry("CAD for Programmers (OpenSCAD)", "http://www.openscad.org/"),
+            new ReferenceEntry("Ray Tracing (POV-Ray)", "http://povray.org/"),
+            new ReferenceEntry("More Art Modeling (Wings 3D)", "http://www.wings3d.com/"),
+        }, true),
+        new Reference("3D Printing", new List<ReferenceEntry>()
+        {
+            new ReferenceEntry("Models (MyMiniFactory)", "https://www.myminifactory.com"),
+            new ReferenceEntry("More Models (Thingiverse)", "https://www.thingiverse.com"),
+            new ReferenceEntry("Image to 3D Converter", "http://clonerbox.com/image_3D_converter.php"),
+        }),
+        new Reference("Audio", new List<ReferenceEntry>()
+        {
+            new ReferenceEntry("Audio processing (Audacity)", "https://www.audacityteam.org/"),
+            new ReferenceEntry("Software Defined Radio Receiver (SDR#)", "https://airspy.com/download/"),
+            new ReferenceEntry("SDR to parse trucked transmissions (Unitrucker)", "http://unitrunker.com/"),
+
+        }, true),
+        new Reference("Image Manipulation", new List<ReferenceEntry>()
+        {
+            new ReferenceEntry("Editing (GIMP)", "https://www.gimp.org/"),
+            new ReferenceEntry("Panoramas (Hugin)", "http://hugin.sourceforge.net/"),
+            new ReferenceEntry("Photo conversion (ImageMagick)", "http://www.imagemagick.org/"),
+            new ReferenceEntry("More Editing (Paint.net)", "https://www.getpaint.net/index.html"),
+            new ReferenceEntry("Image Compression (jpeg-recompress)", "https://github.com/danielgtaylor/jpeg-archive#jpeg-recompress"),
+        }),
         new Reference("Multimedia", new List<ReferenceEntry>()
         {
             new ReferenceEntry("Video Converter 2 (ffmpeg)", "https://ffmpeg.org/",
-                "Useful ffmpeg snippets", "https://github.com/GuMiner/Scripts/blob/master/FFmpeg%20Snippets.txt"),
+                "Useful ffmpeg snippets", "https://github.com/GuMiner/Scripts/blob/master/FFmpegSnippets.txt"),
             new ReferenceEntry("Video converter (Handbrake)", "https://handbrake.fr/"),
             new ReferenceEntry("Video Editor (Vegas Movie Studio)", "https://www.vegascreativesoftware.com/us/vegas-movie-studio/"),
             new ReferenceEntry("eBook Management (Calibre)", "https://calibre-ebook.com/"),
             new ReferenceEntry("Text Editor (Notepad++)", "https://notepad-plus-plus.org/"),
             new ReferenceEntry("Office Suite (Office)", "https://www.office.com/"),
             new ReferenceEntry("Paper scanning (NAPS2)", "https://www.naps2.com/"),
-        }),
+        }, true),
         new Reference("File Management", new List<ReferenceEntry>()
         {
             new ReferenceEntry("Compression (7-Zip)", "https://www.7-zip.org/"),
@@ -123,38 +128,30 @@
     };
 }
 
-<div class="container-fluid">
-    <div class="row-auto">
-        <div class="col-auto">
-            <h1>Useful Links and Tools"</h1>
-        </div>
-    </div>
-    <div class="row-auto">
-        @foreach (Reference reference in references)
-        {
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header justify-content-center">
-                    <b>@reference.Title</b>
-                </div>
-                <div class="card-body">
-                    <ul>
-                        @foreach (ReferenceEntry entry in reference.Entries)
-                        {
-                            if (!string.IsNullOrWhiteSpace(entry.MoreDetailsLink))
+<div class="container-fluid d-flex flex-wrap">
+    <h1>Useful Links and Tools</h1>
+    <br />
+    @foreach (Reference reference in references)
+    {
+        <div class="card d-inline-block" style="display: inline-block">
+            <div class="card-header justify-content-center">
+                <b>@reference.Title</b>
+            </div>
+            <div class="card-body">
+                <ul>
+                    @foreach (ReferenceEntry entry in reference.Entries)
+                    {
+                        <li>
+                            @entry.Name -- <a href="@entry.Link">@entry.Link</a>
+
+                            @if (!string.IsNullOrWhiteSpace(entry.MoreDetailsLink))
                             {
-                            <li>@entry.Name -- <a href="@entry.Link">@entry.Link</a>
-                                <ul><li>@entry.MoreDetails -- <a href="@entry.MoreDetailsLink">Link</a></li></ul></li>
+                                <ul><li>@entry.MoreDetails -- <a href="@entry.MoreDetailsLink">Link</a></li></ul>
                             }
-                            else
-                            {
-                            <li>@entry.Name -- <a href="@entry.Link">@entry.Link</a></li>
-                            }
-                        }
-                    </ul>
-                </div>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
-        }
-    </div>
+    }
 </div>

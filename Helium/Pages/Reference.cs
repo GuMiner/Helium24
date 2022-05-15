@@ -23,11 +23,13 @@
         public string Title { get; set; }
 
         public List<ReferenceEntry> Entries { get; set; }
+        public bool AddRow { get; set; }
 
-        public Reference(string title, List<ReferenceEntry> entries)
+        public Reference(string title, List<ReferenceEntry> entries, bool addRow = false)
         {
             this.Title = title;
             this.Entries = entries;
+            this.AddRow = addRow;
         }
     }
 }
