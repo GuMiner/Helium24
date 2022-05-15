@@ -128,9 +128,9 @@
     };
 }
 
+
+<h1>Useful Links and Tools</h1>
 <div class="container-fluid d-flex flex-wrap">
-    <h1>Useful Links and Tools</h1>
-    <br />
     @foreach (Reference reference in references)
     {
         <div class="card d-inline-block" style="display: inline-block">
@@ -142,7 +142,9 @@
                     @foreach (ReferenceEntry entry in reference.Entries)
                     {
                         <li>
-                            @entry.Name -- <a href="@entry.Link">@entry.Link</a>
+                            @entry.Name
+                            <br />
+                            <a href="@entry.Link">@entry.Link</a>
 
                             @if (!string.IsNullOrWhiteSpace(entry.MoreDetailsLink))
                             {
