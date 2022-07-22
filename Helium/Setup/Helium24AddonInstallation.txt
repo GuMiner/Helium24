@@ -290,6 +290,7 @@ supervisorctl update
 supervisorctl start helium
 
 # Setup NGINX for HTTPS
+See: https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-6.0
 nano /etc/nginx/sites-available/helium24-psr.net
 >>
 server {

@@ -1,6 +1,7 @@
 using Helium.Data;
 using Helium.Data.Identity;
 using Helium.Tasks;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,12 +23,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddHostedService<SystemStatusTask>();
 builder.Services.AddRazorPages();
 
-/*builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(5001); // to listen for incoming http connection on port 5001
-//    options.ListenAnyIP(7001, configure => configure.UseHttps()); // to listen for incoming https connection on port 7001
-});*/
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -45,7 +40,6 @@ else
 app.UseHttpsRedirection();
 
 app.UseResponseCaching();
-// app.UseResponseCompression();
 app.UseStaticFiles();
 app.UseCookiePolicy();
 
@@ -61,6 +55,11 @@ app.UseStatusCodePages(async context =>
 });
 
 app.UseRouting();
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
 
 app.UseAuthentication();
 app.UseAuthorization();

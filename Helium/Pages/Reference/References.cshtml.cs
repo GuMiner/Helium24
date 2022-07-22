@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Helium.Pages
+namespace Helium.Pages.Reference
 {
     public class References : PageModel
     {

@@ -1,4 +1,4 @@
-﻿namespace Helium.Pages
+﻿namespace Helium.Pages.Reference
 {
     public class ReferenceEntry
     {

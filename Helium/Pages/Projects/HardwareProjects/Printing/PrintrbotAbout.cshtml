@@ -7,12 +7,12 @@
 }
 
 <div class="container-fluid">
-    <partial name="../Shared/CardHeader.cshtml" for="@Model" />
+    <partial name="../../Shared/CardHeader.cshtml" for="@Model" />
     <div class="card-body">
         <h3 class="text-muted">Hardware</h3>
         <div class="row justify-content-center">
             <div class="col-auto">
-                <partial name="../Shared/ImageCard.cshtml" ,
+                <partial name="../../Shared/ImageCard.cshtml" ,
                          model='@new Image("/img/hardware-projects/printing/printrbot/printer_then.jpg", "The original assembled Printrbot JR 3D printer.")' />
             </div>
             <div class="col-md-6">
@@ -28,7 +28,7 @@
                 I have since upgraded to a newer printer, but even with this older printer I was able to reliably print with it due to knowing the limitations and strengths of this design.
             </div>
             <div class="col-auto">
-                <partial name="../Shared/ImageCard.cshtml" ,
+                <partial name="../../Shared/ImageCard.cshtml" ,
                          model='@new Image("/img/hardware-projects/printing/printrbot/printer_now.jpg", "The assembled Printrbot JR 3D printer, with modifications.")' />
             </div>
         </div>
@@ -96,7 +96,7 @@
             they all work together to allow you to make more parts of your own design.
         </div>
         <br />
-        <partial name="../Shared/ImageCard.cshtml" ,
+        <partial name="../../Shared/ImageCard.cshtml" ,
                  model='@new Image("/img/hardware-projects/printing/printrbot/3dp_parts.jpg", "The wooden parts making up the Printrbot JR 3D printer")' />
     </div>
 </div>
