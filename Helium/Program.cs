@@ -14,6 +14,8 @@ builder.Services.AddDbContext<PuzzleDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("PuzzleDb")));
 builder.Services.AddDbContextFactory<SystemDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("SystemDb")));
+builder.Services.AddDbContextFactory<ImageDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("ImageDb")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)

@@ -11,21 +11,41 @@
     var InterGalactic = 5;
     var Galactic = 4;
     var SolarSystem = 3;
+    var Planetary = 2;
+
+    var SuperDark = 1;
+    var Dark = 2;
+    var AverageSM = 3;
+    var Light = 4;
+    var SuperLight = 5;
+
+    var SuperOptimistic = 5;
+    var Optimistic = 4;
+    var AverageTone = 3;
+    var Pessimistic = 2;
+    var SuperPessimistic = 1;
 
     var books = new List<Book>()
     {
+        new Book("The Practice Effect", "TODO", DateTime.Parse("2021-01-01"), "Scientist",
+            "TODO",
+            tone: SuperOptimistic, subjectMatter: SuperLight, scope: Planetary, rating: AllTimeFavorite),
+
         new Book("Light Chaser", "Peter F. Hamilton/Gareth L. Powell", DateTime.Parse("2021-01-01"), "Pilot",
             "Love story that's also galactic science fiction. Somewhat short.",
-            tone: 4, subjectMatter: 2, scope: Galactic, rating: Enjoyable),
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
         new Book("The Last Watch (Divide Series)", "J. S. Dewes", DateTime.Parse("2021-01-01"), "Military Officer/Scientist",
-            "Light military Sci-Fi with a broad scope and humerous moments. The third book isn't out yet though.",
-            tone: 5, subjectMatter: 4, scope: InterGalactic, rating: Enjoyable),
+            "Optimistic military Sci-Fi with a broad scope and humerous moments. The third book isn't yet out though.",
+            tone: SuperOptimistic, subjectMatter: AverageSM, scope: InterGalactic, rating: Enjoyable),
+
         new Book("Shild's Ladder", "Greg Egan", DateTime.Parse("2002-01-01"), "Scientist",
             "Far-future tech with a universe-ending scale.",
-            tone: 3, subjectMatter: 3, scope: InterGalactic, rating: GoodButNotGreat),
+            tone: AverageTone, subjectMatter: AverageSM, scope: InterGalactic, rating: GoodButNotGreat),
+
         new Book("Metaplanetary", "Tony Daniel", DateTime.Parse("2009-01-01"), "Various",
             "Development of war in the local solar system.",
-            tone: 4, subjectMatter: 5, scope: SolarSystem, rating: GoodButNotGreat),
+            tone: Optimistic, subjectMatter: SuperDark, scope: SolarSystem, rating: GoodButNotGreat),
     };
 }
 
@@ -33,17 +53,34 @@
 
 
 <h1>Science Fiction Book List</h1>
-<div class="container-fluid d-flex flex-wrap">
-    @foreach (Book book in books)
+<div class="container-fluid">
+    <h2>All Time Favorites</h2>
+    <p>
+    <ul>
+    @foreach (Book book in books.Where(b => b.Rating == AllTimeFavorite).OrderByDescending(b => b.Published))
     {
-        <div class="card d-inline-block" style="display: inline-block">
-            <div class="card-header justify-content-center">
-                <b>@book.Title</b>
-            </div>
-            <div class="card-body">
-                <ul>
-                </ul>
-            </div>
-        </div>
+        <partial name="BookEntry.cshtml" model="@book" />
     }
+    </ul>
+    </p>
+
+    <h2>Enjoyable</h2>
+    <p>
+    <ul>
+    @foreach (Book book in books.Where(b => b.Rating == Enjoyable).OrderByDescending(b => b.Published))
+    {
+        <partial name="BookEntry.cshtml" model="@book" />
+    }
+    </ul>
+    </p>
+
+    <h2>Good Enough</h2>
+    <p>
+    <ul>
+    @foreach (Book book in books.Where(b => b.Rating == GoodButNotGreat).OrderByDescending(b => b.Published))
+    {
+        <partial name="BookEntry.cshtml" model="@book" />
+    }
+    </ul>
+    </p>
 </div>

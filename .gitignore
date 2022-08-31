@@ -114,3 +114,4 @@ ClientBin/
 *.publishsettings
 orleans.codegen.cs
 
+Helium/Data/image-data.db

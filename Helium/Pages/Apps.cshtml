@@ -2,11 +2,66 @@
 @model AppsModel
 @{
     ViewData["Title"] = "Apps";
+
+    string imageGenCollapse = "imageGenCollapse";
+    string minimalisticPadding = "padding: 1px; margin: 2px;";
 }
 
-<div class="text-center">
-    <h2>🛠️ Construction Pending ⚠️</h2> 
-    <p>
-        In the meantime, see the <a href="PuzzleTooling">PuzzleTooling</a> page.
-    </p>
+<button type="button" class="btn btn-primary" data-bs-toggle="collapse" href="#@imageGenCollapse" style=" @Html.Raw(minimalisticPadding)">Image Generation</button>
+
+
+<div class="container-fluid">
+    <div class="collapse" id="@imageGenCollapse" style="transition-duration: 0.05s;">
+
+        <h1>Image Generation</h1>
+        <p>
+            Remote frontend for <a href="https://github.com/CompVis/stable-diffusion"> Stable Diffusion</a>.
+        </p>
+        <div class="row">
+            <div class="col-sm-auto">
+                <div class="row"> Login </div>
+                <div class="row">
+                    <input data-bind="textInput: imageGen.accessKey" style="width: 200px;" />
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary" data-bind="click: imageGen.LoadJobs.bind(imageGen)">Load Jobs</button>
+                </div>
+                <div class="row"> Prompt </div>
+                <div class="row">
+                    <textarea data-bind="textInput: imageGen.prompt" style="width: 200px; height: 100px;"></textarea>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary" data-bind="click: imageGen.QueueJob.bind(imageGen)">Generate</button>
+                </div>
+                <div class="row alert alert-success">
+                    <span data-bind="text: imageGen.jobStatus" style="@Html.Raw(minimalisticPadding)">0</span>
+                </div>
+                <div class="row alert alert-info">
+                    <span data-bind="text: imageGen.backendStatus" style="@Html.Raw(minimalisticPadding)">Idle</span>
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Job Result</span>
+                    </div>
+                    <br />
+                    <!-- TODO connect to output, include alt text-->
+                    <img class="img-fluid img-thumbnail" src="~/img/wedding/Engagement3.jpg" alt="Angie and Gustave engagement photo" />
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group">
+                    <div class="input-group-prepend"> <span class="input-group-text"> Jobs </span> </div>
+                    <br />
+                    <select width="50" size="20" data-bind="options: imageGen.jobs, value: imageGen.selectedJob"> </select>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/lib/requirejs-2.3.6.min.js"></script>
+    <script type="text/javascript">require(["ts/psr/imagegen", "ts/psr/utility"])</script>
+}
