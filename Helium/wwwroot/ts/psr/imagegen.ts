@@ -15,6 +15,12 @@ interface JobsResult {
     jobs: string[]
 }
 
+interface JobResults {
+    error: string,
+    status: string
+    imageData: string
+}
+
 class ImageGenModel {
     accessKey: ko.Observable<string>
     prompt: ko.Observable<string>
@@ -24,6 +30,8 @@ class ImageGenModel {
 
     jobs: ko.ObservableArray<string>
     selectedJob: ko.Observable<string>
+
+    image: ko.Observable<string>
 
     jobLoader: ko.Computed
 
@@ -38,21 +46,29 @@ class ImageGenModel {
         this.selectedJob = ko.observable("");
 
         this.jobLoader = ko.computed(() => {
+            // Load image from the server whenever the selected job changes
             this.jobStatus("Loading " + this.selectedJob());
 
-            // TODO: Get byte image data and assign it to the central image
-            // TODO: Write backend to generate that image
-            // TODO: Have website read image from backend if generation complete and save in DB.
+            let jobId = this.selectedJob().split(":")[0];
+            let encodedAccessKey = encodeURIComponent(this.accessKey());
+            let encodedJobId = encodeURIComponent(jobId);
 
-            // let encodedQuery = encodeURIComponent(this.query());
-            // axios.get("/api/CrosswordSearch/FindMatchingWords?search=" + encodedQuery)
-            //     .then((response) => {
-            //     })
-            //     .catch((err) => {
-            //         // this.dbStatus("Error: " + JSON.stringify(err));
-            //     });
-            // 
-            // return encodedQuery;
+            axios.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId)
+                .then((response) => {
+                    let data: JobResults = response.data
+                    if (data.error != "") {
+                        this.backendStatus(data.error);
+                    } else if (data.status != "") {
+                        this.backendStatus(data.status);
+                    }
+                    else {
+                        this.backendStatus("Loaded image");
+                        this.image(data.imageData);
+                    }
+                })
+                .catch((err) => {
+                    this.backendStatus("Error: " + JSON.stringify(err));
+                });
         })
     }
 

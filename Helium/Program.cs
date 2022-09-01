@@ -23,6 +23,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 
 
 builder.Services.AddHostedService<SystemStatusTask>();
+builder.Services.AddHttpClient();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();

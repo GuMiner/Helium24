@@ -15,19 +15,28 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
             this.jobs = ko.observableArray(["No jobs"]);
             this.selectedJob = ko.observable("");
             this.jobLoader = ko.computed(function () {
+                // Load image from the server whenever the selected job changes
                 _this.jobStatus("Loading " + _this.selectedJob());
-                // TODO: Get byte image data and assign it to the central image
-                // TODO: Write backend to generate that image
-                // TODO: Have website read image from backend if generation complete and save in DB.
-                // let encodedQuery = encodeURIComponent(this.query());
-                // axios.get("/api/CrosswordSearch/FindMatchingWords?search=" + encodedQuery)
-                //     .then((response) => {
-                //     })
-                //     .catch((err) => {
-                //         // this.dbStatus("Error: " + JSON.stringify(err));
-                //     });
-                // 
-                // return encodedQuery;
+                var jobId = _this.selectedJob().split(":")[0];
+                var encodedAccessKey = encodeURIComponent(_this.accessKey());
+                var encodedJobId = encodeURIComponent(jobId);
+                axios_0_24_0_min_1.default.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId)
+                    .then(function (response) {
+                    var data = response.data;
+                    if (data.error != "") {
+                        _this.backendStatus(data.error);
+                    }
+                    else if (data.status != "") {
+                        _this.backendStatus(data.status);
+                    }
+                    else {
+                        _this.backendStatus("Loaded image");
+                        _this.image(data.imageData);
+                    }
+                })
+                    .catch(function (err) {
+                    _this.backendStatus("Error: " + JSON.stringify(err));
+                });
             });
         }
         ImageGenModel.prototype.LoadJobs = function () {
