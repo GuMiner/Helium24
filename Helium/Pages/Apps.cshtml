@@ -18,7 +18,7 @@
             Remote frontend for <a href="https://github.com/CompVis/stable-diffusion"> Stable Diffusion</a>.
         </p>
         <div class="row">
-            <div class="col-sm-auto">
+            <div class="col-4">
                 <div class="row"> Login </div>
                 <div class="row">
                     <input data-bind="textInput: imageGen.accessKey" style="width: 200px;" />
@@ -40,21 +40,15 @@
                     <span data-bind="text: imageGen.backendStatus" style="@Html.Raw(minimalisticPadding)">Idle</span>
                 </div>
             </div>
-            <div class="col">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Job Result</span>
-                    </div>
-                    <br />
-                    <img class="img-fluid img-thumbnail" data-bind="attr: { src: imageGen.image }" />
-                </div>
+            <div class="col-auto">
+                <span class="card-header">Job Result</span>
+                <br />
+                <img class="img-fluid img-thumbnail" data-bind="attr: { src: imageGen.image }" />
             </div>
-            <div class="col">
-                <div class="input-group">
-                    <div class="input-group-prepend"> <span class="input-group-text"> Jobs </span> </div>
-                    <br />
-                    <select width="50" size="20" data-bind="options: imageGen.jobs, value: imageGen.selectedJob"> </select>
-                </div>
+            <div class="col-4">
+                <span class="card-header"> Jobs </span> 
+                <br />
+                <select class="form-select" style="overflow:scroll;" width="50" size="20" data-bind="options: imageGen.jobs, value: imageGen.selectedJob"> </select>
             </div>
         </div>
     </div>

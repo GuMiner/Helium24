@@ -93,7 +93,7 @@ namespace Helium.Controllers
                     {
                         error = "",
                         status = "",
-                        imageData = image,
+                        imageData = $"data:image/jpeg;base64,{Convert.ToBase64String(image)}",
                     });
                 }
 
@@ -140,7 +140,7 @@ namespace Helium.Controllers
                 {
                     error = "",
                     status = "",
-                    imageData = imageData,
+                    imageData = $"data:image/jpeg;base64,{Convert.ToBase64String(imageData)}",
                 });
             });
         }

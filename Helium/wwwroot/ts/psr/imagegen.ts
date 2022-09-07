@@ -45,7 +45,13 @@ class ImageGenModel {
         this.jobs = ko.observableArray(["No jobs"])
         this.selectedJob = ko.observable("");
 
+        this.image = ko.observable("");
+
         this.jobLoader = ko.computed(() => {
+            if (this.selectedJob() === undefined) {
+                return;
+            }
+
             // Load image from the server whenever the selected job changes
             this.jobStatus("Loading " + this.selectedJob());
 

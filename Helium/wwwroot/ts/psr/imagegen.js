@@ -14,7 +14,11 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
             this.backendStatus = ko.observable("Idle");
             this.jobs = ko.observableArray(["No jobs"]);
             this.selectedJob = ko.observable("");
+            this.image = ko.observable("");
             this.jobLoader = ko.computed(function () {
+                if (_this.selectedJob() === undefined) {
+                    return;
+                }
                 // Load image from the server whenever the selected job changes
                 _this.jobStatus("Loading " + _this.selectedJob());
                 var jobId = _this.selectedJob().split(":")[0];

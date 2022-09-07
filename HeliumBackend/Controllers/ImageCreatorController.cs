@@ -10,7 +10,7 @@ namespace HeliumBackend.Controllers
 
         private readonly ILogger<ImageCreatorController> _logger;
 
-        public ImageCreatorController(ILogger<ImageCreatorController> logger,)
+        public ImageCreatorController(ILogger<ImageCreatorController> logger)
         {
             _logger = logger;
         }
