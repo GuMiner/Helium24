@@ -19,18 +19,18 @@
         </p>
         <div class="row">
             <div class="col-4">
-                <div class="row"> Login </div>
-                <div class="row">
+                <div class="row-auto"> Login </div>
+                <div class="row-auto">
                     <input data-bind="textInput: imageGen.accessKey" style="width: 200px;" />
                 </div>
-                <div class="row">
+                <div class="row-auto">
                     <button class="btn btn-primary" data-bind="click: imageGen.LoadJobs.bind(imageGen)">Load Jobs</button>
                 </div>
-                <div class="row"> Prompt </div>
-                <div class="row">
+                <div class="row-auto"> Prompt </div>
+                <div class="row-auto">
                     <textarea data-bind="textInput: imageGen.prompt" style="width: 200px; height: 100px;"></textarea>
                 </div>
-                <div class="row">
+                <div class="row-auto">
                     <button class="btn btn-primary" data-bind="click: imageGen.QueueJob.bind(imageGen)">Generate</button>
                 </div>
                 <div class="row alert alert-success">

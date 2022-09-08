@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
+using System.Net.Http.Headers;
 
 namespace HeliumBackend.Controllers
 {
@@ -8,11 +10,11 @@ namespace HeliumBackend.Controllers
     {
         private const string QueueDirectory = @"D:\imageGen";
 
-        private readonly ILogger<ImageCreatorController> _logger;
+        private readonly ILogger<ImageCreatorController> logger;
 
         public ImageCreatorController(ILogger<ImageCreatorController> logger)
         {
-            _logger = logger;
+            this.logger = logger;
         }
 
         [HttpPost]
@@ -23,20 +25,23 @@ namespace HeliumBackend.Controllers
             string directoryPath = Path.Combine(QueueDirectory, jobId);
             Directory.CreateDirectory(directoryPath);
             System.IO.File.WriteAllText(Path.Combine(directoryPath, "prompt.txt"), prompt);
+            logger.LogInformation($"Queued job at {directoryPath}");
 
             return jobId;
         }
 
         [HttpGet]
-        public byte[] Get([FromQuery]string jobId) // TODO support retrieving more than one result
+        public IActionResult Get([FromQuery]string jobId) // TODO support retrieving more than one result
         {
-            string imageFilePath = Path.Combine(QueueDirectory, jobId, "0.png");
+            byte[] imageBytes = new byte[0];
+            logger.LogInformation($"Retrieving job {jobId}");
+            string imageFilePath = Path.Combine(QueueDirectory, jobId, "0.jpg");
             if (System.IO.File.Exists(imageFilePath))
             {
-                return System.IO.File.ReadAllBytes(imageFilePath);
+                imageBytes = System.IO.File.ReadAllBytes(imageFilePath);
             }
-
-            return new byte[0];
+            
+            return new FileContentResult(imageBytes.Reverse().ToArray(), "image/jpeg");
         }
     }
 }

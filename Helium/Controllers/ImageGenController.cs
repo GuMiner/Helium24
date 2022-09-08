@@ -124,9 +124,11 @@ namespace Helium.Controllers
                     });
                 }
 
+                imageData = imageData.Reverse().ToArray();
+
                 // Have image, save it to this job.
                 string imageId = Guid.NewGuid().ToString();
-                job.ImageIds = imageId; // TODO multiple job support
+                 job.ImageIds = imageId; // TODO multiple job support
                 db.Jobs.Update(job);
                 db.Images.Add(new GeneratedImage()
                 {
