@@ -2,54 +2,39 @@
 @model AppsModel
 @{
     ViewData["Title"] = "Apps";
-
-    string imageGenCollapse = "imageGenCollapse";
-    string minimalisticPadding = "padding: 1px; margin: 2px;";
 }
 
-<button type="button" class="btn btn-primary" data-bs-toggle="collapse" href="#@imageGenCollapse" style=" @Html.Raw(minimalisticPadding)">Image Generation</button>
-
-
 <div class="container-fluid">
-    <div class="collapse" id="@imageGenCollapse" style="transition-duration: 0.05s;">
-
-        <h1>Image Generation</h1>
-        <p>
-            Remote frontend for <a href="https://github.com/CompVis/stable-diffusion"> Stable Diffusion</a>.
-        </p>
-        <div class="row">
-            <div class="col-4">
-                <div class="row-auto"> Login </div>
-                <div class="row-auto">
-                    <input data-bind="textInput: imageGen.accessKey" style="width: 200px;" />
-                </div>
-                <div class="row-auto">
-                    <button class="btn btn-primary" data-bind="click: imageGen.LoadJobs.bind(imageGen)">Load Jobs</button>
-                </div>
-                <div class="row-auto"> Prompt </div>
-                <div class="row-auto">
-                    <textarea data-bind="textInput: imageGen.prompt" style="width: 200px; height: 100px;"></textarea>
-                </div>
-                <div class="row-auto">
-                    <button class="btn btn-primary" data-bind="click: imageGen.QueueJob.bind(imageGen)">Generate</button>
-                </div>
-                <div class="row alert alert-success">
-                    <span data-bind="text: imageGen.jobStatus" style="@Html.Raw(minimalisticPadding)">0</span>
-                </div>
-                <div class="row alert alert-info">
-                    <span data-bind="text: imageGen.backendStatus" style="@Html.Raw(minimalisticPadding)">Idle</span>
-                </div>
+    <p>
+        <b>Image Generation:</b> Remote frontend for <a href="https://github.com/CompVis/stable-diffusion"> Stable Diffusion</a>.
+    </p>
+    <div class="row justify-content-center">
+        <div class="col-auto">
+            <div class="row-auto align-items-center px-1 py-1">
+                Access Key 
+                <input data-bind="textInput: imageGen.accessKey" style="width: 100px;" />
+                <button class="btn btn-primary" data-bind="click: imageGen.LoadJobs.bind(imageGen)">Login & Load Jobs</button>
             </div>
-            <div class="col-auto">
-                <span class="card-header">Job Result</span>
+            <div class="row-auto justify-content-center">
+                <textarea data-bind="textInput: imageGen.prompt" style="width: 300px; height: 100px;"></textarea>
                 <br />
-                <img class="img-fluid img-thumbnail" data-bind="attr: { src: imageGen.image }" />
+                <button class="btn btn-primary" data-bind="click: imageGen.QueueJob.bind(imageGen)">Generate From Prompt</button>
             </div>
-            <div class="col-4">
-                <span class="card-header"> Jobs </span> 
-                <br />
-                <select class="form-select" style="overflow:scroll;" width="50" size="20" data-bind="options: imageGen.jobs, value: imageGen.selectedJob"> </select>
+            <div class="row align-items-center">
+                <span class="alert alert-success" style="width: 300px;" data-bind="text: imageGen.jobStatus">0</span>
             </div>
+            <div class="row align-items-center">
+                <span class="alert alert-info" style="width: 300px;" data-bind="text: imageGen.backendStatus">Idle</span>
+            </div>
+            <div class="row align-items-center">
+                <span class="alert alert-warning" style="width: 300px;" data-bind="text: imageGen.pendingJobs">? pending jobs</span>
+            </div>
+        </div>
+        <div class="col-auto">
+            <img class="img-fluid img-thumbnail" style="width:512px; height:512px;" data-bind="attr: { src: imageGen.image }" />
+        </div>
+        <div class="col-auto">
+            <select class="form-select" style="overflow:scroll;" width="50" size="20" data-bind="options: imageGen.jobs, value: imageGen.selectedJob"> </select>
         </div>
     </div>
 </div>

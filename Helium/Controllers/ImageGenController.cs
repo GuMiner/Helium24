@@ -1,7 +1,5 @@
 ﻿using Helium.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Web;
 
 namespace Helium.Controllers
 {
@@ -13,15 +11,11 @@ namespace Helium.Controllers
     [Produces("application/json")]
     public class ImageGenController : ControllerBase
     {
-        private const string ImageCreatorServer = "http://73.53.3.16:7589/api/ImageCreator";
-
         private readonly ImageDbContext db;
-        private readonly IHttpClientFactory httpClientFactory;
 
-        public ImageGenController(ImageDbContext db, IHttpClientFactory httpClientFactory)
+        public ImageGenController(ImageDbContext db)
         {
             this.db = db;
-            this.httpClientFactory = httpClientFactory;
         }
 
         private IActionResult Login(string? accessKey, Func<User, IActionResult> postLoginAction)
@@ -41,6 +35,19 @@ namespace Helium.Controllers
         }
 
         [HttpGet]
+        public IActionResult PendingJobsCount([FromQuery] string? accessKey)
+        {
+            return this.Login(accessKey, (user) =>
+            {
+                return this.Ok(new
+                {
+                    count = this.db.PendingJobs.LongCount(),
+                    error = ""
+                });
+            });
+        }
+
+        [HttpGet]
         public IActionResult Jobs([FromQuery] string? accessKey)
         {
             return this.Login(accessKey, (user) =>
@@ -51,7 +58,7 @@ namespace Helium.Controllers
                             a => a.JobId,
                             b => b.Id,
                             (a, b) => b)
-                        .Select(job => $"{job.Id}: {job.Prompt}").ToList();
+                        .Select(job => $"{job.Prompt}:{job.Id}").ToList();
 
                 return this.Ok(new
                 {
@@ -60,6 +67,60 @@ namespace Helium.Controllers
                     error = "",
                 });
             });
+        }
+
+        [HttpGet]
+        public IActionResult GetNextJob()
+        {
+            if (this.db.PendingJobs.Any()) // TODO thread-safe
+            {
+                PendingJob firstPendingJob = this.db.PendingJobs.First();
+                string prompt = this.db.Jobs.First(job => job.Id == firstPendingJob.JobId).Prompt;
+
+                firstPendingJob.IsProcessing = 1;
+                this.db.SaveChanges();
+
+                return this.Ok(new
+                {
+                    jobID = firstPendingJob.JobId,
+                    prompt = prompt
+                });
+            }
+
+            return this.Ok(new
+            {
+                jobID = "",
+                prompt = ""
+            });
+        }
+
+        [HttpPost]
+        public IActionResult CompleteJob([FromQuery]string jobId)
+        {
+            // TODO error checking
+            // Have image, save it to this job.
+            Job job = this.db.Jobs.First(job => job.Id == jobId);
+
+            string imageId = Guid.NewGuid().ToString();
+            job.ImageIds = imageId; // TODO multiple job support
+            db.Jobs.Update(job);
+
+            using (MemoryStream reader = new MemoryStream())
+            {
+                Request.Body.CopyToAsync(reader).GetAwaiter().GetResult();
+
+                db.Images.Add(new GeneratedImage()
+                {
+                    Id = imageId,
+                    ImageData = reader.ToArray()
+                });
+            }
+
+            db.PendingJobs.Remove(db.PendingJobs.First(job => job.JobId == jobId));
+
+            db.SaveChanges();
+
+            return this.Ok();
         }
 
         [HttpGet]
@@ -76,7 +137,7 @@ namespace Helium.Controllers
                     });
                 }
 
-                // Read the image from local storage if possible
+                // Read the image from local storage if loaded
                 if (!string.IsNullOrWhiteSpace(job.ImageIds))
                 {
                     // TODO support comma-separated job IDs.
@@ -97,52 +158,12 @@ namespace Helium.Controllers
                     });
                 }
 
-                // The image might be generated, but not uploaded yet. Grab it.
-                HttpRequestMessage request = new HttpRequestMessage(
-                    HttpMethod.Get,
-                    $"{ImageCreatorServer}/Get?jobId={job.Id}");
-
-                HttpClient httpClient = httpClientFactory.CreateClient();
-                HttpResponseMessage response = httpClient.Send(request);
-                if (!response.IsSuccessStatusCode)
-                {
-                    string responseString = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    return this.Ok(new
-                    {
-                        error = $"Could not read job info from the remote server: {responseString}",
-                    });
-                }
-
-                byte[] imageData = response.Content.ReadAsByteArrayAsync().GetAwaiter().GetResult();
-                if (imageData.Length == 0)
-                {
-                    return this.Ok(new
-                    {
-                        error = "",
-                        status = "Image not ready yet",
-                        imageData = "",
-                    });
-                }
-
-                imageData = imageData.Reverse().ToArray();
-
-                // Have image, save it to this job.
-                string imageId = Guid.NewGuid().ToString();
-                 job.ImageIds = imageId; // TODO multiple job support
-                db.Jobs.Update(job);
-                db.Images.Add(new GeneratedImage()
-                {
-                    Id = imageId,
-                    ImageData = imageData,
-                });
-
-                db.SaveChanges();
-
+                // Image isn't ready yet, unfortunatly
                 return this.Ok(new
                 {
                     error = "",
-                    status = "",
-                    imageData = $"data:image/jpeg;base64,{Convert.ToBase64String(imageData)}",
+                    status = "Image not ready yet",
+                    imageData = "",
                 });
             });
         }
@@ -185,18 +206,7 @@ namespace Helium.Controllers
 
         private string? SendJobToBackend(long userId, string prompt)
         {
-            HttpRequestMessage request = new HttpRequestMessage(
-                HttpMethod.Post,
-                $"{ImageCreatorServer}/Queue?prompt={HttpUtility.UrlEncode(prompt)}");
-
-            HttpClient httpClient = httpClientFactory.CreateClient();
-            HttpResponseMessage response = httpClient.Send(request);
-            if (!response.IsSuccessStatusCode)
-            {
-                return null;
-            }
-
-            string jobID = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            string jobID = Guid.NewGuid().ToString();
 
             this.db.Jobs.Add(new Job()
             {
@@ -213,6 +223,12 @@ namespace Helium.Controllers
                 UserId = userId,
                 JobId = jobID,
                 CreationDate = DateTime.UtcNow.ToString(),
+            });
+
+            this.db.PendingJobs.Add(new PendingJob()
+            {
+                JobId = jobID,
+                IsProcessing = 0
             });
 
             this.db.SaveChanges();

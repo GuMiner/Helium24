@@ -14,6 +14,8 @@ namespace Helium.Data
         }
 
         public virtual DbSet<GeneratedImage> Images { get; set; } = null!;
+
+        public virtual DbSet<PendingJob> PendingJobs { get; set; } = null!;
         public virtual DbSet<Job> Jobs { get; set; } = null!;
         public virtual DbSet<UserJob> UserJobs { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
