@@ -12,12 +12,19 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
             this.prompt = ko.observable("");
             this.jobStatus = ko.observable("Login to continue");
             this.backendStatus = ko.observable("Idle");
+            // Periodically check for a new image if one is queued
+            this.newImageTimer = -1;
+            this.imageCountdown = 10;
+            // Periodically update the pending jobs
+            this.countdown = 10;
+            this.lastPendingJobs = "?";
             this.pendingJobs = ko.observable("? Pending Jobs");
+            window.setInterval(this.TimedUpdatePendingJobs, 1000, this);
             this.jobs = ko.observableArray(["No jobs"]);
             this.selectedJob = ko.observable("");
             this.image = ko.observable("");
             this.jobLoader = ko.computed(function () {
-                if (("" + _this.selectedJob()).length < 8) {
+                if (_this.selectedJob() === undefined) {
                     return;
                 }
                 // Load image from the server whenever the selected job changes
@@ -26,25 +33,7 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
                 var jobId = jobIdComponents[jobIdComponents.length - 1];
                 var encodedAccessKey = encodeURIComponent(_this.accessKey());
                 var encodedJobId = encodeURIComponent(jobId);
-                axios_0_24_0_min_1.default.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId)
-                    .then(function (response) {
-                    var data = response.data;
-                    if (data.error != "") {
-                        _this.backendStatus(_this.Truncate(data.error));
-                    }
-                    else if (data.status != "") {
-                        _this.backendStatus(_this.Truncate(data.status));
-                    }
-                    else {
-                        _this.jobStatus(_this.selectedJob().substring(0, _this.selectedJob().length - 37));
-                        _this.backendStatus("Loaded image");
-                        _this.image(data.imageData);
-                        _this.UpdatePendingJobs(encodedAccessKey);
-                    }
-                })
-                    .catch(function (err) {
-                    _this.backendStatus(_this.Truncate("Error: " + JSON.stringify(err)));
-                });
+                _this.LoadImage(encodedAccessKey, encodedJobId);
             });
         }
         ImageGenModel.prototype.Truncate = function (input) {
@@ -76,6 +65,14 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
             });
             this.UpdatePendingJobs(encodedAccessKey);
         };
+        ImageGenModel.prototype.TimedUpdatePendingJobs = function (self) {
+            self.countdown = self.countdown - 1;
+            if (self.countdown == 0) {
+                self.countdown = 10;
+                self.UpdatePendingJobs(encodeURIComponent(self.accessKey()));
+            }
+            self.pendingJobs(self.lastPendingJobs + " Pending Jobs (" + self.countdown + ")");
+        };
         ImageGenModel.prototype.UpdatePendingJobs = function (encodedAccessKey) {
             var _this = this;
             axios_0_24_0_min_1.default.get("/api/ImageGen/PendingJobsCount?accessKey=" + encodedAccessKey)
@@ -85,7 +82,7 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
                     _this.backendStatus(_this.Truncate(data.error));
                 }
                 else {
-                    _this.pendingJobs(data.count + " Pending Jobs");
+                    _this.lastPendingJobs = data.count + "";
                 }
             })
                 .catch(function (err) {
@@ -107,12 +104,46 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
                     _this.backendStatus("Welcome " + data.userName);
                     // Reload current jobs after the new job was queued
                     _this.LoadJobs();
+                    _this.encodedJobIdToLoad = encodeURIComponent(data.jobId);
+                    _this.newImageTimer = window.setInterval(_this.TimedCheckForImage, 1000, _this);
                 }
             })
                 .catch(function (err) {
                 _this.backendStatus(_this.Truncate("Error: " + JSON.stringify(err)));
             });
             this.UpdatePendingJobs(encodedAccessKey);
+        };
+        ImageGenModel.prototype.TimedCheckForImage = function (self) {
+            self.imageCountdown = self.imageCountdown - 1;
+            self.backendStatus("Image Generating (" + self.imageCountdown + ")");
+            if (self.imageCountdown == 0) {
+                var encodedAccessKey = encodeURIComponent(self.accessKey());
+                self.LoadImage(encodedAccessKey, self.encodedJobIdToLoad);
+                self.imageCountdown = 10;
+            }
+        };
+        ImageGenModel.prototype.LoadImage = function (encodedAccessKey, encodedJobId) {
+            var _this = this;
+            axios_0_24_0_min_1.default.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId)
+                .then(function (response) {
+                var data = response.data;
+                if (data.error != "") {
+                    _this.backendStatus(_this.Truncate(data.error));
+                }
+                else if (data.status != "") {
+                    _this.backendStatus(_this.Truncate(data.status));
+                }
+                else {
+                    _this.backendStatus("Loaded image");
+                    _this.image(data.imageData);
+                    _this.UpdatePendingJobs(encodedAccessKey);
+                    window.clearInterval(_this.newImageTimer);
+                    _this.jobStatus(_this.selectedJob().substring(0, _this.selectedJob().length - 37));
+                }
+            })
+                .catch(function (err) {
+                _this.backendStatus(_this.Truncate("Error: " + JSON.stringify(err)));
+            });
         };
         return ImageGenModel;
     }());
