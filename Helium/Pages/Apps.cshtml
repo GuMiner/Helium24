@@ -34,6 +34,15 @@
             <img class="img-fluid img-thumbnail" data-bind="attr: { src: imageGen.image }" />
         </div>
         <div class="col-auto">
+            <img class="img-fluid" style="width: 128px; height:128px;" data-bind="attr: { src: imageGen.imageSmallZero }, click: imageGen.ZeroClick.bind(imageGen)" />
+            <br />
+            <img class="img-fluid" style="width: 128px; height:128px;" data-bind="attr: { src: imageGen.imageSmallOne }, click: imageGen.OneClick.bind(imageGen)" />
+            <br />
+            <img class="img-fluid" style="width: 128px; height:128px;" data-bind="attr: { src: imageGen.imageSmallTwo }, click: imageGen.TwoClick.bind(imageGen)" />
+            <br />
+            <img class="img-fluid" style="width: 128px; height:128px;" data-bind="attr: { src: imageGen.imageSmallThree }, click: imageGen.ThreeClick.bind(imageGen)" />
+        </div>
+        <div class="col-auto">
             <select class="form-select" style="overflow:scroll;" width="50" size="20" data-bind="options: imageGen.jobs, value: imageGen.selectedJob"> </select>
         </div>
     </div>

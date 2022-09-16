@@ -52,17 +52,38 @@ namespace Helium.Controllers
         {
             return this.Login(accessKey, (user) =>
             {
-                IEnumerable<string> jobs = 
-                    this.db.UserJobs.Where(userJob => userJob.UserId.Equals(user.Id))
-                        .Join(this.db.Jobs,
-                            a => a.JobId,
-                            b => b.Id,
-                            (a, b) => b)
-                        .Select(job => $"{job.Prompt}:{job.Id}").ToList();
+                List<Job> jobs = this.db.UserJobs.Where(userJob => userJob.UserId.Equals(user.Id))
+                    .Join(this.db.Jobs,
+                        a => a.JobId,
+                        b => b.Id,
+                        (a, b) => b).ToList();
+
+                // Queue up extra image generation jobs only if there are no pending jobs whatsoever
+                // One-time data population only
+                // if (this.db.PendingJobs.Count() < 22)
+                // {
+                //     foreach (Job job in this.db.Jobs)
+                //     {
+                //         int imageCount = job.ImageIds.Split(',').Length;
+                //         if (imageCount != 4)
+                //         {
+                //             for (int i = imageCount; i < 4; i++)
+                //             {
+                //                 this.db.PendingJobs.Add(new PendingJob()
+                //                 {
+                //                     JobId = $"{job.Id}:{i}",
+                //                     IsProcessing = 0
+                //                 });
+                //             }
+                //         }
+                //     }
+                // 
+                //     this.db.SaveChanges();
+                // }
 
                 return this.Ok(new
                 {
-                    jobs = jobs,
+                    jobs = jobs.Select(job => $"{job.Prompt}:{job.Id}").ToList(),
                     userName = user.Name,
                     error = "",
                 });
@@ -72,13 +93,11 @@ namespace Helium.Controllers
         [HttpGet]
         public IActionResult GetNextJob()
         {
-            if (this.db.PendingJobs.Any()) // TODO thread-safe
+            if (this.db.PendingJobs.Any())
             {
                 PendingJob firstPendingJob = this.db.PendingJobs.First();
-                string prompt = this.db.Jobs.First(job => job.Id == firstPendingJob.JobId).Prompt;
-
-                firstPendingJob.IsProcessing = 1;
-                this.db.SaveChanges();
+                string jobId = firstPendingJob.JobId.Split(":").First();
+                string prompt = this.db.Jobs.First(job => job.Id == jobId).Prompt;
 
                 return this.Ok(new
                 {
@@ -97,12 +116,24 @@ namespace Helium.Controllers
         [HttpPost]
         public IActionResult CompleteJob([FromQuery]string jobId)
         {
+            db.PendingJobs.Remove(db.PendingJobs.First(job => job.JobId == jobId));
+
+            jobId = jobId.Split(":").First();
+
             // TODO error checking
             // Have image, save it to this job.
             Job job = this.db.Jobs.First(job => job.Id == jobId);
 
             string imageId = Guid.NewGuid().ToString();
-            job.ImageIds = imageId; // TODO multiple job support
+            if (string.IsNullOrWhiteSpace(job.ImageIds))
+            {
+                job.ImageIds = imageId;
+            }
+            else
+            {
+                job.ImageIds = $"{job.ImageIds},{imageId}";
+            }
+
             db.Jobs.Update(job);
 
             using (MemoryStream reader = new MemoryStream())
@@ -116,15 +147,13 @@ namespace Helium.Controllers
                 });
             }
 
-            db.PendingJobs.Remove(db.PendingJobs.First(job => job.JobId == jobId));
-
             db.SaveChanges();
 
             return this.Ok();
         }
 
         [HttpGet]
-        public IActionResult JobResults([FromQuery] string? accessKey, [FromQuery]string jobId)
+        public IActionResult JobResults([FromQuery] string? accessKey, [FromQuery]string jobId, [FromQuery]int imageIdx)
         {
             return this.Login(accessKey, (user) =>
             {
@@ -140,13 +169,22 @@ namespace Helium.Controllers
                 // Read the image from local storage if loaded
                 if (!string.IsNullOrWhiteSpace(job.ImageIds))
                 {
+                    string[] imageIds = job.ImageIds.Split(',');
+                    if (imageIdx >= imageIds.Length)
+                    {
+                        return this.Ok(new
+                        {
+                            error = $"Could not find image ID {job.ImageIds}, IDX {imageIdx}"
+                        });
+                    }
+
                     // TODO support comma-separated job IDs.
-                    byte[]? image = this.db.Images.FirstOrDefault(img => img.Id == job.ImageIds)?.ImageData;
+                    byte[]? image = this.db.Images.FirstOrDefault(img => img.Id == imageIds[imageIdx])?.ImageData;
                     if (image == null)
                     {
                         return this.Ok(new
                         {
-                            error = $"Could not find image ID {job.ImageIds}"
+                            error = $"DB ERROR: Could not find image ID {job.ImageIds} for job {job.Id}"
                         });
                     }
 
@@ -225,11 +263,15 @@ namespace Helium.Controllers
                 CreationDate = DateTime.UtcNow.ToString(),
             });
 
-            this.db.PendingJobs.Add(new PendingJob()
+            // Generate four images per job. TODO customizable
+            for (int i = 0; i < 4; i++)
             {
-                JobId = jobID,
-                IsProcessing = 0
-            });
+                this.db.PendingJobs.Add(new PendingJob()
+                {
+                    JobId = $"{jobID}:{i}",
+                    IsProcessing = 0
+                });
+            }
 
             this.db.SaveChanges();
 

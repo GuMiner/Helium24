@@ -45,6 +45,10 @@ class ImageGenModel {
     newImageTimer: number
 
     image: ko.Observable<string>
+    imageSmallZero: ko.Observable<string>
+    imageSmallOne: ko.Observable<string>
+    imageSmallTwo: ko.Observable<string>
+    imageSmallThree: ko.Observable<string>
 
     jobLoader: ko.Computed
 
@@ -69,6 +73,10 @@ class ImageGenModel {
         this.selectedJob = ko.observable("");
 
         this.image = ko.observable("");
+        this.imageSmallZero = ko.observable("");
+        this.imageSmallOne = ko.observable("");
+        this.imageSmallTwo = ko.observable("");
+        this.imageSmallThree = ko.observable("");
 
         this.jobLoader = ko.computed(() => {
             if (this.selectedJob() === undefined) {
@@ -83,7 +91,7 @@ class ImageGenModel {
             let encodedAccessKey = encodeURIComponent(this.accessKey());
             let encodedJobId = encodeURIComponent(jobId);
 
-            this.LoadImage(encodedAccessKey, encodedJobId);
+            this.LoadImages(encodedAccessKey, encodedJobId);
         })
     }
 
@@ -94,6 +102,19 @@ class ImageGenModel {
         else {
             return input.substring(0, 100);
         }
+    }
+
+    ZeroClick() {
+        this.image(this.imageSmallZero());
+    }
+    OneClick() {
+        this.image(this.imageSmallOne());
+    }
+    TwoClick() {
+        this.image(this.imageSmallTwo());
+    }
+    ThreeClick() {
+        this.image(this.imageSmallThree());
     }
 
     LoadJobs() {
@@ -161,6 +182,10 @@ class ImageGenModel {
                     // Reload current jobs after the new job was queued
                     this.LoadJobs();
                     this.encodedJobIdToLoad = encodeURIComponent(data.jobId);
+
+                    if (this.newImageTimer != -1) {
+                        window.clearInterval(this.newImageTimer);
+                    }
                     this.newImageTimer = window.setInterval(this.TimedCheckForImage, 1000, this);
                 }
             })
@@ -176,14 +201,14 @@ class ImageGenModel {
         self.backendStatus("Image Generating (" + self.imageCountdown + ")")
         if (self.imageCountdown == 0) {
             let encodedAccessKey = encodeURIComponent(self.accessKey());
-            self.LoadImage(encodedAccessKey, self.encodedJobIdToLoad);
+            self.LoadImages(encodedAccessKey, self.encodedJobIdToLoad);
 
             self.imageCountdown = 10;
         }
     }
 
-    LoadImage(encodedAccessKey: string, encodedJobId: string) {
-        axios.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId)
+    LoadImages(encodedAccessKey: string, encodedJobId: string) {
+        axios.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId + "&imageIdx=0")
             .then((response) => {
                 let data: JobResults = response.data
                 if (data.error != "") {
@@ -193,11 +218,15 @@ class ImageGenModel {
                 }
                 else {
                     this.backendStatus("Loaded image");
-                    this.image(data.imageData);
+                    this.imageSmallZero(data.imageData);
+                    this.ZeroClick();
 
                     this.UpdatePendingJobs(encodedAccessKey);
 
                     window.clearInterval(this.newImageTimer);
+                    this.newImageTimer = -1;
+
+                    this.LoadRemainingImages(encodedAccessKey, encodedJobId)
 
                     this.jobStatus(this.selectedJob().substring(0, this.selectedJob().length - 37));
                 }
@@ -205,6 +234,38 @@ class ImageGenModel {
             .catch((err) => {
                 this.backendStatus(this.Truncate("Error: " + JSON.stringify(err)));
             });
+    }
+
+    LoadRemainingImages(encodedAccessKey: string, encodedJobId: string) {
+        axios.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId + "&imageIdx=1")
+            .then((response) => {
+                let data: JobResults = response.data
+                if (data.error != "" || data.status != "") {
+                    this.imageSmallOne("");
+                } else {
+                    this.imageSmallOne(data.imageData);
+                }
+            }).catch((err) => { });
+
+        axios.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId + "&imageIdx=2")
+            .then((response) => {
+                let data: JobResults = response.data
+                if (data.error != "" || data.status != "") {
+                    this.imageSmallTwo("");
+                } else {
+                    this.imageSmallTwo(data.imageData);
+                }
+            }).catch((err) => { });
+
+        axios.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId + "&imageIdx=3")
+            .then((response) => {
+                let data: JobResults = response.data
+                if (data.error != "" || data.status != "") {
+                    this.imageSmallThree("");
+                } else {
+                    this.imageSmallThree(data.imageData);
+                }
+            }).catch((err) => { });
     }
 }
 

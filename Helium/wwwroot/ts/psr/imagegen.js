@@ -23,6 +23,10 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
             this.jobs = ko.observableArray(["No jobs"]);
             this.selectedJob = ko.observable("");
             this.image = ko.observable("");
+            this.imageSmallZero = ko.observable("");
+            this.imageSmallOne = ko.observable("");
+            this.imageSmallTwo = ko.observable("");
+            this.imageSmallThree = ko.observable("");
             this.jobLoader = ko.computed(function () {
                 if (_this.selectedJob() === undefined) {
                     return;
@@ -33,7 +37,7 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
                 var jobId = jobIdComponents[jobIdComponents.length - 1];
                 var encodedAccessKey = encodeURIComponent(_this.accessKey());
                 var encodedJobId = encodeURIComponent(jobId);
-                _this.LoadImage(encodedAccessKey, encodedJobId);
+                _this.LoadImages(encodedAccessKey, encodedJobId);
             });
         }
         ImageGenModel.prototype.Truncate = function (input) {
@@ -43,6 +47,18 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
             else {
                 return input.substring(0, 100);
             }
+        };
+        ImageGenModel.prototype.ZeroClick = function () {
+            this.image(this.imageSmallZero());
+        };
+        ImageGenModel.prototype.OneClick = function () {
+            this.image(this.imageSmallOne());
+        };
+        ImageGenModel.prototype.TwoClick = function () {
+            this.image(this.imageSmallTwo());
+        };
+        ImageGenModel.prototype.ThreeClick = function () {
+            this.image(this.imageSmallThree());
         };
         ImageGenModel.prototype.LoadJobs = function () {
             var _this = this;
@@ -105,6 +121,9 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
                     // Reload current jobs after the new job was queued
                     _this.LoadJobs();
                     _this.encodedJobIdToLoad = encodeURIComponent(data.jobId);
+                    if (_this.newImageTimer != -1) {
+                        window.clearInterval(_this.newImageTimer);
+                    }
                     _this.newImageTimer = window.setInterval(_this.TimedCheckForImage, 1000, _this);
                 }
             })
@@ -118,13 +137,13 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
             self.backendStatus("Image Generating (" + self.imageCountdown + ")");
             if (self.imageCountdown == 0) {
                 var encodedAccessKey = encodeURIComponent(self.accessKey());
-                self.LoadImage(encodedAccessKey, self.encodedJobIdToLoad);
+                self.LoadImages(encodedAccessKey, self.encodedJobIdToLoad);
                 self.imageCountdown = 10;
             }
         };
-        ImageGenModel.prototype.LoadImage = function (encodedAccessKey, encodedJobId) {
+        ImageGenModel.prototype.LoadImages = function (encodedAccessKey, encodedJobId) {
             var _this = this;
-            axios_0_24_0_min_1.default.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId)
+            axios_0_24_0_min_1.default.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId + "&imageIdx=0")
                 .then(function (response) {
                 var data = response.data;
                 if (data.error != "") {
@@ -135,15 +154,51 @@ define(["require", "exports", "../../lib/axios-0.24.0.min", "../../lib/knockout-
                 }
                 else {
                     _this.backendStatus("Loaded image");
-                    _this.image(data.imageData);
+                    _this.imageSmallZero(data.imageData);
+                    _this.ZeroClick();
                     _this.UpdatePendingJobs(encodedAccessKey);
                     window.clearInterval(_this.newImageTimer);
+                    _this.newImageTimer = -1;
+                    _this.LoadRemainingImages(encodedAccessKey, encodedJobId);
                     _this.jobStatus(_this.selectedJob().substring(0, _this.selectedJob().length - 37));
                 }
             })
                 .catch(function (err) {
                 _this.backendStatus(_this.Truncate("Error: " + JSON.stringify(err)));
             });
+        };
+        ImageGenModel.prototype.LoadRemainingImages = function (encodedAccessKey, encodedJobId) {
+            var _this = this;
+            axios_0_24_0_min_1.default.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId + "&imageIdx=1")
+                .then(function (response) {
+                var data = response.data;
+                if (data.error != "" || data.status != "") {
+                    _this.imageSmallOne("");
+                }
+                else {
+                    _this.imageSmallOne(data.imageData);
+                }
+            }).catch(function (err) { });
+            axios_0_24_0_min_1.default.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId + "&imageIdx=2")
+                .then(function (response) {
+                var data = response.data;
+                if (data.error != "" || data.status != "") {
+                    _this.imageSmallTwo("");
+                }
+                else {
+                    _this.imageSmallTwo(data.imageData);
+                }
+            }).catch(function (err) { });
+            axios_0_24_0_min_1.default.get("/api/ImageGen/JobResults?accessKey=" + encodedAccessKey + "&jobId=" + encodedJobId + "&imageIdx=3")
+                .then(function (response) {
+                var data = response.data;
+                if (data.error != "" || data.status != "") {
+                    _this.imageSmallThree("");
+                }
+                else {
+                    _this.imageSmallThree(data.imageData);
+                }
+            }).catch(function (err) { });
         };
         return ImageGenModel;
     }());

@@ -72,22 +72,25 @@ def main():
             continue
 
         data = response.json()
-        job_id = data["jobID"]
+        full_job_id = data["jobID"]
         prompt = data["prompt"]
         print(data)
-        if job_id != "":
+        if full_job_id != "" and ':' in full_job_id:
+            job_id = full_job_id.split(':')[0]
+            seed_increment = int(full_job_id.split(':')[1])
+
             # Cache prompt
             job_folder = os.path.join(image_gen_folder, job_id)
             if not os.path.exists(job_folder):
                 os.mkdir(job_folder)
             pathlib.Path(os.path.join(job_folder, "prompt.txt")).write_text(prompt)
         
-            generate_image(job_folder, prompt)
+            generate_image(job_folder, prompt, seed_increment)
             
             # Upload
             with open(os.path.join(job_folder, "0.jpg"), 'rb') as file_content:
                 headers = {'Content-Type': 'application/octet-stream'}
-                response = requests.post(f"https://helium24.net/api/ImageGen/CompleteJob?jobId={job_id}", headers=headers, data=file_content)
+                response = requests.post(f"https://helium24.net/api/ImageGen/CompleteJob?jobId={full_job_id}", headers=headers, data=file_content)
                 if not response.ok:
                     print(f'Could not upload {job_id}. May try again later')
 
@@ -97,11 +100,11 @@ def main():
             time.sleep(10)
 
 
-def generate_image(job_folder, prompt):
+def generate_image(job_folder, prompt, seed_increment):
     print(f"Generating image for job {job_folder}")
 
     # TODO speed this up by moving global defaults somewhere else
-    seed_everything(SEED)
+    seed_everything(SEED + seed_increment * 43)
     img_count = 0
 
     config = OmegaConf.load(CONFIG)
