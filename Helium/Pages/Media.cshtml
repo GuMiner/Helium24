@@ -19,17 +19,22 @@ function loadExif(imgId) {
     let makeModelTagName = "@(makeModelSpan)" + imgId;
     let dateTagName = "@(dateSpan)" + imgId;
 
-        var image = document.getElementById(imageTagName);
-        EXIF.getData(image, function() {
-            var make = EXIF.getTag(this, "Make");
-            var model = EXIF.getTag(this, "Model");
-            var makeModelSpan = document.getElementById(makeModelTagName);
-            makeModelSpan.innerHTML =  `${make} ${model}`;
+    var image = document.getElementById(imageTagName);
+    EXIF.getData(image, function() {
+        // Populate make, model, and date fields
+        var make = EXIF.getTag(this, "Make");
+        var model = EXIF.getTag(this, "Model");
+        var makeModelSpan = document.getElementById(makeModelTagName);
+        makeModelSpan.innerHTML = `${make} ${model}`; // JSON.stringify(EXIF.getAllTags(this), null, "\t"); for diagnostics
                 
-            var date = EXIF.getTag(this, "DateTime").replaceAll(':', '-').split(' ')[0];
-            var dateSpan = document.getElementById(dateTagName);
-            dateSpan.innerHTML = `${date}`;
-        });
+        var date = EXIF.getTag(this, "DateTime").replaceAll(':', '-').split(' ')[0];
+        var dateSpan = document.getElementById(dateTagName);
+        dateSpan.innerHTML = `${date}`;
+
+        // Rescale the image so that the width is always 400, but the height varies.
+        var ratio = ~~(image.naturalHeight / image.naturalWidth * 400); // ~~ truncates, weirdly enough.
+        image.setAttribute("style", `width:400px;height:${ratio}px`);
+    });
 }
 </script>  
 
