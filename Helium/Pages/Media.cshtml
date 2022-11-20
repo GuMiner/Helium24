@@ -3,15 +3,51 @@
 @{
     ViewData["Title"] = "Media";
 
-    var photosList = Directory.GetFiles(System.IO.Path.Combine(Model.WebRootPath, "img/photos")).Select(file => "/img/photos/" + System.IO.Path.GetFileName(file));
+    var photosList = Directory.GetFiles(System.IO.Path.Combine(Model.WebRootPath, "img/photos"))
+        .Select(file => "/img/photos/" + System.IO.Path.GetFileName(file)).ToList();
+    var counter = 0;
+
+    var imageSpan = "img";
+    var makeModelSpan = "makeModelSpan";
+    var dateSpan = "dateSpan";
 }
+
+<script type="text/javascript" src="~/lib/exif-2.3.0.js"></script>
+<script>
+function loadExif(imgId) {
+    let imageTagName = "@(imageSpan)" + imgId;
+    let makeModelTagName = "@(makeModelSpan)" + imgId;
+    let dateTagName = "@(dateSpan)" + imgId;
+
+        var image = document.getElementById(imageTagName);
+        EXIF.getData(image, function() {
+            var make = EXIF.getTag(this, "Make");
+            var model = EXIF.getTag(this, "Model");
+            var makeModelSpan = document.getElementById(makeModelTagName);
+            makeModelSpan.innerHTML =  `${make} ${model}`;
+                
+            var date = EXIF.getTag(this, "DateTime").replaceAll(':', '-').split(' ')[0];
+            var dateSpan = document.getElementById(dateTagName);
+            dateSpan.innerHTML = `${date}`;
+        });
+}
+</script>  
 
 <div class="container-fluid">
      <div class="row justify-content-center p-0 m-0">
         @foreach (var photo in photosList)
         {
          <div class="col-auto px-1 py-1">
-            <a href="@photo"><img loading="lazy" alt="recent" src="@photo" class="img-fluid m-1" style="width:400px; height:400px"></a>
+            <a href="@photo"><img loading="lazy" alt="Favorite photo @(counter)" src="@photo" id="@(imageSpan)@(counter)" class="img-fluid m-1" style="width:400px; height:400px" onload="loadExif(@counter);"></a>
+            <div class="row justify-content-between p-0 m-0">
+                <div class="col-auto">
+                    <small><span id="@(makeModelSpan)@(counter)"></span></small>
+                </div>
+                <div class="col-auto">
+                    <b><small><span id="@(dateSpan)@(counter)"></span></small></b>
+                </div>
+            </div>
+            @{counter++;}
         </div>
         }
     </div>
@@ -31,3 +67,6 @@
         </li>
     </ul>
 </div>
+
+@section Scripts { 
+}
