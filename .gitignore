@@ -114,4 +114,6 @@ ClientBin/
 *.publishsettings
 orleans.codegen.cs
 
+# Image files that can be regenerated and don't need to be saved as GitHub binaries.
 Helium/Data/image-data.db
+Helium/wwwroot/img/photos

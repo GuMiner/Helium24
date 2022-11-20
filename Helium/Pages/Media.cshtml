@@ -2,16 +2,32 @@
 @model MediaModel
 @{
     ViewData["Title"] = "Media";
+
+    var photosList = Directory.GetFiles(System.IO.Path.Combine(Model.WebRootPath, "img/photos")).Select(file => "/img/photos/" + System.IO.Path.GetFileName(file));
 }
 
-<p>
-    TODO -- Put more images here.
-    <!-- <img loading="lazy" alt="recent" src="~/Blobs/RecentPhotos/20210828_005147208_iOS.jpg" class="img-fluid m-1"> -->
-</p>
+<div class="container-fluid">
+     <div class="row justify-content-center p-0 m-0">
+        @foreach (var photo in photosList)
+        {
+         <div class="col-auto px-1 py-1">
+            <a href="@photo"><img loading="lazy" alt="recent" src="@photo" class="img-fluid m-1" style="width:400px; height:400px"></a>
+        </div>
+        }
+    </div>
+</div>
 
-<h3>Stock Photography</h3> 
+<h4>Stock Photography</h4> 
 <div class="col-auto">
-    <a href="https://stock.adobe.com/contributor/208921667/gustave?load_type=author&prev_url=detail">Photos</a>
-    <br />
-    <a href="https://fineartamerica.com/profiles/gustave-granroth.html">Prints</a>
+    <p>
+        Neither of these have been updated in years, but both still are accessible online.
+    </p>
+    <ul>
+        <li>
+            <a href="https://stock.adobe.com/contributor/208921667/gustave?load_type=author&prev_url=detail">Adobe Photos</a>
+        </li>
+        <li>
+            <a href="https://fineartamerica.com/profiles/gustave-granroth.html">Fine Art America Prints</a>
+        </li>
+    </ul>
 </div>

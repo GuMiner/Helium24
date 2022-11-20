@@ -50,6 +50,7 @@
     <Folder Include="wwwroot\img\hardware-projects\geiger-counter\" />
     <Folder Include="wwwroot\img\hardware-projects\chess-board\" />
     <Folder Include="wwwroot\img\hardware-projects\ge-turbine\" />
+    <Folder Include="wwwroot\img\photos\" />
   </ItemGroup>
 
   <ItemGroup>

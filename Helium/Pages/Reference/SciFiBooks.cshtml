@@ -27,25 +27,166 @@
 
     var books = new List<Book>()
     {
-        new Book("The Practice Effect", "TODO", DateTime.Parse("2021-01-01"), "Scientist",
-            "TODO",
-            tone: SuperOptimistic, subjectMatter: SuperLight, scope: Planetary, rating: AllTimeFavorite),
-
-        new Book("Light Chaser", "Peter F. Hamilton/Gareth L. Powell", DateTime.Parse("2021-01-01"), "Pilot",
-            "Love story that's also galactic science fiction. Somewhat short.",
+       /* new Book("The Ashes of Humanity", "David Adams", DateTime.Parse("?"), "",
+            "TODO-everything",
             tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
 
+        new Book("The Prelude to Eternity", "David Adams", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Requiem of Steel", "David Adams", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        // Ordered by author (Last), then title
+        new Book("The Practice Effect", "David Brin", DateTime.Parse("2021-01-01"), "Scientist",
+            "TODO Exploration of a new world where the normal entropy rules do not apply.",
+            tone: SuperOptimistic, subjectMatter: SuperLight, scope: Planetary, rating: AllTimeFavorite),
+
+        new Book("Empire", "Orson Scott Card", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Ascendant Stars", "Michael Cobley", DateTime.Parse("?"), "?",
+            "TODO ?",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),
+
+        new Book("Seeds of Earth", "Michael Cobley", DateTime.Parse("?"), "?",
+            "TODO ?",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),
+
+        new Book("The Orphaned Worlds", "Michael Cobley", DateTime.Parse("?"), "?",
+            "TODO ?",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),
+
+        new Book("A Passage at Arms", "Glen Cook", DateTime.Parse("?"), "?",
+            "TODO ?",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),
+
+        new Book("Metaplanetary", "Tony Daniel", DateTime.Parse("2009-01-01"), "Various",
+            "TODO Development of war in the local solar system.",
+            tone: Optimistic, subjectMatter: SuperDark, scope: SolarSystem, rating: GoodButNotGreat),
+
         new Book("The Last Watch (Divide Series)", "J. S. Dewes", DateTime.Parse("2021-01-01"), "Military Officer/Scientist",
-            "Optimistic military Sci-Fi with a broad scope and humerous moments. The third book isn't yet out though.",
+            "TODO Optimistic military Sci-Fi with a broad scope and humerous moments. The third book isn't yet out though.",
             tone: SuperOptimistic, subjectMatter: AverageSM, scope: InterGalactic, rating: Enjoyable),
 
         new Book("Shild's Ladder", "Greg Egan", DateTime.Parse("2002-01-01"), "Scientist",
-            "Far-future tech with a universe-ending scale.",
+            "TODO Far-future tech with a universe-ending scale.",
             tone: AverageTone, subjectMatter: AverageSM, scope: InterGalactic, rating: GoodButNotGreat),
 
-        new Book("Metaplanetary", "Tony Daniel", DateTime.Parse("2009-01-01"), "Various",
-            "Development of war in the local solar system.",
-            tone: Optimistic, subjectMatter: SuperDark, scope: SolarSystem, rating: GoodButNotGreat),
+        new Book("Light Chaser", "Peter F. Hamilton/Gareth L. Powell", DateTime.Parse("2021-01-01"), "Pilot",
+            "TODO the travels of a pilot ",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Reality Dysfunction", "Peter F. Hamilton", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("Fallen Dragon", "Peter F. Hamilton", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("Great North Road", "Peter F. Hamilton", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("Salvation", "Peter F. Hamilton", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Naked God", "Peter F. Hamilton", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("One Step From Earth", "Harry Harrison", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Misplaced Battleship", "Harry Harrison", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Repairman", "Harry Harrison", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Quantum Garden", "Derek Kunsken", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Quantum Magician", "Derek Kunsken", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Three-Body Problem", "Cixin Liu", DateTime.Parse("?"), "?",
+            "TODO ?",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),
+
+        new Book("The Cosmic Computer", "H. Beam Piper", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("Uller Uprising", "H. Beam Piper", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("Ministry of Disturbance", "H. Beam Piper", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("Death Star", "Michael Reaves", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("Ghost Fleet", "P. W. Singer", DateTime.Parse("?"), "",
+            "TODO-everything",
+            tone: Optimistic, subjectMatter: Light, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Hidden World", "Melinda Snodgrass", DateTime.Parse("?"), "?",
+            "TODO ?",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),
+
+        new Book("In Evil Times", "Melinda Snodgrass", DateTime.Parse("?"), "?",
+            "TODO ?",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),
+
+        new Book("The High Ground", "Melinda Snodgrass", DateTime.Parse("?"), "?",
+            "TODO ?",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),
+
+        new Book("A Fire Upon the Deep", "Vernor Vinge", DateTime.Parse("?"), "Various",
+            "TODO Galaxy invasion with slow zone ",
+            tone: Optimistic, subjectMatter: Dark, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Children of the Sky", "Vernor Vinge", DateTime.Parse("?"), "Various",
+            "TODO Crashed human spaceship has to uplift another ",
+            tone: AverageTone, subjectMatter: Dark, scope: Galactic, rating: GoodButNotGreat),
+
+        new Book("A Deepness in the Sky", "Vernor Vinge", DateTime.Parse("?"), "Various",
+            "TODO Prequel of a society observing another and influencing it, TODO better",
+            tone: AverageTone, subjectMatter: Dark, scope: Galactic, rating: Enjoyable),
+
+        new Book("Project Hail Mary", "Andy Weir", DateTime.Parse("?"), "Teacher",
+            "TODO Teacher travels to fix sun issue",
+            tone: AverageTone, subjectMatter: AverageSM, scope: Galactic, rating: Enjoyable),
+
+        new Book("The Martian", "Andy Weir", DateTime.Parse("?"), "Botanist",
+            "TODO Botanist has to survive Mars to travel home",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),
+
+        new Book("Freehold", "Michael Z. Williamson", DateTime.Parse("?"), "?",
+            "TODO ?",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),
+
+        new Book("Unspecialist", "Murray F. Yaco", DateTime.Parse("?"), "?",
+            "TODO ?",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),
+
+        new Book("No Moving Parts", "Murray F. Yaco", DateTime.Parse("?"), "?",
+            "TODO ?",
+            tone: Optimistic, subjectMatter: Light, scope: SolarSystem, rating: AllTimeFavorite),*/
     };
 }
 
