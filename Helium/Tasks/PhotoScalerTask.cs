@@ -1,6 +1,5 @@
-﻿using Microsoft.Maui.Graphics;
-using Microsoft.Maui.Graphics.Platform;
-using System.IO;
+﻿using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 
 namespace Helium.Tasks
 {
@@ -45,14 +44,16 @@ namespace Helium.Tasks
 
                 // TODO swap away from the MAUI APIs too, because while System.Drawing doesn't support Linux, nor does MAUI!
                 // Essentially MAUI isn't really cross platform, as it is only Android/iOS+Windows/macOS. 
-                using (FileStream stream = new FileStream(photoFile, FileMode.Open))
+                using (Image image = Image.Load(photoFile))
                 {
-                    IImage image = PlatformImage.FromStream(stream);
-                    IImage resizedImage = image.Resize(400, 400, ResizeMode.Fit, disposeOriginal: true);
-                    using (FileStream outputStream = new FileStream(photoFile, FileMode.Create))
+                    image.Mutate(x => x.Resize(new ResizeOptions()
                     {
-                        resizedImage.Save(outputStream, ImageFormat.Jpeg, 0.9f);
-                    }
+                        Size = new Size(400, 400),
+                        Mode = ResizeMode.Pad,
+                        PadColor = Color.White,
+                    }));
+
+                    image.SaveAsJpeg(GetScaledPath(photoFile));
                 }
 
                 logger.LogInformation($"Scaled photo {Path.GetFileName(photoFile)}");

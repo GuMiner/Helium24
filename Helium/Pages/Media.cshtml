@@ -3,8 +3,11 @@
 @{
     ViewData["Title"] = "Media";
 
-    var photosList = Directory.GetFiles(System.IO.Path.Combine(Model.WebRootPath, "img/photos"))
-        .Select(file => "/img/photos/" + System.IO.Path.GetFileName(file)).ToList();
+    // Item1 -- full size. Item 2 -- scaled to 400x400 by PhotoScalerTask
+    var photosList = Directory.GetFiles(System.IO.Path.Combine(Model.WebRootPath, "img/photos/scaled"))
+        .Select(file => Tuple.Create(
+            "/img/photos/" + System.IO.Path.GetFileName(file),
+            "/img/photos/scaled/" + System.IO.Path.GetFileName(file))).ToList();
     var counter = 0;
 
     var imageSpan = "img";
@@ -43,7 +46,7 @@ function loadExif(imgId) {
         @foreach (var photo in photosList)
         {
          <div class="col-auto px-1 py-1">
-            <a href="@photo"><img loading="lazy" alt="Favorite photo @(counter)" src="@photo" id="@(imageSpan)@(counter)" class="img-fluid m-1" style="width:400px; height:400px" onload="loadExif(@counter);"></a>
+            <a href="@photo.Item1"><img loading="lazy" alt="Favorite photo @(counter)" src="@photo.Item2" id="@(imageSpan)@(counter)" class="img-fluid m-1" style="width:400px; height:400px" onload="loadExif(@counter);"></a>
             <div class="row justify-content-between p-0 m-0">
                 <div class="col-auto">
                     <small><span id="@(makeModelSpan)@(counter)"></span></small>
