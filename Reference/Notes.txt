@@ -1,0 +1,4 @@
+Files kept around for posterity
+
+- restaurants.json: List of restaurants that Tuesgames went to before its demise
+- history.json: Tuesgames restaurant options from 2018 until its 2020 March cancellation (COVID-19).

@@ -1,0 +1,524 @@
+[
+  {
+    "day": "03/10/2020",
+    "status": "OrganizationCancellation",
+    "options": {},
+    "notes": "Tuesgames is canceled until further notice once the COVID-19 / coronavirus situation settles down."
+  },
+  {
+    "day": "03/03/2020",
+    "status": "Active",
+    "options": {
+      "419ddf44-f40f-4981-a4b2-93db76d30b7f": 8,
+      "3456f8cf-4ecd-495d-8229-be4f233e3e38": 0
+    }
+  },
+  {
+    "day": "02/25/2020",
+    "status": "Active",
+    "options": {
+      "5dcc0d4d-1cdf-4db2-a8cb-195781086d02": -1,
+      "f2cfd41d-c6cb-4b66-9912-52a72c48b9e5": -1
+    }
+  },
+  {
+    "day": "02/18/2020",
+    "status": "Active",
+    "options": {
+      "620d4069-126d-4de7-a987-49c3d86a7d1b": 5,
+      "cd3478c9-2a38-4e87-a0ae-8a57f28b39ae": 0
+    }
+  },
+  {
+    "day": "02/11/2020",
+    "status": "Active",
+    "options": {
+      "f1f737fb-352f-447c-a829-e22121de02dd": -1,
+      "242d7963-2687-4b82-bcdf-19f735b8e0b4": -1
+    }
+  },
+  {
+    "day": "02/04/2020",
+    "status": "Active",
+    "options": {
+      "948cbea5-cb7f-407d-8199-ef55b3f9d252": 3,
+      "1009383e-e10d-4c08-8ed0-019528331ccf": 6
+    }
+  },
+  {
+    "day": "01/28/2020",
+    "status": "Active",
+    "options": {
+      "074327dc-6618-4537-827e-fdf7a56d2cc1": 4,
+      "63a74d74-3a54-4644-b9fd-dba4aedaa846": 4
+    }
+  },
+  {
+    "day": "01/21/2020",
+    "status": "Active",
+    "options": {
+      "5558db15-fe4a-4d9d-a260-aacdff042436": 0,
+      "da94bb3c-d73d-4937-a14d-c266adfed7fd": 8
+    }
+  },
+  {
+    "day": "01/14/2020",
+    "status": "WeatherCancellation",
+    "options": {}
+  },
+  {
+    "day": "12/10/2019",
+    "status": "Active",
+    "options": {
+      "779b8ec8-bc4f-4507-9523-1a25ac8d11b0": -1,
+      "1ac9ce9f-ad89-4d37-ba5e-1345990c839e": -1
+    }
+  },
+  {
+    "day": "12/3/2019",
+    "status": "Active",
+    "options": {
+      "85db23d5-af5e-48c6-9a3f-49d47c41d737": -1,
+      "37fd5402-4828-4c76-a6e8-116cf389e5cb": -1
+    }
+  },
+  {
+    "day": "11/27/2019",
+    "status": "Active",
+    "options": {
+      "ecdf0554-683e-47f4-b84d-8198cdd94368": -1,
+      "63a74d74-3a54-4644-b9fd-dba4aedaa846": -1
+    }
+  },
+  {
+    "day": "11/19/2019",
+    "status": "Active",
+    "options": {
+      "3721c73e-122a-4264-899f-b3e29bdb5794": -1,
+      "620d4069-126d-4de7-a987-49c3d86a7d1b": -1
+    }
+  },
+  {
+    "day": "11/12/2019",
+    "status": "Active",
+    "options": {
+      "e5fb23a6-5a8b-4f9c-baa0-81acdf186ee0": -1,
+      "f2cfd41d-c6cb-4b66-9912-52a72c48b9e5": -1
+    }
+  },
+  {
+    "day": "11/5/2019",
+    "status": "Active",
+    "options": {
+      "4fcd0f92-42e1-4096-b51a-b92b9b35db0b": -1,
+      "3456f8cf-4ecd-495d-8229-be4f233e3e38": -1
+    }
+  },
+  {
+    "day": "10/29/2019",
+    "status": "Active",
+    "options": {
+      "419ddf44-f40f-4981-a4b2-93db76d30b7f": -1,
+      "968db7fc-c464-489d-b415-48c15fd4e6f1": -1
+    }
+  },
+  {
+    "day": "10/22/2019",
+    "status": "Active",
+    "options": {
+      "242d7963-2687-4b82-bcdf-19f735b8e0b4": -1,
+      "c3cbcc80-0686-4a34-b012-7bbaabc1dd07": -1
+    }
+  },
+  {
+    "day": "10/15/2019",
+    "status": "Active",
+    "options": {
+      "da94bb3c-d73d-4937-a14d-c266adfed7fd": -1,
+      "1ac9ce9f-ad89-4d37-ba5e-1345990c839e": -1
+    }
+  },
+  {
+    "day": "10/8/2019",
+    "status": "Active",
+    "options": {
+      "9798d752-2e7d-4450-8866-4193bd3fe7bf": -1,
+      "c9e15f1d-3a0f-4e42-95c8-f83667d3ac6b": -1
+    }
+  },
+  {
+    "day": "10/1/2019",
+    "status": "Active",
+    "options": {
+      "779b8ec8-bc4f-4507-9523-1a25ac8d11b0": -1,
+      "acfaceef-b8f1-47c3-accd-abf36af15f31": -1
+    }
+  },
+  {
+    "day": "9/24/2019",
+    "status": "Active",
+    "options": {
+      "7df08fd1-987d-4396-998e-08da3ebc91b1": -1,
+      "e5fb23a6-5a8b-4f9c-baa0-81acdf186ee0": -1
+    }
+  },
+  {
+    "day": "9/17/2019",
+    "status": "Active",
+    "options": {
+      "5558db15-fe4a-4d9d-a260-aacdff042436": -1,
+      "419ddf44-f40f-4981-a4b2-93db76d30b7f": -1
+    }
+  },
+  {
+    "day": "9/3/2019",
+    "status": "Active",
+    "options": {
+      "0b7db77d-7dbe-4013-9f81-7acea63bed4d": -1,
+      "968db7fc-c464-489d-b415-48c15fd4e6f1": -1
+    }
+  },
+  {
+    "day": "8/27/2019",
+    "status": "Active",
+    "options": {
+      "ecdf0554-683e-47f4-b84d-8198cdd94368": -1,
+      "1ac9ce9f-ad89-4d37-ba5e-1345990c839e": -1
+    }
+  },
+  {
+    "day": "8/20/2019",
+    "status": "Active",
+    "options": {
+      "620d4069-126d-4de7-a987-49c3d86a7d1b": -1,
+      "eef3e14c-0ebe-4d39-920e-8ff624be2f64": -1
+    }
+  },
+  {
+    "day": "8/13/2019",
+    "status": "Active",
+    "options": {
+      "3721c73e-122a-4264-899f-b3e29bdb5794": -1,
+      "5dcc0d4d-1cdf-4db2-a8cb-195781086d02": -1
+    }
+  },
+  {
+    "day": "7/30/2019",
+    "status": "Active",
+    "options": {
+      "ecdf0554-683e-47f4-b84d-8198cdd94368": -1,
+      "4fcd0f92-42e1-4096-b51a-b92b9b35db0b": -1
+    }
+  },
+  {
+    "day": "7/16/2019",
+    "status": "Active",
+    "options": {
+      "f2cfd41d-c6cb-4b66-9912-52a72c48b9e5": -1,
+      "e5fb23a6-5a8b-4f9c-baa0-81acdf186ee0": -1
+    }
+  },
+  {
+    "day": "7/9/2019",
+    "status": "Active",
+    "options": {
+      "7df08fd1-987d-4396-998e-08da3ebc91b1": -1,
+      "f1f737fb-352f-447c-a829-e22121de02dd": -1
+    }
+  },
+  {
+    "day": "6/25/2019",
+    "status": "Active",
+    "options": {
+      "1ac9ce9f-ad89-4d37-ba5e-1345990c839e": -1,
+      "f1f737fb-352f-447c-a829-e22121de02dd": -1
+    }
+  },
+  {
+    "day": "6/18/2019",
+    "status": "Active",
+    "options": {
+      "9798d752-2e7d-4450-8866-4193bd3fe7bf": -1,
+      "620d4069-126d-4de7-a987-49c3d86a7d1b": -1
+    }
+  },
+  {
+    "day": "6/11/2019",
+    "status": "Active",
+    "options": {
+      "eef3e14c-0ebe-4d39-920e-8ff624be2f64": -1,
+      "3456f8cf-4ecd-495d-8229-be4f233e3e38": -1
+    }
+  },
+  {
+    "day": "6/4/2019",
+    "status": "Active",
+    "options": {
+      "419ddf44-f40f-4981-a4b2-93db76d30b7f": -1,
+      "5dcc0d4d-1cdf-4db2-a8cb-195781086d02": -1
+    }
+  },
+  {
+    "day": "5/28/2019",
+    "status": "Active",
+    "options": {
+      "2d3213aa-c64e-45bf-af1c-68f71b9727ae": -1,
+      "948cbea5-cb7f-407d-8199-ef55b3f9d252": -1
+    }
+  },
+  {
+    "day": "5/21/2019",
+    "status": "Active",
+    "options": {
+      "acfaceef-b8f1-47c3-accd-abf36af15f31": -1,
+      "cd3478c9-2a38-4e87-a0ae-8a57f28b39ae": -1
+    }
+  },
+  {
+    "day": "4/30/2019",
+    "status": "Active",
+    "options": {
+      "da94bb3c-d73d-4937-a14d-c266adfed7fd": -1,
+      "968db7fc-c464-489d-b415-48c15fd4e6f1": -1
+    }
+  },
+  {
+    "day": "4/16/2019",
+    "status": "Active",
+    "options": {
+      "7df08fd1-987d-4396-998e-08da3ebc91b1": -1,
+      "3456f8cf-4ecd-495d-8229-be4f233e3e38": -1
+    }
+  },
+  {
+    "day": "3/19/2019",
+    "status": "Active",
+    "options": {
+      "eef3e14c-0ebe-4d39-920e-8ff624be2f64": -1,
+      "5dcc0d4d-1cdf-4db2-a8cb-195781086d02": -1
+    }
+  },
+  {
+    "day": "3/12/2019",
+    "status": "Active",
+    "options": {
+      "f2cfd41d-c6cb-4b66-9912-52a72c48b9e5": -1,
+      "5558db15-fe4a-4d9d-a260-aacdff042436": -1
+    }
+  },
+  {
+    "day": "3/5/2019",
+    "status": "Active",
+    "options": {
+      "948cbea5-cb7f-407d-8199-ef55b3f9d252": -1,
+      "cd3478c9-2a38-4e87-a0ae-8a57f28b39ae": -1
+    }
+  },
+  {
+    "day": "2/26/2019",
+    "status": "Active",
+    "options": {
+      "3721c73e-122a-4264-899f-b3e29bdb5794": -1,
+      "9798d752-2e7d-4450-8866-4193bd3fe7bf": -1
+    }
+  },
+  {
+    "day": "2/19/2019",
+    "status": "Active",
+    "options": {
+      "ecdf0554-683e-47f4-b84d-8198cdd94368": -1,
+      "1ac9ce9f-ad89-4d37-ba5e-1345990c839e": -1
+    }
+  },
+  {
+    "day": "2/12/2019",
+    "status": "Active",
+    "options": {
+      "acfaceef-b8f1-47c3-accd-abf36af15f31": -1
+    }
+  },
+  {
+    "day": "1/29/2019",
+    "status": "Active",
+    "options": {
+      "0b7db77d-7dbe-4013-9f81-7acea63bed4d": -1,
+      "f56bc4a0-9754-41b6-b20e-9c0cdc78b108": -1
+    }
+  },
+  {
+    "day": "1/15/2019",
+    "status": "Active",
+    "options": {
+      "f2cfd41d-c6cb-4b66-9912-52a72c48b9e5": -1,
+      "da94bb3c-d73d-4937-a14d-c266adfed7fd": -1
+    }
+  },
+  {
+    "day": "11/27/2018",
+    "status": "Active",
+    "options": {
+      "1ac9ce9f-ad89-4d37-ba5e-1345990c839e": -1,
+      "f2cfd41d-c6cb-4b66-9912-52a72c48b9e5": -1
+    }
+  },
+  {
+    "day": "11/20/2018",
+    "status": "Active",
+    "options": {
+      "c9e15f1d-3a0f-4e42-95c8-f83667d3ac6b": -1,
+      "1009383e-e10d-4c08-8ed0-019528331ccf": -1
+    }
+  },
+  {
+    "day": "11/13/2018",
+    "status": "Active",
+    "options": {
+      "7df08fd1-987d-4396-998e-08da3ebc91b1": -1,
+      "3456f8cf-4ecd-495d-8229-be4f233e3e38": -1
+    }
+  },
+  {
+    "day": "11/6/2018",
+    "status": "Active",
+    "options": {
+      "5dcc0d4d-1cdf-4db2-a8cb-195781086d02": -1,
+      "0b7db77d-7dbe-4013-9f81-7acea63bed4d": -1
+    }
+  },
+  {
+    "day": "10/30/2018",
+    "status": "Active",
+    "options": {
+      "620d4069-126d-4de7-a987-49c3d86a7d1b": -1,
+      "2d3213aa-c64e-45bf-af1c-68f71b9727ae": -1
+    }
+  },
+  {
+    "day": "10/23/2018",
+    "status": "Active",
+    "options": {
+      "f1f737fb-352f-447c-a829-e22121de02dd": -1,
+      "da94bb3c-d73d-4937-a14d-c266adfed7fd": -1
+    }
+  },
+  {
+    "day": "10/1/2018",
+    "status": "Active",
+    "options": {
+      "242d7963-2687-4b82-bcdf-19f735b8e0b4": -1,
+      "c3cbcc80-0686-4a34-b012-7bbaabc1dd07": -1
+    }
+  },
+  {
+    "day": "9/25/2018",
+    "status": "Active",
+    "options": {
+      "5558db15-fe4a-4d9d-a260-aacdff042436": -1,
+      "cd3478c9-2a38-4e87-a0ae-8a57f28b39ae": -1
+    }
+  },
+  {
+    "day": "9/17/2018",
+    "status": "Active",
+    "options": {
+      "acfaceef-b8f1-47c3-accd-abf36af15f31": -1,
+      "9798d752-2e7d-4450-8866-4193bd3fe7bf": -1
+    }
+  },
+  {
+    "day": "8/27/2018",
+    "status": "Active",
+    "options": {
+      "2d3213aa-c64e-45bf-af1c-68f71b9727ae": -1,
+      "0b7db77d-7dbe-4013-9f81-7acea63bed4d": -1
+    }
+  },
+  {
+    "day": "8/20/2018",
+    "status": "Active",
+    "options": {
+      "c9e15f1d-3a0f-4e42-95c8-f83667d3ac6b": -1,
+      "3721c73e-122a-4264-899f-b3e29bdb5794": -1
+    }
+  },
+  {
+    "day": "7/30/2018",
+    "status": "Active",
+    "options": {
+      "ecdf0554-683e-47f4-b84d-8198cdd94368": -1,
+      "1ac9ce9f-ad89-4d37-ba5e-1345990c839e": -1
+    }
+  },
+  {
+    "day": "7/23/2018",
+    "status": "Active",
+    "options": {
+      "eef3e14c-0ebe-4d39-920e-8ff624be2f64": -1,
+      "5dcc0d4d-1cdf-4db2-a8cb-195781086d02": -1
+    }
+  },
+  {
+    "day": "7/17/2018",
+    "status": "Active",
+    "options": {
+      "f2cfd41d-c6cb-4b66-9912-52a72c48b9e5": -1,
+      "acfaceef-b8f1-47c3-accd-abf36af15f31": -1
+    }
+  },
+  {
+    "day": "7/2/2018",
+    "status": "Active",
+    "options": {
+      "7df08fd1-987d-4396-998e-08da3ebc91b1": -1,
+      "b1d4e91e-9cdf-4087-9e52-02b9cb6b9014": -1
+    }
+  },
+  {
+    "day": "6/18/2018",
+    "status": "Active",
+    "options": {
+      "620d4069-126d-4de7-a987-49c3d86a7d1b": -1,
+      "cd3478c9-2a38-4e87-a0ae-8a57f28b39ae": -1
+    }
+  },
+  {
+    "day": "6/4/2018",
+    "status": "Active",
+    "options": {
+      "ecdf0554-683e-47f4-b84d-8198cdd94368": -1,
+      "f1f737fb-352f-447c-a829-e22121de02dd": -1
+    }
+  },
+  {
+    "day": "5/21/2018",
+    "status": "Active",
+    "options": {
+      "f2cfd41d-c6cb-4b66-9912-52a72c48b9e5": -1,
+      "3456f8cf-4ecd-495d-8229-be4f233e3e38": -1
+    }
+  },
+  {
+    "day": "5/14/2018",
+    "status": "Active",
+    "options": {
+      "eef3e14c-0ebe-4d39-920e-8ff624be2f64": -1,
+      "0b7db77d-7dbe-4013-9f81-7acea63bed4d": -1
+    }
+  },
+  {
+    "day": "4/2/2018",
+    "status": "Active",
+    "options": {
+      "4fcd0f92-42e1-4096-b51a-b92b9b35db0b": -1,
+      "da94bb3c-d73d-4937-a14d-c266adfed7fd": -1
+    }
+  },
+  {
+    "day": "3/26/2018",
+    "status": "Active",
+    "options": {
+      "4fcd0f92-42e1-4096-b51a-b92b9b35db0b": -1,
+      "3456f8cf-4ecd-495d-8229-be4f233e3e38": -1
+    }
+  }
+]

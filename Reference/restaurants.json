@@ -1,0 +1,770 @@
+{
+  "074327dc-6618-4537-827e-fdf7a56d2cc1": {
+    "name": "Tipsy Cow",
+    "address": "16325 Cleveland St | Redmond, WA 98052",
+    "menuLink": "https://www.tipsycowburgerbar.com/eat/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Burgers"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Milkshakes"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Salads"
+      },
+      {
+        "type": "Speed",
+        "value": "Slow"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "63a74d74-3a54-4644-b9fd-dba4aedaa846": {
+    "name": "Seoul Hot Pot",
+    "address": "2560 152nd Ave NE #N | Redmond, WA 98052",
+    "menuLink": "https://seoulhotpot.com/menu/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Bibimbap"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Soups"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Korean BBQ"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "da94bb3c-d73d-4937-a14d-c266adfed7fd": {
+    "name": "Zeeks Pizza",
+    "address": "16015 Cleveland St #100 | Redmond, WA 98052",
+    "menuLink": "https://zeekspizza.com/menu/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Pizza"
+      },
+      {
+        "type": "Speed",
+        "value": "Slow"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "5558db15-fe4a-4d9d-a260-aacdff042436": {
+    "name": "Thai Kitchen",
+    "address": "14115 NE 20th St | Bellevue, WA 98007",
+    "menuLink": "http://bellevuethaikitchen.com/menu/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Thai"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "779b8ec8-bc4f-4507-9523-1a25ac8d11b0": {
+    "name": "La Isla",
+    "address": "7430 164th Ave NE B103 | Redmond, WA 98052",
+    "menuLink": "http://www.laislaredmond.com/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Cuban"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "1ac9ce9f-ad89-4d37-ba5e-1345990c839e": {
+    "name": "Kanishka",
+    "address": "16651 Redmond Way | Redmond, WA 98052",
+    "menuLink": "http://kanishkaofredmond.com",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Indian"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "37fd5402-4828-4c76-a6e8-116cf389e5cb": {
+    "name": "The Guilt Trip",
+    "address": "8440 160th Ave NE #3855 | Redmond, WA 98052",
+    "menuLink": "https://theguilttriprestaurant.com/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Indian"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Fusion"
+      },
+      {
+        "type": "Speed",
+        "value": "Slow"
+      },
+      {
+        "type": "Price",
+        "value": "$$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "85db23d5-af5e-48c6-9a3f-49d47c41d737": {
+    "name": "Taqueria El Rinconsito",
+    "address": "2255 140th Ave NE | Bellevue WA 98005",
+    "menuLink": "http://elrinconsito.com/index.php/menus/menu",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Mexican"
+      },
+      {
+        "type": "Speed",
+        "value": "Fast"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "ecdf0554-683e-47f4-b84d-8198cdd94368": {
+    "name": "Three B's Burgers",
+    "address": "7990 NE Leary Way | Redmond, WA 98052 ",
+    "menuLink": "https://www.3bsburgers.com/menu.html",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Burgers"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Milkshakes"
+      },
+      {
+        "type": "Speed",
+        "value": "Fast"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "3721c73e-122a-4264-899f-b3e29bdb5794": {
+    "name": "Dickey's Barbeque Pit",
+    "address": "14150 NE 20th St | Bellevue WA 98007",
+    "menuLink": "https://www.dickeys.com/menu/plates-48",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "BBQ"
+      },
+      {
+        "type": "Speed",
+        "value": "Fast"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "620d4069-126d-4de7-a987-49c3d86a7d1b": {
+    "name": "The Bento Box",
+    "address": "15119 NE 24th St| Redmond, WA 98052",
+    "menuLink": "https://thebentoboxredmond.com/menu",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Sushi"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Ramen"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Teriyaki"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Yakisoba"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "e5fb23a6-5a8b-4f9c-baa0-81acdf186ee0": {
+    "name": "Tropea Ristorante Italiano",
+    "address": "16156 NE 87th St | Redmond, WA 98052",
+    "menuLink": "http://www.ristorantetropea.com/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Italian"
+      },
+      {
+        "type": "Speed",
+        "value": "Slow"
+      },
+      {
+        "type": "Price",
+        "value": "$$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "f2cfd41d-c6cb-4b66-9912-52a72c48b9e5": {
+    "name": "Oto Sushi",
+    "address": "8105 161st Ave Ne | Redmond, WA 98052",
+    "menuLink": "http://www.otoredmond.com/dinner.html",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Sushi"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Steak"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Katsu"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Yakisoba"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "4fcd0f92-42e1-4096-b51a-b92b9b35db0b": {
+    "name": "Racha Thai & Asian Kitchen",
+    "address": "8900 161st Avenue Northeast | Redmond, WA 98052",
+    "menuLink": "https://www.rachathaiasiankitchen.com/menu.aspx",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Thai"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Fried Rice"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "3456f8cf-4ecd-495d-8229-be4f233e3e38": {
+    "name": "Family Pancake House",
+    "address": "17621 Redmond Way | Redmond, WA 98052",
+    "menuLink": "http://www.familypancakehouse.com/complete-menu",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Pancakes"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Breakfast"
+      },
+      {
+        "type": "Cuisine",
+        "value": "American"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "419ddf44-f40f-4981-a4b2-93db76d30b7f": {
+    "name": "Red Robin",
+    "address": "2390 148th Ave NE | Redmond, WA 98052",
+    "menuLink": "https://www.redrobin.com/menu.html",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Burgers"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Milkshakes"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "968db7fc-c464-489d-b415-48c15fd4e6f1": {
+    "name": "Szechuan Chef",
+    "address": "15015 Main St | Bellevue, WA 98007",
+    "menuLink": "",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Chinese"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Family Style"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "242d7963-2687-4b82-bcdf-19f735b8e0b4": {
+    "name": "3 Pigs Bar B-Q",
+    "address": "1048 116th Ave NE #150 | Bellevue, WA 98004",
+    "menuLink": "http://3pigsbarbq.com/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "BBQ"
+      },
+      {
+        "type": "Speed",
+        "value": "Fast"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "c3cbcc80-0686-4a34-b012-7bbaabc1dd07": {
+    "name": "Pogacha",
+    "address": "119 106th Ave NE | Bellevue, WA 98004",
+    "menuLink": "https://pogachabellevue.com/dinner/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Pizza"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Northwest"
+      },
+      {
+        "type": "Speed",
+        "value": "Slow"
+      },
+      {
+        "type": "Price",
+        "value": "$$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "9798d752-2e7d-4450-8866-4193bd3fe7bf": {
+    "name": "MOD Pizza",
+    "address": "14309 NE 20th St | Bellevue, WA 98007",
+    "menuLink": "https://modpizza.com/menu/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Pizza"
+      },
+      {
+        "type": "Speed",
+        "value": "Fast"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "c9e15f1d-3a0f-4e42-95c8-f83667d3ac6b": {
+    "name": "Malay Satay Hut",
+    "address": "15230 NE 24th St | Redmond, WA 98052",
+    "menuLink": "https://www.malaysatay.com/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Malaysian"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Noodles"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Fried Rice"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "acfaceef-b8f1-47c3-accd-abf36af15f31": {
+    "name": "El Toreador",
+    "address": "7845 Leary Way | Redmond, WA 98052",
+    "menuLink": "https://www.eltoreador.com/dinner-menu",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Mexican"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "7df08fd1-987d-4396-998e-08da3ebc91b1": {
+    "name": "Garlic Crush",
+    "address": "16095 Cleveland St #100 | Redmond, WA 98052",
+    "menuLink": "http://garliccrush.com/menu/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Mediterranean"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Middle East"
+      },
+      {
+        "type": "Speed",
+        "value": "Fast"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "0b7db77d-7dbe-4013-9f81-7acea63bed4d": {
+    "name": "Tutta Bella",
+    "address": "15600 NE 8th St Ste J1 | Bellevue, WA 98008",
+    "menuLink": "https://tuttabella.com/neapolitan-cuisine-pizza-menu/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Pizza"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "eef3e14c-0ebe-4d39-920e-8ff624be2f64": {
+    "name": "Ivar's Seafood Bar",
+    "address": "1505 156th Ave NE | Bellevue, WA 98007",
+    "menuLink": "https://www.ivars.com/locations/seafood-bars/seafood-bars-menus",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Seafood"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Fried"
+      },
+      {
+        "type": "Speed",
+        "value": "Fast"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "5dcc0d4d-1cdf-4db2-a8cb-195781086d02": {
+    "name": "Pho Hoa",
+    "address": "15169 NE 24th St | Redmond, WA 98052",
+    "menuLink": "https://phohoa.com/menu/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Pho"
+      },
+      {
+        "type": "Speed",
+        "value": "Fast"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "f1f737fb-352f-447c-a829-e22121de02dd": {
+    "name": "Stone Korean",
+    "address": "16857 Redmond Way | Redmond, WA 98052",
+    "menuLink": "",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Bibimbap"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Soup"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Korean BBQ"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "948cbea5-cb7f-407d-8199-ef55b3f9d252": {
+    "name": "Best Wok",
+    "address": "19 148th Ave NE | Bellevue, WA 98007",
+    "menuLink": "https://www.bestwokchineserestaurant.com/traditional-chinese-menu",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Chinese"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Family Style"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  },
+  "2d3213aa-c64e-45bf-af1c-68f71b9727ae": {
+    "name": "Spice Route",
+    "address": "2241 148th Ave NE | Bellevue, WA 98007",
+    "menuLink": "https://mokshabellevue.com/spice-route/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Indian"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Defunct"
+  },
+  "cd3478c9-2a38-4e87-a0ae-8a57f28b39ae": {
+    "name": "Ezell's Famous Chicken",
+    "address": "1645 140th Ave NE | Bellevue, WA 98005",
+    "menuLink": "https://ezellschicken.com/locations/",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Fried Chicken"
+      },
+      {
+        "type": "Speed",
+        "value": "Fast"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "f56bc4a0-9754-41b6-b20e-9c0cdc78b108": {
+    "name": "Spiced Chinese Restaurant",
+    "address": "1299 156th Ave NE | Bellevue, WA 98007",
+    "menuLink": "http://www.spicedchineserestaurant.com/#menu",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Chinese"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Family Style"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Defunct"
+  },
+  "1009383e-e10d-4c08-8ed0-019528331ccf": {
+    "name": "Wibbley's Burgers",
+    "address": "2255 140th Ave NE B | Bellevue, WA 98005",
+    "menuLink": "http://wibbleys.com/menu",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Burgers"
+      },
+      {
+        "type": "Cuisine",
+        "value": "Milkshakes"
+      },
+      {
+        "type": "Speed",
+        "value": "Fast"
+      },
+      {
+        "type": "Price",
+        "value": "$"
+      }
+    ],
+    "status": "Active"
+  },
+  "b1d4e91e-9cdf-4087-9e52-02b9cb6b9014": {
+    "name": "Taj Palace",
+    "address": "2331 140th Ave NE | Bellevue, WA 98005",
+    "menuLink": "http://tajpalaceofindia.com/menu",
+    "tags": [
+      {
+        "type": "Cuisine",
+        "value": "Indian"
+      },
+      {
+        "type": "Speed",
+        "value": "Medium"
+      },
+      {
+        "type": "Price",
+        "value": "$$"
+      }
+    ],
+    "status": "Active"
+  }
+}
