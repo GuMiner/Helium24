@@ -16,6 +16,8 @@ builder.Services.AddDbContextFactory<SystemDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("SystemDb")));
 builder.Services.AddDbContextFactory<ImageDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("ImageDb")));
+builder.Services.AddDbContextFactory<AirQualityDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("AirQualityDb")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
