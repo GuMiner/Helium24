@@ -1,5 +1,6 @@
 identities.db
 system-data.db
+air-quality-data.db
 
 # User-specific files
 *.suo
