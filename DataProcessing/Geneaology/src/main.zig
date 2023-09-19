@@ -39,6 +39,39 @@ const Individual = struct {
             .birth_place = "",
         };
     }
+
+    fn parseFirstMiddleName(self: *Individual, line: []const u8) bool {
+        if (std.mem.startsWith(u8, line, "2 GIVN")) {
+            var name_parts = line["2 GIVN".len..];
+            var first_space_idx = std.mem.indexOf(u8, name_parts, " ");
+            var no_match: usize = 0;
+            if (first_space_idx == no_match) {
+                self.first_name = name_parts;
+                self.middle_name = "";
+            } else {
+                self.first_name = name_parts[0..first_space_idx.?];
+                self.middle_name = name_parts[first_space_idx.?..];
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    fn parseLastName(self: *Individual, line: []const u8) bool {
+        if (std.mem.startsWith(u8, line, "2 SURN")) {
+            self.last_name = line["2 SURN".len..];
+            return true;
+        }
+
+        return false;
+    }
+
+    pub fn tryParseLine(self: *Individual, line: []const u8) bool {
+        if (parseFirstMiddleName(self, line)) return true;
+        if (parseLastName(self, line)) return true;
+        return false;
+    }
 };
 
 // Don't bother reading the files and allocating them -- embed them in the resulting binary for ease-of-use.
@@ -87,22 +120,7 @@ pub fn main() !void {
                 }
             }
 
-            if (std.mem.startsWith(u8, line, "2 GIVN")) {
-                var name_parts = line["2 GIVN".len..];
-                var first_space_idx = std.mem.indexOf(u8, name_parts, " ");
-                var no_match: usize = 0;
-                if (first_space_idx == no_match) {
-                    individual.first_name = name_parts;
-                    individual.middle_name = "";
-                } else {
-                    individual.first_name = name_parts[0..first_space_idx.?];
-                    individual.middle_name = name_parts[first_space_idx.?..];
-                }
-            }
-
-            if (std.mem.startsWith(u8, line, "2 SURN")) {
-                individual.last_name = line["2 SURN".len..];
-            }
+            _ = Individual.tryParseLine(&individual, line);
 
             if (std.mem.eql(u8, line, "0 TRLR")) {
                 parsing_state = ParseStates.done;
