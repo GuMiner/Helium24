@@ -4,45 +4,34 @@
     ViewData["Title"] = "Diagnostics";
 
     string generalError = "generalError";
-    string dbStatus = "dbStatus";
     string autoUpdateLabel = "autoUpdateLabel";
-    string lastUpdateStatusLabel = "lastUpdateStatusLabel";
 }
 
-@section StyleSheets {
-    <link href="~/Lib/chartist-0.11/chartist.min.css" rel="stylesheet" />
-    <style>
-        .ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
-            stroke: lightgreen;
-        }
 
-        .ct-series-a .ct-area, .ct-series-a .ct-slice-donut-solid, .ct-series-a .ct-slice-pie {
-            fill: lightgreen;
-        }
+<link href="~/lib/chartist-1.3.0.min.css" rel="stylesheet" />
+<!-- <style>
+    .ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
+        stroke: lightgreen;
+    }
 
-        .ct-series-b .ct-bar, .ct-series-b .ct-line, .ct-series-b .ct-point, .ct-series-b .ct-slice-donut {
-            stroke: lightblue;
-        }
+    .ct-series-a .ct-area, .ct-series-a .ct-slice-donut-solid, .ct-series-a .ct-slice-pie {
+        fill: lightgreen;
+    }
 
-        .ct-series-b .ct-area, .ct-series-b .ct-slice-donut-solid, .ct-series-b .ct-slice-pie {
-            fill: lightblue;
-        }
-    </style>
-}
+    .ct-series-b .ct-bar, .ct-series-b .ct-line, .ct-series-b .ct-point, .ct-series-b .ct-slice-donut {
+        stroke: lightblue;
+    }
+
+    .ct-series-b .ct-area, .ct-series-b .ct-slice-donut-solid, .ct-series-b .ct-slice-pie {
+        fill: lightblue;
+    }
+    </style>-->
 
 <div class="alert-warning" id="@generalError" role="alert"></div>
-<div class="container">
-    <div class="row">
-        <div class="col-auto align-self-center">
-            <div class="row py-2">
-                <button class="btn disabled" style="background:lightgreen">CPU %</button>
-            </div>
-            <div class="row py-2">
-                <button class="btn disabled" style="background:lightblue">Disk Used %</button>
-            </div>
-        </div>
-        <div class="col">
-            <div class="ct-chart ct-octave"></div>
+<div class="container-fluid">
+    <div class="row-auto">
+        <div class="col-auto">
+            <div id="chart" style="height: 400px"></div>
         </div>
     </div>
     <div class="row justify-content-between">
@@ -50,37 +39,19 @@
             <div class="row py-2">
                 <button class="btn disabled" style="background:orange">Chart will auto-update in <span id="@autoUpdateLabel">00:00</span></button>
             </div>
-            <div class="row py-2">
-                <span id="@lastUpdateStatusLabel" class="text-muted">Chart loading...</span>
-            </div>
         </div>
         <div class="col-auto">
             <b>Page Loaded:</b> @(DateTime.Now) <br />
             <b>Client Address:</b> @Model.ClientAddress <br />
             <b>Server Address:</b> @Model.ServerAddress <br />
-            <b>DB Status:</b> <span id="@dbStatus">Checking...</span> <br />
         </div>
     </div>
 </div>
 
 @section Scripts{
-    <script type="text/javascript" src="~/Lib/es6-promise-auto-4.2/es6-promise.auto.min.js"></script>
-    <script type="text/javascript" src="~/Lib/axios-0.17/axios.min.js"></script>
-    <script type="text/javascript" src="~/Lib/chartist-0.11/chartist.min.js"></script>
-    <script type="text/javascript" src="~/Lib/chartist-plugin-axistitle-0.0.4/chartist-plugin-axistitle.min.js"></script>
+    <script type="text/javascript" src="~/Lib/axios-0.24.0.min.js"></script>
+    <script type="text/javascript" src="~/lib/chartist-1.3.0.min.js"></script>
 
-    <!-- Availability scripts-->
-    <script type="text/javascript">
-        // Update the status of the SQL server
-        axios.get('/api/Status/PostgreSQL')
-            .then(function (response) {
-                var data = response.data;
-                $("#@dbStatus").text(data);
-            })
-            .catch(function (response) {
-                $("#@generalError").text(response.message);
-            });
-    </script>
 
     <!-- Server status script-->
     <script type="text/javascript">
@@ -108,18 +79,24 @@
         // Updates the server usage chart periodically.
         function updateServerUsageChart() {
             // Update the chart
-            axios.get("/api/Status/Server")
+            axios.get("/api/AirQuality/MostRecent?sensorId=1&count=144") // Roughly 1 day of data
                 .then(function (response) {
-                    serverUsageChart.update(response.data);
+                    console.log(response);
 
-                    // Update the chart update information.
-                    axios.get("/api/Status/ServerValidity")
-                        .then(function (response) {
-                            var result = response.data;
-                            $("#@lastUpdateStatusLabel").text("Last update had " + result.validElements + " valid status elements and " + result.invalidElements + " simulated elements.");
-                        }).catch(function (response) {
-                            $("#@generalError").text(response.message);
-                        });
+                    var co2Data = [];
+                    var temperatureData = [];
+                    for (var i = 0; i < response.data.length; i++)
+                    {
+                        co2Data[i] = {
+                            x: new Date(response.data[i].timestamp),
+                            y: response.data[i].cO2Ppm };
+                        temperatureData[i] = {
+                            x: new Date(response.data[i].timestamp),
+                            y: response.data[i].temperatureC
+                        };
+                    }
+
+                    serverUsageChart.update({ labels: ['co2', 'temperature'], series: [co2Data, temperatureData] });
                 }).catch(function (response) {
                     $("#@generalError").text(response.message);
                 });
@@ -127,54 +104,44 @@
 
         // Load up the server usage chart and starts the periodic updates.
         function loadServerUsageChart() {
-            // Create a new line chart pointing to the .ct-chart
-            serverUsageChart = new Chartist.Line('.ct-chart', {
-                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-                series: [{
-                    name: 'CPU Utilization',
-                    data: [9, 8, 7, 6, 5, 4, 3, 2, 1]
-                }, {
-                    name: 'Disk Usage %',
-                    data: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-                }]
-            }, {
-                showArea: true,
-                showLine: true,
-                showPoint: false,
-                chartPadding: {
-                    top: 50,
-                    right: 0,
-                    bottom: 25,
-                    left: 20
+            serverUsageChart = new Chartist.LineChart(
+                '#chart',
+                {
+                    series: [
+                        [
+                            { x: 1, y: 100 },
+                            { x: 2, y: 50 },
+                            { x: 3, y: 25 },
+                            { x: 5, y: 12.5 },
+                            { x: 8, y: 6.25 }
+                        ]
+                    ]
                 },
-                axisX: {
-                    showLabel: false,
-                    showGrid: false
-                },
-                plugins: [
-                  Chartist.plugins.ctAxisTitle({
-                      axisX: {
-                          axisTitle: 'Time',
-                          axisClass: 'ct-axis-title',
-                          offset: {
-                              x: -50,
-                              y: 20
-                          },
-                          textAnchor: 'middle'
-                      },
-                      axisY: {
-                          axisTitle: 'Percent',
-                          axisClass: 'ct-axis-title',
-                          offset: {
-                              x: 0,
-                              y: -15
-                          },
-                          textAnchor: 'middle',
-                          flipTitle: false
-                      }
-                  })
-                ]
-            });
+                {
+                    series: {
+                        'co2': {
+                            lineSmooth: Chartist.Interpolation.step()
+                        },
+                        'temperature': {
+                            lineSmooth: Chartist.Interpolation.simple(),
+                            showLine: true
+                        }
+                    },
+                    axisX: {
+                        type: Chartist.AutoScaleAxis,
+                        labelInterpolationFnc: value =>
+                            new Date(value).toLocaleString(undefined, {
+                                month: 'short',
+                                day: 'numeric',
+                                hour: 'numeric',
+                            })
+                    },
+                    axisY: {
+                        type: Chartist.AutoScaleAxis
+                    }
+                }
+            );
+
 
             // Update every 10 minutes the server usage chart, and every second the countdown.
             updateServerUsageChart();
